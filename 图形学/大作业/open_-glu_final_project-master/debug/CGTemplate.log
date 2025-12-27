@@ -1,0 +1,9 @@
+﻿  main.cpp
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(28,18): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(63,21): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(77,20): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(491,47): warning C4100: “y”: 未引用的形参
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(491,40): warning C4100: “x”: 未引用的形参
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(521,17): warning C4100: “value”: 未引用的形参
+C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\main.cpp(622,13): warning C4189: “ratio”: 局部变量已初始化但不引用
+  CGTemplate.vcxproj -> C:\Users\86135\Desktop\图形学\大作业\open_-glu_final_project-master\debug\CGTemplate.exe

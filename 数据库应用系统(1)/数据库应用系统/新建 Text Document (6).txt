@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户界面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <th>TID</th>
+                <th>运费</th>
+                <th>运单状态</th>
+                <th>负责人</th>
+                <th>地址</th>
+            </tr>
+            {% for transport in transports %}
+                <tr>
+                    <td align="center">{{ transport.0 }} </td>
+                    <td align="center">{{ transport.1 }} </td>
+                    <td align="center">{{ transport.2 }} </td>
+                    <td align="center">{{ transport.3 }}</td>
+                    <td align="center">{{ transport.5 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <form id="myform" method="post">
+            {% csrf_token %}
+            <!-- 其他表单字段 -->
+            <label for="ID">ID</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <input type="hidden" name="submitted_button" value="">
+            <button type="submit" onclick="document.querySelector('input[name=submitted_button]').value='Accept'; this.form.submit();">Accept</button>
+            <button type="submit" onclick="document.querySelector('input[name=submitted_button]').value='Done'; this.form.submit();">Done</button>
+        </form>
+        <a href="{% url 'login' %}">返回</a> 
+        {% if msg %}
+        <p class="error">{{ msg }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

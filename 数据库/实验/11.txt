@@ -1,0 +1,24 @@
+Use School
+create table Worker (
+Number char(5),
+Name char(8) constraint U1 unique,
+Sex char(1),
+Sage int constraint U2 check (Sage <= 28),
+Department char(20),
+constraint PK_Worker primary key (Number)
+)
+insert into Worker values('0001', '李强', 'M', 26, 'CS')
+
+
+alter table Worker add constraint U3 check (Sage >= 0)
+Use School
+go
+create rule R2 as @age between 1 and 100
+go
+exec sp_bindrule R2, 'Worker.[Sage]';
+
+
+go
+create rule R3 as @age >50
+go
+exec sp_bindrule R3, 'Worker.[Sage]';

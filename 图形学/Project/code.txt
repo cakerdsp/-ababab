@@ -1,0 +1,119 @@
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0f, width(), 0.0f, height(), -1000.0f, 1000.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.5 * width(), 0.5 * height(), 0.0f);
+
+    //your implementation here, maybe you should write several glBegin
+	glPushMatrix();
+	//your implementation
+	glColor3f(0.839f, 0.153f, 0.157f);
+	glTranslatef(-100.0f, -50.0f, 0.0f);
+	glBegin(GL_TRIANGLES);
+	// 绘制C
+	// 绘制上横线
+	glVertex2f(-40.0f, 100.0f);
+	glVertex2f(40.0f, 100.0f);
+	glVertex2f(40.0f, 85.0f);
+
+	glVertex2f(-40.0f, 85.0f);
+	glVertex2f(-40.0f, 100.0f);
+	glVertex2f(40.0f, 85.0f);
+
+	// 绘制竖线
+	glVertex2f(-40.0f, 85.0f);
+	glVertex2f(-25.0f, 85.0f);
+	glVertex2f(-40.0f, 15.0f);
+
+	glVertex2f(-40.0f, 15.0f);
+	glVertex2f(-25.0f, 85.0f);
+	glVertex2f(-25.0f, 15.0f);
+
+	// 绘制下横线
+	glVertex2f(-40.0f, 0.0f);
+	glVertex2f(40.0f, 15.0f);
+	glVertex2f(40.0f, 0.0f);
+
+	glVertex2f(-40.0f, 0.0f);
+	glVertex2f(-40.0f, 15.0f);
+	glVertex2f(40.0f, 15.0f);
+
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.839f, 0.153f, 0.157f);
+	glTranslatef(0.0f, -50.0f, 0.0f);
+	glBegin(GL_TRIANGLES);
+
+	// 绘制A
+	// 绘制左斜线
+	// 保持宽度10 ，依照这个比例，斜边应该是27
+	// 底部斜边宽度应该是11
+	glVertex2f(-40.0f, 0.0f);
+	glVertex2f(-29.0f, 0.0f);
+	glVertex2f(0.0f, 73.0f);
+
+	glVertex2f(0.0f, 73.0f);  
+	glVertex2f(0.0f, 100.0f);
+	glVertex2f(-40.0f, 0.0f);
+	// 绘制右斜线
+	glVertex2f(40.0f, 0.0f);
+	glVertex2f(29.0f, 0.0f);
+	glVertex2f(0.0f, 73.0f);
+
+	glVertex2f(0.0f, 73.0f);
+	glVertex2f(0.0f, 100.0f);
+	glVertex2f(40.0f, 0.0f);
+
+	// 绘制中间横线
+	glVertex2f(13.0f, 42.0f);
+	glVertex2f(-13.0f, 42.0f);
+	glVertex2f(17.0f, 32.0f);
+
+	glVertex2f(-17.0f, 32.0f);
+	glVertex2f(17.0f, 32.0f);
+	glVertex2f(-13.0f, 42.0f);
+
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(0.839f, 0.153f, 0.157f);
+	glTranslatef(100.0f, -50.0f, 0.0f);
+	glBegin(GL_TRIANGLES);
+	// 绘制K
+	// 绘制竖线
+	glVertex2f(-40.0f, 0.0f);
+	glVertex2f(-25.0f, 0.0f);
+	glVertex2f(-40.0f, 100.0f);
+
+	glVertex2f(-40.0f, 100.0f);
+	glVertex2f(-25.0f, 100.0f);
+	glVertex2f(-25.0f, 0.0f);
+
+	// 绘制上斜线
+	glVertex2f(40.0f, 100.0f);
+	glVertex2f(23.0f, 100.0f);
+	glVertex2f(-25.0f, 50.0f);
+
+	glVertex2f(-8.0f, 50.0f);
+	glVertex2f(40.0f, 100.0f);
+	glVertex2f(-25.0f, 50.0f);
+
+	// 绘制下斜线
+	glVertex2f(40.0f, 0.0f);
+	glVertex2f(23.0f, 0.0f);
+	glVertex2f(-25.0f, 50.0f);
+
+	glVertex2f(-8.0f, 50.0f);
+	glVertex2f(40.0f, 0.0f);
+	glVertex2f(-25.0f, 50.0f);
+
+
+	glEnd();
+	glPopMatrix();
+	glPopMatrix();

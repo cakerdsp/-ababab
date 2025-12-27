@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <style>
+        /* 基本样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* 背景色 */
+        }
+
+        /* 页面容器 */
+        .login-container {
+            width: 400px;
+            margin: 5% auto;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        /* 页面标题 */
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-header h1 {
+            font-size: 20px;
+            color: #333;
+            margin: 0;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* 表单样式 */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* 单选按钮布局 */
+        .radio-group {
+            margin-bottom: 15px;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+            font-weight: normal;
+            color: #444;
+        }
+
+        /* 提交按钮样式 */
+        .login-form button {
+            padding: 10px;
+            background-color: #2f74b5;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #24578a;
+        }
+
+        /* 链接样式 */
+        .create-account {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .create-account a {
+            text-decoration: none;
+            color: #2f74b5;
+            font-size: 13px;
+        }
+
+        .create-account a:hover {
+            text-decoration: underline;
+        }
+
+        /* 错误提示样式 */
+        .error {
+            color: red;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- 页面标题 -->
+        <div class="login-header">
+            <h1>登录到系统</h1>
+            <p>请选择您的角色并填写相关信息</p>
+        </div>
+
+        <!-- 登录表单 -->
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            
+            <!-- 角色选择 -->
+            <div class="radio-group">
+                <label>角色：</label>
+                <input type="radio" id="occupation1" name="occupation" value="客户" required>
+                <label for="occupation1">客户</label>
+                
+                <input type="radio" id="occupation2" name="occupation" value="快递员">
+                <label for="occupation2">快递员</label>
+                
+                <input type="radio" id="occupation3" name="occupation" value="商家">
+                <label for="occupation3">商家</label>
+            </div>
+
+            <!-- 身份证输入 -->
+            <label for="ID">身份证：</label>
+            <input type="text" id="ID" name="ID" placeholder="请输入身份证号" required>
+
+            <!-- 用户名输入 -->
+            <label for="username">用户名：</label>
+            <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+
+            <!-- 密码输入 -->
+            <label for="password">密码：</label>
+            <input type="password" id="password" name="password" placeholder="请输入密码" required>
+
+            <!-- 登录按钮 -->
+            <button type="submit">登录</button>
+
+            <!-- 创建用户链接 -->
+            <div class="create-account">
+                <a href="create_account">创建用户</a>
+            </div>
+
+            <!-- 错误提示 -->
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

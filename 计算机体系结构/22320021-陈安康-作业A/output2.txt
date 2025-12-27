@@ -1,0 +1,1290 @@
+CLOCK : 0
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': 0, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 2, 'op': 'ld', 'result': '0_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 0, 'address': '0_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 1
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 3, 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': 0, 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 3, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 1, 'op': 'ld', 'result': '0_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '2_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 0, 'address': '0_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': '2_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 2
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 3, 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': 0, 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 3, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 0, 'op': 'ld', 'result': '0_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '2_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 4, 'vj': '', 'vk': '', 'qj': 3, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 0, 'address': '0_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': '2_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 3
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 3, 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': 0, 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 3, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'sd', 'result': '2_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 4, 'vj': '', 'vk': '', 'qj': 3, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 2, 'result': 0, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': '2_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 4
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': 0, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'sd', 'result': '2_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 1, 'op': 'bne', 'result': 4, 'vj': 3, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 1, 'result': 0, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': '2_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 5
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': 0, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'sd', 'result': '2_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 0, 'op': 'bne', 'result': 4, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 0, 'result': 0, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': '2_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 6
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 1, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 1, 'vj': 0, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'sd', 'result': '2_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': '2_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 7
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 2, 'op': 'ld', 'result': '5_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 5, 'address': '5_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 8
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 8, 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 1, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 8, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 1, 'op': 'ld', 'result': '5_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '7_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 5, 'address': '5_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 2, 'data': 1, 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': '7_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 9
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 8, 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 8, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 0, 'op': 'ld', 'result': '5_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '7_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 9, 'vj': '', 'vk': '', 'qj': 8, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 5, 'address': '5_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'run', 'timer': 1, 'result': 2, 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': '7_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 10
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 8, 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 8, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'sd', 'result': '7_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 9, 'vj': '', 'vk': '', 'qj': 8, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 5, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'run', 'timer': 0, 'result': 2, 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': '7_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 11
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 8, 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 8, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'sd', 'result': '7_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 9, 'vj': '', 'vk': '', 'qj': 8, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 2, 'result': 5, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': '7_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 12
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'sd', 'result': '7_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 1, 'op': 'bne', 'result': 9, 'vj': 8, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 1, 'result': 5, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': '7_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 13
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': 5, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 0, 'op': 'bne', 'result': 9, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 0, 'result': 5, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 14
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 6, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 6, 'vj': 5, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 15
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 2, 'op': 'ld', 'result': '10_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 10, 'address': '10_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 16
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 13, 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 6, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 13, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 1, 'op': 'ld', 'result': '10_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '12_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 10, 'address': '10_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': '12_sd'}
+{'status': 'wait', 'timer': 2, 'result': 7, 'data': 6, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 17
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 13, 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 13, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 0, 'op': 'ld', 'result': '10_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '12_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 14, 'vj': '', 'vk': '', 'qj': 13, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 10, 'address': '10_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': '12_sd'}
+{'status': 'run', 'timer': 1, 'result': 7, 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 18
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 13, 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 13, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'sd', 'result': '12_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 14, 'vj': '', 'vk': '', 'qj': 13, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 10, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': '12_sd'}
+{'status': 'run', 'timer': 0, 'result': 7, 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 19
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 13, 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 13, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'sd', 'result': '12_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 14, 'vj': '', 'vk': '', 'qj': 13, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 2, 'result': 10, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': '12_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 20
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'sd', 'result': '12_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 1, 'op': 'bne', 'result': 14, 'vj': 13, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 1, 'result': 10, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': '12_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 21
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': 10, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 0, 'op': 'bne', 'result': 14, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 0, 'result': 10, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 22
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 11, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 11, 'vj': 10, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 23
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 2, 'op': 'ld', 'result': '15_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 15, 'address': '15_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 24
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 18, 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 11, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 18, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 1, 'op': 'ld', 'result': '15_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '17_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 15, 'address': '15_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 12, 'data': 11, 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 17, 'data': 16, 'address': '17_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 25
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 18, 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'addi', 'result': 18, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'run', 'timer': 0, 'op': 'ld', 'result': '15_ld', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'sd', 'result': '17_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 19, 'vj': '', 'vk': '', 'qj': 18, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 15, 'address': '15_ld'}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'run', 'timer': 1, 'result': 12, 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 17, 'data': 16, 'address': '17_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 26
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 18, 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'addi', 'result': 18, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 2, 'op': 'sd', 'result': '17_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 19, 'vj': '', 'vk': '', 'qj': 18, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'wait', 'timer': 2, 'result': 15, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'run', 'timer': 0, 'result': 12, 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 17, 'data': 16, 'address': '17_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 27
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': 18, 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'addi', 'result': 18, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 1, 'op': 'sd', 'result': '17_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'wait', 'timer': 2, 'op': 'bne', 'result': 19, 'vj': '', 'vk': '', 'qj': 18, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 2, 'result': 15, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 17, 'data': 16, 'address': '17_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 28
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'run', 'timer': 0, 'op': 'sd', 'result': '17_sd', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 1, 'op': 'bne', 'result': 19, 'vj': 18, 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 1, 'result': 15, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 17, 'data': 16, 'address': '17_sd'}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+
+CLOCK : 29
+
+registers:
+{'f0': '', 'f2': '', 'f4': '', 'f6': '', 'f8': '', 'x1': '', 'x2': 16, 'x3': ''}
+
+rs_fa:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_fm:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_iu:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'wait', 'timer': 2, 'op': 'addi', 'result': 16, 'vj': '', 'vk': '', 'qj': 15, 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_sd_ld:
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+rs_bne:
+{'status': 'run', 'timer': 0, 'op': 'bne', 'result': 19, 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+{'status': 'idle', 'timer': 0, 'op': '', 'result': '', 'vj': '', 'vk': '', 'qj': '', 'qk': ''}
+
+Load_Buffer:
+{'status': 'run', 'timer': 0, 'result': 15, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'address': ''}
+
+Store_Buffer:
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'wait', 'timer': 2, 'result': 17, 'data': 16, 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+{'status': 'idle', 'timer': 0, 'result': '', 'data': '', 'address': ''}
+
+

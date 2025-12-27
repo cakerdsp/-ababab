@@ -1,0 +1,46 @@
+use School
+select STUDENTS.*, A.sum_score
+from
+(
+select sid, sum(score) 
+from CHOICES
+group by sid)
+as A(id, sum_score), STUDENTS
+where STUDENTS.sid = A.id and A.sum_score > 400
+
+
+use School
+select A.student_count, COURSES.*
+from (select cid, count(distinct sid) as student_count
+from CHOICES
+group by cid) as A(cid,student_count),COURSES
+where COURSES.cid = A.cid
+
+
+
+use School
+select sid,n
+from(
+select sid, count(*) as n
+from CHOICES
+where score > 60
+group by sid) as A
+where A.n > 2 
+
+
+use School
+select  distinct COURSES.cid, CHOICES.score
+from STUDENTS,COURSES, CHOICES
+where STUDENTS.sname = 'ssSht' and COURSES.cid = CHOICES.cid and STUDENTS.sid = CHOICES.sid
+
+
+
+use School
+select COURSES.cname
+from COURSES
+where COURSES.[hour] > all  
+(
+select [hour] 
+from COURSES
+where COURSES.cname = 'C++'
+) 

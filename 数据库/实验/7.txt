@@ -1,0 +1,5 @@
+select * 
+from TEACHERS
+
+update t_s
+set salary = salary + 5

@@ -1,0 +1,3 @@
+C:\Users\86135\Desktop\图形学\CGTemplate_HW2\CGTemplate_HW2\debug\CGTemplate.exe
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW2\debug\CGTemplate.exe
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\debug\CGTemplate.exe

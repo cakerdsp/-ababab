@@ -1,0 +1,200 @@
+#include "myglwidget.h"
+#include"ball.h"
+#include "AABB.h"
+#include"Object.h"
+#include <QApplication>
+#include <GL/freeglut.h>
+#include "Terrain.h"
+
+
+
+
+
+
+
+Ball ball=Ball();
+Terrain terrain = Terrain("C:\\Users\\86135\\Desktop\\3bb8a21b-21b8-4ae5-ac15-095a5c9f4e43.png",ball.ballX, ball.ballY, ball.ballZ,20,100,10);
+float toX = 0.0f, toY = 0.0f, toZ = 0.0f;
+float AtX = -500, AtY = -500.0f, AtZ = 1000.0f;//摄像机位置
+float targetX = ball.ballX, targetY = ball. ballY, targetZ = ball.ballZ;//摄像机看向位置，要跟随小球的移动变化
+float deltaTime = 5; //5ms刷新一次，定时器频率，每隔多久刷新一次小球位置，模拟运动
+float Change_delete = 0;//为了更好的视觉体验，小球转方向时，延迟更新跟随摄像机位置，体现转弯过程
+
+//设置追随小球的光源，使得小球体现立体感
+GLfloat light_position_ball[]= { 0.0f,0.0f,0.0f, 1.0f };
+
+void drawBall() {
+
+    //1. 设置小球的材料属性
+
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ball.mat_ambient);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, ball.mat_diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, ball.mat_specular);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, ball.mat_shininess);
+    
+    //2. 设置光源 体现立体感
+    // 启用光源0
+    glEnable(GL_LIGHT0);
+    // 设置光源的漫反射和镜面反射颜色（这里使用白色光和白色高光作为示例）
+    GLfloat light_diffuse_ball[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    GLfloat light_specular_ball[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    // 设置光源属性
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position_ball);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse_ball);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular_ball);
+    //3. 绘制小球
+    glColor3f(0.7f, 0.4f, 0.4f);
+    glPushMatrix();
+    glTranslatef(ball.ballX, ball.ballY, ball.ballZ);
+    glutSolidSphere(ball.ballRadius, 40, 40); // 绘制球体，20x20 细分
+    glPopMatrix();
+}
+
+
+//切换摄像头方向，假设在XY平面上运动，摄像机的所在位置的z轴坐标不用
+void update_camera_Direction() {
+    if (ball.velocityX == 0) {
+        //不在X轴上运动
+        AtX = ball.ballX;
+    }
+    else {
+        //在x轴上运动，摄像机挪到运动方向的后方
+        float sign = (ball.velocityX > 0) ? 1.0f : -1.0f;
+        AtX =ball.ballX -sign * 2* ball.ballRadius; 
+    }
+    if (ball.velocityY == 0) {
+        //不在Y轴上运动
+        AtY = ball.ballY;
+    }
+    else {
+        //在Y轴上运动，摄像机挪到运动方向的后方
+        float sign = (ball.velocityY > 0) ? 1.0f : -1.0f;
+        AtY =ball.ballY- sign * 2 * ball.ballRadius;
+    }
+    AtZ = ball.ballZ +2 * ball.ballRadius;
+    targetX = ball.ballX, targetY = ball.ballY, targetZ = ball.ballZ;
+}
+
+//切换追随小球的光源位置
+void update_light_Position() {
+     //沿x轴运动时：在物体x运动方向的后方打光，因为视角跟随是从后往前看。y轴打光方向无所谓
+     //沿y轴运动时：在物体y运动方向的后方打光，因为视角跟随是从后往前看。x轴打光方向无所谓
+     float sign_X= (ball.velocityX > 0) ? 1.0f : -1.0f;
+     light_position_ball[0] = ball.ballX - sign_X * ball.ballRadius;
+ 
+     float sign = (ball.velocityY > 0) ? 1.0f : -1.0f;
+     light_position_ball[1] = ball.ballY - sign * ball.ballRadius;
+ 
+     light_position_ball[2] = ball.ballZ +  ball.ballRadius;
+
+}
+
+//整体屏幕渲染
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    //glOrtho(-500.0f, 500.0f, -500.0f, 500.0f, 0.1f, 1000.0f);
+    gluPerspective(70.0, 1, 0.1, 10000.0); //透视投影矩阵
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    // 设置相机位置等...
+    //gluLookAt(0.0, -6.0, 6.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0); //全局固定视角
+    gluLookAt(AtX, AtY, AtZ, toX, toY, toZ, 0.0, 0.0, 1.0); //高一点的视角 //假设球初始位置在1.0，1.0，1.0，要从一个较高的角度看见球，摄像机位置要在球后方和上方
+
+    // 设置光源
+
+
+    // 设置光源属性
+    GLfloat light_position[] = { 1.0f, 1.0f, 10.0f, 0.0f };
+    GLfloat light_diffuse[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+    GLfloat light_ambient[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+
+
+    //glPushMatrix();
+
+    terrain.draw();
+    // 画球
+    drawBall();
+    printf("%f,%f,%f", ball.ballX, ball.ballY, ball.ballZ);
+    glutSwapBuffers();
+
+}
+
+
+
+//键盘回调函数
+void handleKeys(unsigned char key, int x, int y) {
+    int Left_or_Right = 0;
+    switch (key) {
+    case 'a':
+        Left_or_Right = 1;
+        ball.update_ball_Direction(Left_or_Right);
+        Change_delete = 10;
+        break; // 左移
+    case 'd': 
+        Left_or_Right = -1;
+        ball.update_ball_Direction(Left_or_Right);
+        Change_delete = 10;
+        break; // 右移
+    }
+
+}
+
+//定时器的回调函数，每隔5ms重新渲染display，且更新小球位置，模拟小球运动，更新小球光源，更新摄像机位置
+void update(int value) {
+    //更新小球的位置
+    ball.updatePosition(0.1 * deltaTime);
+    //if (Change_delete == 0) {
+    //    //更新摄像机追随小球的参数
+    //    //update_camera_Direction();
+    //    //更新给小球打光的光源位置
+    //    //update_light_Position();
+    //}
+    //else {
+    //    Change_delete -= 1;
+    //}
+    
+    // 请求重新显示
+    glutPostRedisplay();
+
+    glutTimerFunc(deltaTime, update, 0); // 大约每 60 帧（1000/60 = 16.67ms）调用一次
+}
+
+void initOpenGL() {
+    // 设置清除颜色为黑色
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    // 启用深度测试
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);//启用光照功能
+    glEnable(GL_LIGHT0); // 启用光源
+    glEnable(GL_LIGHT1);
+    glutTimerFunc(deltaTime, update, 0);//
+}
+
+int main(int argc, char** argv) {
+    // 初始化 GLUT
+    glutInit(&argc, argv);
+    // 设置显示模式为双缓冲、RGB 颜色和深度测试
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    // 设置窗口大小
+    glutInitWindowSize(500, 500);
+    // 创建窗口并设置标题
+    glutCreateWindow("3D Maze");
+
+    // 初始化 OpenGL 状态
+    initOpenGL();
+
+    // 注册显示回调函数
+    glutDisplayFunc(display);
+    glutKeyboardFunc(handleKeys); // 注册键盘回调函数
+    // 进入 GLUT 事件处理循环
+    glutMainLoop();
+
+    return 0;
+}

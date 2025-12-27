@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户界面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin: 0;
+        }
+        table {
+            border: 1px solid black; /* 控制边框宽度和颜色 */
+            width: 100%; /* 控制宽度 */
+            border-collapse: collapse; /* 控制边框合并 */
+        }
+    </style>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>状态</th>
+            <th>日期</th>
+            <th>金额</th>
+            <th>客户ID</th>
+            <th>产品ID</th>
+        </tr>
+        {% for order in orders %}
+            <tr>
+                <td align="center">{{ order.0 }} </td>
+                <td align="center">{{ order.1 }} </td>
+                <td align="center">{{ order.2 }} </td>
+                <td align="center">{{ order.3 }}</td>
+                <td align="center">{{ order.4 }}</td>
+                <td align="center">{{ order.5 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+        <form class="update" method="post">
+            {% csrf_token %}
+            <label for="ID">ID</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <button type="submit">更新</button>
+        </form>
+
+        <a href="{% url 'merchant' %}">返回</a> 
+        {% if msg %}
+        <p class="error">{{ msg }}</p>
+        {% endif %}
+</head>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户界面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin: 0;
+        }
+        table {
+            border: 1px solid black; /* 控制边框宽度和颜色 */
+            width: 100%; /* 控制宽度 */
+            border-collapse: collapse; /* 控制边框合并 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <!-- 其他表单字段 -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>供货商ID</th>
+            </tr>
+            {% for product in products %}
+                <tr>
+                    <td align="center">{{ product.0 }} </td>
+                    <td align="center">{{ product.1 }} </td>
+                    <td align="center">{{ product.2 }} </td>
+                    <td align="center">{{ product.3 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <form class="insert" method="post">
+            {% csrf_token %}
+            <label for="ID">ID</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <label for="username">商品名称:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="account_balance">价格</label>
+            <input type="text" id="account_balance" name="account_balance" required>
+
+
+            <input type="hidden" name="submitted_button" value="">
+            <button type="button" onclick="var form = this.form; form.querySelector('input[name=submitted_button]').value='Product_Insert'; form.submit();">添加</button>
+        </form>
+
+        <form class="delete" method="post">
+            {% csrf_token %}
+            <label for="ID2">ID</label>
+            <input type="text" id="ID2" name="ID2" required>
+
+
+            <input type="hidden" name="submitted_button" value="">
+            <button type="button" onclick="var form = this.form; form.querySelector('input[name=submitted_button]').value='Product_Delete'; form.submit();">删除</button>
+        </form>
+
+        <form class="update" method="post">
+            {% csrf_token %}
+            <label for="ID3">ID</label>
+            <input type="text" id="ID3" name="ID3" required>
+
+            <label for="username3">商品名称:</label>
+            <input type="text" id="username3" name="username3" required>
+
+            <label for="account_balance3">价格</label>
+            <input type="text" id="account_balance3" name="account_balance3" required>
+
+            <input type="hidden" name="submitted_button" value="">
+            <button type="button" onclick="var form = this.form; form.querySelector('input[name=submitted_button]').value='Product_Update'; form.submit();">修改</button>
+        </form>
+        <a href="{% url 'merchant' %}">返回</a> 
+        {% if msg %}
+        <p class="error">{{ msg }}</p>
+        {% endif %}
+</div>
+</body>
+</html>

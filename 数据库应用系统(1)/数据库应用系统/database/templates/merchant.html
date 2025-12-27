@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户操作界面</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+         /* 链接样式 */
+         .login-form a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        /* 主容器 */
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        /* 标题样式 */
+        h1 {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        /* 按钮样式 */
+        .form-button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #2f74b5;;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-button:hover {
+            background-color: #24578a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>选择操作</h1>
+        <form id="myform" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="submitted_button" value="">
+
+            <!-- 按钮组 -->
+            <button type="button" class="form-button" 
+                    onclick="document.querySelector('input[name=submitted_button]').value='Product_Operate'; this.form.submit();">
+                Product Operate
+            </button>
+
+            <button type="button" class="form-button" 
+                    onclick="document.querySelector('input[name=submitted_button]').value='Check_Order'; this.form.submit();">
+                Check Order
+            </button>
+            <a href="{% url 'login' %}">返回登录</a>
+        </form>
+    </div>
+</body>
+</html>

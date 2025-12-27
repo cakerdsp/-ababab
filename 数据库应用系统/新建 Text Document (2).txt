@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .login-form label {
+            margin-bottom: 5px;
+        }
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-form button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            <input type="radio" id="occupation1" name="occupation" value="客户" required>
+            <label for="occupation1">客户</label><br>
+            
+            <input type="radio" id="occupation2" name="occupation" value="快递员">
+            <label for="occupation2">快递员</label><br>
+            
+            <input type="radio" id="occupation3" name="occupation" value="商家">
+            <label for="occupation3">商家</label><br>
+
+
+            <label for="ID">身份证</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="account_balance">银行卡余额:</label>
+            <input type="text" id="account_balance" name="account_balance" required>
+
+            <label for="phone_number">联系电话:</label>
+            <input type="text" id="phone_number" name="phone_number" required>
+
+            <label for="address">地址:</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="passward">密码:</label>
+            <input type="text" id="passward" name="passward" required>
+            
+            <button type="submit">创建用户</button>
+
+            <a href="../">登入</a>
+
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+
+            {% if success %}
+            <p class="success">{{ success }}</p>
+            {% endif %}
+
+        </form>
+    </div>
+</body>
+</html>

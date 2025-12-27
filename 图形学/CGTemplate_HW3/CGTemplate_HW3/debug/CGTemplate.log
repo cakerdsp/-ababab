@@ -1,0 +1,51 @@
+﻿  MOC myglwidget.h
+  moc_myglwidget.cpp
+  main.cpp
+  myglwidget.cpp
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(79,2): error C3861: “glDeleteVertexArrays”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(80,2): error C3861: “glDeleteBuffers”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(81,2): error C3861: “glDeleteBuffers”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(82,2): error C3861: “glDeleteProgram”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(106,2): error C3861: “initializeOpenGLFunctions”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(113,24): error C3861: “glCreateShader”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(114,26): error C3861: “glCreateShader”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(115,2): error C3861: “glShaderSource”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(116,2): error C3861: “glShaderSource”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(117,2): error C3861: “glCompileShader”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(118,2): error C3861: “glCompileShader”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(119,12): error C3861: “glCreateProgram”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(120,2): error C3861: “glAttachShader”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(121,2): error C3861: “glAttachShader”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(122,2): error C3861: “glLinkProgram”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(168,2): error C3861: “glGenVertexArrays”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(169,2): error C3861: “glGenBuffers”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(170,2): error C3861: “glGenBuffers”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(172,2): error C3861: “glBindVertexArray”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(175,2): error C3861: “glBindBuffer”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(176,2): error C3861: “glBufferData”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(178,2): error C3861: “glBindBuffer”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(179,2): error C3861: “glBufferData”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(181,2): error C3861: “glVertexAttribPointer”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(182,2): error C3861: “glEnableVertexAttribArray”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(183,2): error C3861: “glVertexAttribPointer”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(184,2): error C3861: “glEnableVertexAttribArray”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(186,2): error C3861: “glBindVertexArray”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(210,2): error C3861: “glUseProgram”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(215,20): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(216,19): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(217,19): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(218,23): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(219,21): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(220,25): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(221,26): error C3861: “glGetUniformLocation”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(230,2): error C3861: “glUniformMatrix4fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(231,2): error C3861: “glUniformMatrix4fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(232,2): error C3861: “glUniformMatrix4fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(234,2): error C3861: “glUniform3fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(235,2): error C3861: “glUniform3fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(236,48): error C2065: “lightColor”: 未声明的标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(236,2): error C3861: “glUniform3fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(237,2): error C3861: “glUniform3fv”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(246,2): error C3861: “glBindVertexArray”: 找不到标识符
+C:\Users\86135\Desktop\图形学\CGTemplate_HW3\CGTemplate_HW3\myglwidget.cpp(249,2): error C3861: “glBindVertexArray”: 找不到标识符
+  正在生成代码...

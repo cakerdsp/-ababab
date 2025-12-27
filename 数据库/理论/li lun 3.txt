@@ -1,0 +1,109 @@
+select distinct student.ID, student.name
+from student,takes,course
+where student.ID = takes.ID and course.course_id = takes.course_id and course.dept_name = 'Comp.Sci'
+
+
+select student.ID, student.name 
+from student
+where not exists (
+select 1
+from takes
+where takes.ID = student.ID and takes.year < 2017
+)
+
+
+select dept_name, max(salary) as max_salary
+from instructor
+group by dept_name
+
+
+
+with dept_max_salary(dept_name,max_salary) as 
+(select dept_name, max(salary) as max_salary
+from instructor
+group by dept_name
+)
+select min(max_salary)
+from dept_max_salary
+
+
+
+
+select dept_name
+from (
+select dept_name, sum(salary) as value
+from instructor
+group by dept_name
+)
+where value > (
+select avg(value)
+from (
+		select sum(salary) as value  
+        from instructor  
+        group by dept_name
+	 )
+)
+
+
+
+where 
+(select count(*)
+from
+(
+select title
+course
+group by title
+having count(*) = 1
+)
+) > 0
+
+
+select ID
+from depositor
+where ID not in (
+	select ID
+	from borrower
+)
+
+
+select A.ID
+from customer as A, customer as B
+where B.customer_name = '12345' and B.customer_street = A.customer_street and B.customer_city = A.customer_city and A.customer_name <> '12345'
+
+
+select distinct account.branch_name
+from account 
+join depositor on account.account_number = depositor.account_number
+join customer  on depositor.ID = customer.ID
+where customer.customer_city = 'Harrison';
+
+
+
+
+select distinct d.ID
+from depositor d
+where not exists (
+(
+select branch_name
+from branch
+where branch.branch_city = 'Brooklyn'
+)
+except 
+(
+select a.branch_name
+from depositor d2 join account a on d2.account_number = a.account_number
+where d.ID = d2.ID
+)
+)
+
+
+select sum(amount)
+from loan;
+
+select b.branch_name
+from branch b
+where b.assets > some (
+select b2.assets
+from branch b2
+where b2.city = 'Brooklyn'
+)

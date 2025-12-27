@@ -1,0 +1,65 @@
+Use School
+go
+
+begin tran
+ update STUDENTS set grade = 2022 where sid = '800001216'
+ waitfor delay '00:00:20'
+ select * from STUDENTS where sid = '800001216'
+ rollback tran
+ select * from STUDENTS where sid = '800001216'
+
+
+
+Use School
+go 
+set transaction isolation level READ UNCOMMITTED
+ select * from STUDENTS where sid = '800001216'
+ if @@ROWCOUNT <> 0
+	begin
+		 waitfor delay '00:00:20'
+		  select * from STUDENTS where sid = '800001216'
+	end
+
+
+Use School
+go
+set transaction isolation level serializable
+insert into STUDENTS values('1','hhh','hhhh',2022)
+
+
+Use School
+go 
+set transaction isolation level serializable
+begin tran
+ select * from STUDENTS where sid = '1'
+waitfor delay '00:00:20'
+select * from STUDENTS where sid = '1'
+rollback tran
+
+
+Use School
+go
+
+begin tran
+ update STUDENTS set grade = 2022 where sid = '800001216'
+ waitfor delay '00:00:20'
+ select * from STUDENTS where sid = '800001216'
+ rollback tran
+ select * from STUDENTS where sid = '800001216'
+
+
+
+
+Use School
+go
+set transaction isolation level repeatable read
+begin tran
+select * from STUDENTS
+commit tran
+
+
+Use School
+go
+set transaction isolation level repeatable read
+begin tran 
+ update STUDENTS set grade = 4022 where sid = '800001216'

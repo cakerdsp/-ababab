@@ -1,0 +1,1 @@
+1-5 vlan10 10 - 15 vlan 20 pc1和pc4在同一个交换机，pc2和pc3在另一个交换机，pc1和pc2是vlan10下（端口3），pc3和pc4在vlan20下（端口15）

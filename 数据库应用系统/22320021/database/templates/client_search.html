@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户查看订单界面</title>
+    <style>
+	/* 照order改的*/
+
+
+
+        /* 全局样式 */
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 220px;
+            background-color: #2f3b52;
+            color: #ffffff;
+            height: 100%;
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .sidebar li a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar li:hover {
+            background-color: #1e2b42;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            padding: 20px 40px;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333333;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table th {
+            background-color: #2f3b52;
+            color: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            color: #555555;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* 表单样式 */
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            margin-right: 10px;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        form input {
+            width: 180px;
+            padding: 6px 10px;
+            margin-right: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #2f80ed;
+            color: #ffffff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        form button:hover {
+            background-color: #2565bf;
+        }
+
+        /* 错误消息 */
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+	/* 大按钮样式 */
+        .btn-large button {
+            padding: 15px 30px; /* 增加按钮的内边距 */
+            font-size: 18px; /* 增加字体大小 */
+            background-color: #2f80ed; /* 按钮背景颜色 */
+            color: #ffffff; /* 按钮文字颜色 */
+            border: none; /* 无边框 */
+            border-radius: 8px; /* 圆角边框 */
+            cursor: pointer; /* 鼠标悬停时显示指针 */
+            transition: background-color 0.3s; /* 背景色渐变效果 */
+        }
+
+        .btn-large button:hover {
+            background-color: #2565bf; /* 鼠标悬停时的背景颜色 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <h2>订单管理系统</h2>
+        <ul>
+            <li>订单操作</li>
+            <li>
+                <a href="{% url 'login' %}">返回主菜单</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <h1>用户查看订单</h1>
+
+        <!-- 表格展示 -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>菜品名</th>
+                <th>状态</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.0 }}</td>
+                <td>{{ order.1 }}</td>
+                <td>{{ order.2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- 更新订单表单 -->
+        <form method="post">
+            {% csrf_token %}
+            <label for="ID">ID</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <button type="submit" name="submitted_button" value="done">确认收货</button>
+        </form>
+
+	<!-- 跳转按钮 -->
+        <div class="btn-large">
+            <a href="{% url 'client' %}">
+                <button type="submit" name="search" value="search">返回下单界面</button>
+            </a>
+        </div>
+
+
+
+        {% if msg %}
+        <p class="error">{{ msg }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+﻿  myglwidget.cpp
+C:\Users\86135\Desktop\图形学\CGTemplate_HW2\CGTemplate_HW2\myglwidget.cpp(326,11): warning C4189: “dz”: 局部变量已初始化但不引用
+C:\Users\86135\Desktop\图形学\CGTemplate_HW2\CGTemplate_HW2\myglwidget.cpp(393,72): warning C4100: “id”: 未引用的形参
+C:\Users\86135\Desktop\图形学\CGTemplate_HW2\CGTemplate_HW2\myglwidget.cpp(458,66): warning C4100: “id”: 未引用的形参
+  CGTemplate.vcxproj -> C:\Users\86135\Desktop\图形学\CGTemplate_HW2\CGTemplate_HW2\debug\CGTemplate.exe

@@ -1,0 +1,106 @@
+Use School
+go
+begin transaction T1
+begin try
+	update STUDENTS set grade = 2 where sid = '800001216'
+	begin transaction T2
+		insert into TEACHERS values('1',null,null,null)
+	commit transaction	T2
+end try
+begin catch
+	rollback tran
+end catch
+commit transaction T1
+
+
+
+Use School
+SET XACT_ABORT ON
+go
+begin transaction T1
+	update STUDENTS set grade = 2 where sid = '800001216'
+	begin transaction T2
+		insert into TEACHERS values('1',null,null,null)
+	commit transaction	T2
+commit transaction T1
+
+Use School
+select * from STUDENTS where sid = '800001216'
+
+
+Use School
+SET XACT_ABORT ON
+go
+begin transaction T1
+	update STUDENTS set grade = 2 where sid = '800001216'
+	save transaction save_point
+	insert into TEACHERS values('1',null,null,null)
+	if @@ERROR != 0 
+	begin
+		rollback tran save_point
+		print 'error'
+		return
+	end
+commit transaction T1
+
+
+
+Use School
+select * from STUDENTS where sid = '800001216'
+
+begin transaction T1
+	update STUDENTS set grade = 2 where sid = '800001216'
+	save transaction save_point
+	insert into TEACHERS values('1',null,null,null)
+	if @@ERROR != 0 or @@ROWCOUNT > 1
+	begin
+		rollback tran save_point
+		print 'error'
+		return
+	end
+commit transaction T1
+go
+select * from STUDENTS where sid = '800001216'
+
+
+
+
+
+
+
+Use School
+go
+create procedure HHH
+	@cid char(10),
+	@cname varchar(30),
+	@hour int,
+	@ans varchar(100) out
+as
+	begin tran
+		if not exists(select cid from COURSES where cid = @cid)
+			begin
+				select @ans = '课程信息不存在'
+				goto error
+			end
+		update COURSES SET cname = @cname，hour = @hour where cid = @cid
+		if @@ERROR > 0
+			begin 
+				select @ans = '修改课时失败'
+				goto error
+			end
+		select @ans = '课时修改成功'
+		print @ans
+		commit tran
+error:
+	print @ans
+	rollback tran
+go
+
+
+
+Use School
+declare	@cid char(10)
+declare	@cname varchar(30)
+declare	@hour int
+declare	@ans varchar(100) 
+exec HHH '10001','database',0,@ans out 

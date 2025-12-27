@@ -1,0 +1,54 @@
+create view VIEWC 
+as (select CHOICES.*,COURSES.cname 
+from CHOICES,COURSES
+where CHOICES.cid  = COURSES.cid)
+
+
+create view [VIEWS] 
+as (select STUDENTS.sname,CHOICES.*
+from CHOICES,STUDENTS
+where CHOICES.[sid]  = STUDENTS.[sid])
+
+
+create view S1([SID],SNAME,GRADE) as 
+select [sid],sname,grade
+from STUDENTS
+where grade > 1998
+
+
+select *
+from [VIEWS]
+where sname = 'uxjof'
+
+select sid,score
+from [VIEWC]
+where cname = 'UML'
+
+insert into S1 values(60000001,'Lily',2001)
+
+
+create view S1([SID],SNAME,GRADE) as 
+select [sid],sname,grade
+from STUDENTS
+where grade > 1998
+WITH CHECK OPTION;
+
+insert into S1 values(60000001,'Lily',1997)
+
+delete S1
+where grade = 1999
+
+alter table CHOICES nocheck constraint FK_CHOICES_STUDENTS;
+delete S1
+where grade = 1999
+alter table CHOICES check constraint FK_CHOICES_STUDENTS;
+
+
+update [VIEWS]
+set score = score + 5
+where sname = 'uxjof';
+
+
+drop view VIEWC;
+drop view [VIEWS];
+drop view S1;

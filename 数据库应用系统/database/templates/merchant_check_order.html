@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单管理界面</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 220px;
+            background-color: #2f3b52;
+            color: #ffffff;
+            height: 100%;
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .sidebar li a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar li:hover {
+            background-color: #1e2b42;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            padding: 20px 40px;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333333;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table th {
+            background-color: #2f3b52;
+            color: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            color: #555555;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* 表单样式 */
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            margin-right: 10px;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        form input {
+            width: 180px;
+            padding: 6px 10px;
+            margin-right: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #2f80ed;
+            color: #ffffff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        form button:hover {
+            background-color: #2565bf;
+        }
+
+        /* 错误消息 */
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <h2>订单管理系统</h2>
+        <ul>
+            <li>订单操作</li>
+            <li>
+                <a href="{% url 'merchant' %}">返回主菜单</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <h1>订单管理界面</h1>
+
+        <!-- 表格展示 -->
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>状态</th>
+                <th>金额</th>
+                <th>客户ID</th>
+                <th>菜品ID</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.0 }}</td>
+                <td>{{ order.1 }}</td>
+                <td>{{ order.3 }}</td>
+                <td>{{ order.4 }}</td>
+                <td>{{ order.5 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- 更新订单表单 -->
+        <form method="post">
+            {% csrf_token %}
+            <label for="ID">ID</label>
+            <input type="text" id="ID" name="ID" required>
+
+            <button type="submit" name="submitted_button" value="Order_Update">更新</button>
+        </form>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="fresh" value="search">刷新</button>
+        </form>
+
+        {% if msg %}
+        <p class="error">{{ msg }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

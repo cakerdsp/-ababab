@@ -1,0 +1,23 @@
+Use School
+go
+grant update on dbo.[grade2000]([sname])
+	to 王二
+
+Use School
+go
+grant select on grade2000
+	to 王二
+
+
+Use School
+go
+create view grade2000 as 
+	select * from STUDENTS
+	where grade = 2000
+
+
+exec sp_addlogin '王二' , '123456' , 'School', 'english'
+go
+Use School
+go
+exec sp_grantdbaccess '王二'
