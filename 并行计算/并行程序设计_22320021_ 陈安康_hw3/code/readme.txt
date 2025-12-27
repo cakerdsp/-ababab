@@ -1,0 +1,5 @@
+matrix_multiply.c是MPI集体通信实现代码。
+matrix_multiply2.c是MPI集体通信 + 自定义MPI数据结构减少通信的实现代码。
+block_multiply.c和block_multiply2.c是矩阵AB均分块的实现代码
+csr_csr.c是使用csr存储稀疏矩阵进行矩阵乘法的实现代码
+cmd.txt是代码一些示例用法

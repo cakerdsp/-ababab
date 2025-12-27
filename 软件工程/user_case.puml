@@ -1,0 +1,23 @@
+@startuml
+title Smart Healthcare Q&A Interaction Sequence (Dify-based System)
+
+actor User
+participant "Web UI" as WebUI
+participant "Dify Backend" as Dify
+participant "Knowledge Service" as Knowledge
+participant "LLM Service" as LLM
+database "MySQL" as DB
+
+User -> WebUI : Input health question
+WebUI -> Dify : Submit question request
+Dify -> Knowledge : Search relevant documents
+Knowledge -> DB : Query matching documents
+DB --> Knowledge : Return matched documents
+Knowledge --> Dify : Return knowledge content
+
+Dify -> LLM : Prompt with embedded knowledge
+LLM --> Dify : Return AI answer
+Dify --> WebUI : Render final answer
+WebUI --> User : Display diagnosis result
+
+@enduml

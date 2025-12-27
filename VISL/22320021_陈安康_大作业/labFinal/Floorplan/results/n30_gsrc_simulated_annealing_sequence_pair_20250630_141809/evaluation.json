@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-06-30 14:21:31",
+  "config": {
+    "dataset": "n30",
+    "benchmark": "gsrc",
+    "algorithm": "simulated_annealing",
+    "representation": "sequence_pair",
+    "module_type": "hard",
+    "max_iterations": 2000,
+    "seed": null,
+    "pin_algorithm": "uniform_edge",
+    "feedthrough_method": "ftafp",
+    "weights": {
+      "area_weight": 0.6,
+      "wirelength_weight": 1.0,
+      "feedthrough_count_weight": 0.4,
+      "feedthrough_wirelength_weight": 0.4,
+      "whitespace_weight": 0.1
+    },
+    "algorithm_params": {
+      "simulated_annealing": {
+        "initial_temperature": 1000.0,
+        "final_temperature": 1.0,
+        "cooling_rate": 0.95,
+        "moves_per_temperature": 50
+      },
+      "genetic_algorithm": null,
+      "pin_assignment": {
+        "expansion_ratio": 1.1,
+        "prefer_corner_pins": null,
+        "congestion_avoidance": null,
+        "max_pins_per_edge_unit": null
+      }
+    }
+  },
+  "optimization": {
+    "iterations": 0,
+    "optimization_time": 201.5744926929474,
+    "convergence": true,
+    "final_temperature": 1.0,
+    "best_iteration": 0
+  },
+  "evaluation": {
+    "area": 434448.0,
+    "wirelength": 179219.63053960967,
+    "hpwl": 179219.63053960967,
+    "feedthrough_count": 35,
+    "feedthrough_wirelength": 35487.45411907807,
+    "feedthrough_method": "ftafp",
+    "whitespace_ratio": 0.5193832173240526,
+    "chip_width": 0.0,
+    "chip_height": 0.0,
+    "utilization": 0.0,
+    "aspect_ratio": 0.0,
+    "is_legal": true,
+    "overlap_count": 0,
+    "overlap_area": 0.0,
+    "quality_score": 0.0,
+    "total_cost": 0.3071788199575031,
+    "num_modules": 242,
+    "num_nets": 349,
+    "max_net_length": 0.0,
+    "avg_net_length": 0.0,
+    "normalized_feedthrough_count": 0.10215394776758216,
+    "normalized_feedthrough_wirelength": 0.08168400848681101,
+    "weights_used": {
+      "area": 0.23076923076923075,
+      "wirelength": 0.3846153846153846,
+      "feedthrough_count": 0.15384615384615385,
+      "feedthrough_wirelength": 0.15384615384615385,
+      "whitespace": 0.038461538461538464,
+      "legality": 0.038461538461538464
+    }
+  }
+}

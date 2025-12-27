@@ -1,0 +1,78 @@
+# GSRC基准测试配置 - GA + Sequence Pair + 硬模块
+data:
+  benchmark: "gsrc"                    # 数据集类型: gsrc | mcnc  
+  dataset: "n10"                       # 测试用例: n10, n30, n50, n100, n200, n300
+  module_type: "hard"                  # 模块类型: soft | hard
+
+# 宏模块布图阶段
+algorithm:
+  name: "genetic_algorithm"            # 优化算法: genetic_algorithm | simulated_annealing
+  representation: "sequence_pair"      # 表示方法: btree | sequence_pair
+  max_iterations: 100                  # 遗传算法的代数
+
+# 遗传算法参数
+genetic_algorithm:
+  population_size: 50                  # 种群大小
+  crossover_rate: 0.8                  # 交叉率
+  mutation_rate: 0.1                   # 变异率
+  selection_method: "tournament"       # 选择方法: tournament | roulette | rank
+  tournament_size: 3                   # 锦标赛选择大小
+  elitism_ratio: 0.1                   # 精英保留比例
+  strict_legality: true                # 严格合法性检查
+  repair_illegal: true                 # 修复不合法个体
+
+# 引脚分配配置
+pin_assignment:
+  algorithm: "uniform_edge"            # 引脚分配算法: greedy | center_of_gravity | uniform_edge
+  expansion_ratio: 1.1                 # 芯片扩展比例
+  verbose: false                       # 详细输出
+
+# 评估系统
+evaluation:
+  chip_expansion_ratio: 1.2
+  
+  # Feedthrough计算方法
+  feedthrough_method: "ftafp"          # Feedthrough方法: "original" | "ftafp"
+  
+  # 基准函数校准参数
+  calibration:
+    enabled: true                      # 启用基准函数校准
+    samples: 10                        # 校准样本数量
+    verbose: true                      # 显示校准过程
+  
+  # 评估权重
+  weights:
+    hpwl: 1.0                         # 线长权重
+    area: 0.5                         # 面积权重
+    feedthrough_count: 0.4            # Feedthrough数量权重
+    feedthrough_wirelength: 0.4       # Feedthrough线长权重
+    whitespace: 0.1                   # 空白区域权重
+    legality: 0.1                     # 合法性权重
+
+# 输出配置
+output:
+  verbose: true
+  
+  # 可视化配置  
+  visualization:
+    enabled: true
+    
+    # 布局图配置
+    layout:
+      show_module_labels: true
+      show_net_connections: false
+      color_scheme: "modern"
+      
+    # 输出格式
+    formats:
+      png: true
+      pdf: false
+      
+    # 分辨率和尺寸
+    dpi: 300
+    figsize: [12, 10]
+    
+  # 结果保存
+  save_results: true
+  save_intermediate: false
+  save_pl_file: true 

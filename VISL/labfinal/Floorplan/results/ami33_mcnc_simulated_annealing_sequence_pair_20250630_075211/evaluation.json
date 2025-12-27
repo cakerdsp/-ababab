@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-06-30 07:54:08",
+  "config": {
+    "dataset": "ami33",
+    "benchmark": "mcnc",
+    "algorithm": "simulated_annealing",
+    "representation": "sequence_pair",
+    "module_type": "hard",
+    "max_iterations": 4000,
+    "seed": null,
+    "pin_algorithm": "center_of_gravity",
+    "feedthrough_method": "ftafp",
+    "weights": {
+      "area_weight": 0.5,
+      "wirelength_weight": 1.0,
+      "feedthrough_count_weight": 0.4,
+      "feedthrough_wirelength_weight": 0.4,
+      "whitespace_weight": 0.1
+    },
+    "algorithm_params": {
+      "simulated_annealing": {
+        "initial_temperature": 1000.0,
+        "final_temperature": 1.0,
+        "cooling_rate": 0.95,
+        "moves_per_temperature": 50
+      },
+      "genetic_algorithm": null,
+      "pin_assignment": {
+        "expansion_ratio": 1.1,
+        "prefer_corner_pins": null,
+        "congestion_avoidance": null,
+        "max_pins_per_edge_unit": null
+      }
+    }
+  },
+  "optimization": {
+    "iterations": 0,
+    "optimization_time": 115.94871759414673,
+    "convergence": true,
+    "final_temperature": 1.0,
+    "best_iteration": 0
+  },
+  "evaluation": {
+    "area": 496320.0,
+    "wirelength": 48669.0,
+    "hpwl": 48669.0,
+    "feedthrough_count": 83,
+    "feedthrough_wirelength": 63056.47692340665,
+    "feedthrough_method": "ftafp",
+    "whitespace_ratio": 0.999649419729207,
+    "chip_width": 0.0,
+    "chip_height": 0.0,
+    "utilization": 0.0,
+    "aspect_ratio": 0.0,
+    "is_legal": true,
+    "overlap_count": 0,
+    "overlap_area": 0.0,
+    "quality_score": 0.0,
+    "total_cost": 0.30713238996275305,
+    "num_modules": 75,
+    "num_nets": 123,
+    "max_net_length": 0.0,
+    "avg_net_length": 0.0,
+    "normalized_feedthrough_count": 0.6770677561674993,
+    "normalized_feedthrough_wirelength": 0.12704802732794698,
+    "weights_used": {
+      "area": 0.2,
+      "wirelength": 0.4,
+      "feedthrough_count": 0.16,
+      "feedthrough_wirelength": 0.16,
+      "whitespace": 0.04,
+      "legality": 0.04
+    }
+  }
+}

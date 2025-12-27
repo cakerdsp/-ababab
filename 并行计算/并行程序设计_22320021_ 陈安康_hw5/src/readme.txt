@@ -1,0 +1,2 @@
+montecarlo_pi.c和montecarlo_pi_s.c分别是并行和串行的蒙特卡洛方法求π近似值的代码。
+yiyuanerci.c和yiyuanerci_serial.c分别是并行和串行求解一元二次方程的代码。

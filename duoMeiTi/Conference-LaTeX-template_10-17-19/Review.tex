@@ -1,0 +1,427 @@
+\documentclass[conference]{IEEEtran}
+
+\IEEEoverridecommandlockouts
+
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+\usepackage{cite}
+
+\usepackage{amsmath,amssymb,amsfonts}
+
+\usepackage{algorithmic}
+
+\usepackage{graphicx}
+
+\usepackage{textcomp}
+
+\usepackage{xcolor}
+
+
+
+% --- 中文支持核心设置 ---
+
+\usepackage{fontspec} % XeLaTeX/LuaLaTeX 编译中文的主要包
+
+\usepackage{indentfirst} % 首行缩进
+
+
+
+% 设置英文字体
+
+\setmainfont{Times New Roman}
+
+\setsansfont{Arial}
+
+\setmonofont{Courier New}
+
+
+
+% 设置中文字体
+
+% 请确保您的系统中安装了这些字体。
+
+% 如果没有，请将 'Noto Serif CJK SC' 和 'Noto Sans CJK SC'
+
+% 替换为您的系统上实际存在的中文宋体和黑体字体名称，
+
+% 例如 'SimSun' (宋体) 和 'SimHei' (黑体)
+
+\setCJKmainfont{Noto Serif CJK SC} % 主要中文字体，用于正文
+
+\setCJKsansfont{Noto Sans CJK SC}  % 中文无衬线字体，用于标题或需要粗体时
+
+\setCJKmonofont{Noto Sans Mono CJK SC} % 中文等宽字体
+
+
+
+% 定义一个方便切换到中文字体的命令
+
+% 默认情况下，如果设置了 \setCJKmainfont，
+
+% 所有中文环境内的文本都将使用该字体。
+
+% 这里保留一个自定义命令，以防您想在局部切换字体。
+
+\newcommand{\chinesefont}{\setCJKmainfont{Noto Serif CJK SC}} % 确保中文文本使用宋体
+
+
+
+% --- 中文支持核心设置结束 ---
+
+
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+
+
+% 在正文开始处激活中文环境，这将确保所有后续中文内容都使用设定的中文字体。
+
+% 注意：IEEEtran 模板本身对中文支持不是原生的，所以需要 \fontspec 来加载字体。
+
+% 不需要 CJK 包的 \begin{CJK}{UTF8}{songti} 环境了。
+
+
+
+\title{\chinesefont 人脸伪造视频检测综述*\\
+
+{\footnotesize \textsuperscript{*}注：副标题不会被 Xplore 收录，不应使用}
+
+\thanks{此处填写适用的资金资助机构。如果没有，请删除此行。}
+
+}
+
+
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} \chinesefont 作者姓名}
+
+\IEEEauthorblockA{\chinesefont \textit{单位部门名称} \\
+
+\chinesefont \textit{单位名称}\\
+
+\chinesefont 城市, 国家 \\
+
+\chinesefont 电子邮件地址 或 ORCID}
+
+\and
+
+\IEEEauthorblockN{2\textsuperscript{nd} \chinesefont 作者姓名}
+
+\IEEEauthorblockA{\chinesefont \textit{单位部门名称} \\
+
+\chinesefont \textit{单位名称}\\
+
+\chinesefont 城市, 国家 \\
+
+\chinesefont 电子邮件地址 或 ORCID}
+
+\and
+
+\IEEEauthorblockN{3\textsuperscript{rd} \chinesefont 作者姓名}
+
+\IEEEauthorblockA{\chinesefont \textit{单位部门名称} \\
+
+\chinesefont \textit{单位名称}\\
+
+\chinesefont 城市, 国家 \\
+
+\chinesefont 电子邮件地址 或 ORCID}
+
+\and
+
+\IEEEauthorblockN{4\textsuperscript{th} \chinesefont 作者姓名}
+
+\IEEEauthorblockA{\chinesefont \textit{单位部门名称} \\
+
+\chinesefont \textit{单位名称}\\
+
+\chinesefont 城市, 国家 \\
+
+\chinesefont 电子邮件地址 或 ORCID}
+
+\and
+
+\IEEEauthorblockN{5\textsuperscript{th} \chinesefont 作者姓名}
+
+\IEEEauthorblockA{\chinesefont \textit{单位部门名称} \\
+
+\chinesefont \textit{单位名称}\\
+
+\chinesefont 城市, 国家 \\
+
+\chinesefont 电子邮件地址 或 ORCID}
+
+\and
+
+\IEEEauthorblockN{6\textsuperscript{th} \chinesefont 作者姓名}
+
+\IEEEauthorblockA{\chinesefont \textit{单位部门名称} \\
+
+\chinesefont \textit{单位名称}\\
+
+\chinesefont 城市, 国家 \\
+
+\chinesefont 电子邮件地址 或 ORCID}
+
+}
+
+
+
+\maketitle
+
+
+
+\begin{abstract}
+
+\chinesefont
+
+本文旨在综述人脸伪造视频检测领域的研究进展。随着深度伪造技术的快速发展，伪造视频的生成变得越来越容易且难以辨别，这给社会带来了潜在的威胁。本综述将首先介绍人脸伪造视频检测常用的评价指标，然后从时空域、频域、生物和物理特征以及多模态等多个维度对现有检测方法进行详细分类和阐述，并针对每个维度下的代表性模型进行深入分析。最后，本文将对现有研究进行总结，并提出当前面临的挑战和未来潜在的研究方向。
+
+\end{abstract}
+
+
+
+\begin{IEEEkeywords}
+
+\chinesefont
+
+人脸伪造，深度伪造，视频检测，时空域，频域，生物特征，多模态，综述
+
+\end{IEEEkeywords}
+
+
+
+\section{\chinesefont 引言}
+
+\chinesefont
+
+此处填写引言内容，包括背景、研究意义、伪造技术发展现状以及检测的必要性等。可以概括本文将要讨论的主要内容和结构。
+
+
+
+\section{\chinesefont 评价指标}
+
+\chinesefont
+
+本节将介绍人脸伪造视频检测中常用的评价指标。这些指标对于衡量检测模型的性能至关重要。
+
+\subsection{\chinesefont 准确率 (Accuracy)}
+
+\chinesefont
+
+此处填写准确率的定义和计算方式。
+
+\subsection{\chinesefont 精确率 (Precision) 与召回率 (Recall)}
+
+\chinesefont
+
+此处填写精确率和召回率的定义和计算方式。
+
+\subsection{\chinesefont F1分数 (F1-score)}
+
+\chinesefont
+
+此处填写 F1 分数的定义和计算方式。
+
+\subsection{\chinesefont AUC-ROC 曲线 (Area Under the Receiver Operating Characteristic Curve)}
+
+\chinesefont
+
+此处填写 AUC-ROC 曲线的定义和意义。
+
+\subsection{\chinesefont 其他指标}
+
+\chinesefont
+
+此处填写其他可能使用的评价指标，如平均精度 (AP)、帧级准确率等。
+
+
+
+\section{\chinesefont 人脸伪造视频检测方法}
+
+\chinesefont
+
+本节将从不同维度对人脸伪造视频检测方法进行分类和详细介绍。
+
+
+
+\subsection{\chinesefont 基于时空域的方法}
+
+\chinesefont
+
+本部分将重点介绍利用视频时间维度和空间维度信息进行检测的方法。
+
+\subsubsection{\chinesefont 基于卷积神经网络 (CNN) 的方法}
+
+\chinesefont
+
+此处填写基于 CNN 的时空域检测方法，例如，如何从图像帧中提取空间特征，以及如何处理视频帧之间的关联性。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 基于循环神经网络 (RNN) / 长短期记忆网络 (LSTM) 的方法}
+
+\chinesefont
+
+此处填写基于 RNN/LSTM 的时空域检测方法，这些方法通常用于捕捉视频序列中的时间依赖性。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 基于Transformer的方法}
+
+\chinesefont
+
+此处填写基于 Transformer 的时空域检测方法，它们在处理长距离依赖和全局信息方面具有优势。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 其他时空域方法}
+
+\chinesefont
+
+此处填写其他不属于上述类别的时空域检测方法。
+
+
+
+\subsection{\chinesefont 基于频域的方法}
+
+\chinesefont
+
+本部分将探讨将视频转换到频域进行分析，以揭示伪造痕迹的方法。
+
+\subsubsection{\chinesefont 基于傅里叶变换的方法}
+
+\chinesefont
+
+此处填写利用傅里叶变换分析频率域特征的检测方法。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 基于小波变换的方法}
+
+\chinesefont
+
+此处填写利用小波变换在不同尺度上分析频率特征的检测方法。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 其他频域方法}
+
+\chinesefont
+
+此处填写其他不属于上述类别的频域检测方法。
+
+
+
+\subsection{\chinesefont 基于生物和物理特征的方法}
+
+\chinesefont
+
+本部分将介绍通过检测人脸伪造视频中存在的生物或物理不一致性来识别伪造的方法。
+
+\subsubsection{\chinesefont 基于生理信号（如心跳、眨眼）的方法}
+
+\chinesefont
+
+此处填写通过分析伪造视频中生理信号（如心跳、眨眼模式）异常来检测的方法。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 基于面部三维一致性的方法}
+
+\chinesefont
+
+此处填写通过分析伪造人脸在三维空间中的一致性缺陷来检测的方法。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 基于物理伪影（如摩尔纹、压缩伪影）的方法}
+
+\chinesefont
+
+此处填写通过检测伪造视频生成过程中引入的特定物理伪影来检测的方法。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 其他生物和物理特征方法}
+
+\chinesefont
+
+此处填写其他不属于上述类别的生物和物理特征检测方法。
+
+
+
+\subsection{\chinesefont 基于多模态的方法}
+
+\chinesefont
+
+本部分将探讨结合多种模态信息（如视觉、音频、文本等）进行检测的方法。
+
+\subsubsection{\chinesefont 融合视觉和音频信息的方法}
+
+\chinesefont
+
+此处填写结合视频画面和音频信号进行检测的方法，例如通过声音与嘴唇动作的不一致性进行判断。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 融合多种伪影特征的方法}
+
+\chinesefont
+
+此处填写融合不同类型伪影特征（如时空、频域、生物特征等）的方法，以提高检测鲁棒性。可以介绍代表性模型及其工作原理。
+
+\subsubsection{\chinesefont 其他多模态方法}
+
+\chinesefont
+
+此处填写其他不属于上述类别的多模态检测方法。
+
+
+
+\section{\chinesefont 总结与展望}
+
+\chinesefont
+
+本节将对人脸伪造视频检测领域的研究进行总结，并提出当前面临的挑战和未来的发展趋势。
+
+
+
+\subsection{\chinesefont 当前面临的挑战}
+
+\chinesefont
+
+此处填写当前人脸伪造视频检测领域面临的挑战，例如泛化能力、对抗攻击、新生成技术层出不穷等。
+
+\subsection{\chinesefont 未来发展趋势}
+
+\chinesefont
+
+此处填写未来人脸伪造视频检测可能的方向和研究热点，例如自监督学习、联邦学习、可解释性检测等。
+
+
+
+\section*{\chinesefont 致谢}
+
+\chinesefont
+
+此处填写致谢内容。请注意，IEEE 模板规定资助致谢应放在首页的无编号脚注中。
+
+
+
+\section*{\chinesefont 参考文献}
+
+\chinesefont
+
+此处填写参考文献列表。请使用 `\cite{b1}` 等命令在正文中引用。
+
+
+
+\begin{thebibliography}{00}
+
+\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+
+\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+
+\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+
+\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+
+\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+
+\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+
+\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+
+\end{thebibliography}
+
+
+
+\end{document}

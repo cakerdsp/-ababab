@@ -1,0 +1,10 @@
+gcc -g -Wall -o matrix_multiply matrix_multiply.c -pthread
+./matrix_multiply 2 2 2 2
+
+gcc -g -Wall -o array_sum_reduce array_sum_reduce.c -pthread
+./array_sum_reduce 128 16
+
+gcc -g -Wall -o array_sum_reduce_v2 array_sum_reduce_v2.c -pthread
+./array_sum_reduce_v2 128 16
+
+gcc -g -Wall -o array_sum_reduce_v3 array_sum_reduce_v3.c -pthread -lm

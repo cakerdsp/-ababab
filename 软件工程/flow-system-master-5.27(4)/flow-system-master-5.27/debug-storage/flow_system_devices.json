@@ -1,0 +1,38 @@
+{
+  "devices": [
+    {
+      "did": "dev_123_offline",
+      "name": "Living Room AC",
+      "type": "mi_AC",
+      "brand": "Xiaomi",
+      "group": "gid_default_group",
+      "status": {
+        "power": "on",
+        "temperature": 24,
+        "mode": "cool"
+      }
+    },
+    {
+      "did": "dev_456_offline",
+      "name": "Bedroom Sensor",
+      "type": "mi_air_sensor",
+      "brand": "Xiaomi",
+      "group": null,
+      "status": {
+        "temperature": 26.5,
+        "humidity": 55
+      }
+    },
+    {
+      "did": "dev_789_offline",
+      "name": "Kitchen Air Purifier",
+      "type": "mi_air_purifier",
+      "brand": "Midea",
+      "group": "gid_kitchen_devices",
+      "status": {
+        "power": "off",
+        "aqi": 35
+      }
+    }
+  ]
+}

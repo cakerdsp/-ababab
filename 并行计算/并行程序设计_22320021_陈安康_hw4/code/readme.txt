@@ -1,0 +1,4 @@
+matrix_multiply.c是并行矩阵乘法源代码。
+array_sum_reduce.c是互斥锁+全局变量的实现代码。
+array_sum_reduce_v2.c是共享数组模拟点对点通信的实现代码。
+array_sum_reduce_v2.c是利用屏障机制实现相邻匹配的实现代码。

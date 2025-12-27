@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- 从URDF文件加载robot_description -->
+    <param name="robot_description" textfile="$(find little_car)/urdf/little_car.urdf" />
+    <param name="use_gui" value="True"/>
+
+    <!-- RViz配置 -->
+    <arg name="rvizconfig" default="$(find little_car)/rviz/urdf.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+    <!-- Joint State Publisher -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <!-- Robot State Publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- 启动 Gazebo 仿真环境 -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+    </include>
+
+    <!-- 加载控制器配置 -->
+    <rosparam file="$(find little_car)/config/controllers.yaml" command="load" />
+    
+    <!-- 控制器加载器 -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" args="wheel_1_controller wheel_2_controller wheel_3_controller wheel_4_controller" />
+
+    <!-- 启动仿真机器人模型 -->
+    <node name="little_car_node" pkg="little_car" type="little_car_node" />
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model little_car -param robot_description" respawn="false"/>
+</launch>

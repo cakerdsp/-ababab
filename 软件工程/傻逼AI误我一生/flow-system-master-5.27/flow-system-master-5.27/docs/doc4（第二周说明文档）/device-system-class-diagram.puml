@@ -1,0 +1,260 @@
+@startuml 设备管理系统类图
+
+!define PRIMARY_COLOR #2E86AB
+!define SECONDARY_COLOR #A23B72
+!define ACCENT_COLOR #F18F01
+!define SUCCESS_COLOR #C73E1D
+
+' 包定义
+package "Domain Models" as domain {
+    
+    class Device {
+        - did: string
+        - name: string
+        - type: string
+        - brand: string
+        - online: boolean
+        - status: object
+        
+        + constructor(did, name, type, brand, online, status)
+        + updateStatus(newStatus): void
+        + setOnline(online): void
+        + getProperty(property): any
+        + setProperty(property, value): void
+        + hasProperty(property): boolean
+        + validateControl(operation, value): object
+        - _validatePropertyValue(operation, value): object
+        - _validateAirConditionerProperty(operation, value): object
+        - _validateHumidifierProperty(operation, value): object
+        - _validateDehumidifierProperty(operation, value): object
+        - _validateAirPurifierProperty(operation, value): object
+        + toJSON(): object
+    }
+    
+    class Sensor {
+        - isSensor: boolean
+        
+        + constructor(did, name, type, brand, online, status)
+        + updateSensorData(data): void
+        + {static} isSensorDevice(type): boolean
+        + getSupportedMetrics(): string[]
+        + validateSensorData(data): object
+        + validateControl(operation, value): object
+        + toJSON(): object
+    }
+    
+    class HistoryData {
+        - deviceId: string
+        - metricType: string
+        - data: array
+        
+        + constructor(deviceId, metricType)
+        + addHourlyData(hourStart, value): void
+        + cleanupOldData(): void
+        + getLast24HourData(): array
+        + getStatistics(): object
+        + getTrend(): string
+        + getLatestValue(): number
+        + getDataAtTime(hour): number
+        + setData(dataArray): void
+        + toJSON(): object
+    }
+}
+
+package "Business Logic" as business {
+    
+    class DeviceManager {
+        - devices: Map
+        - apiRegistry: AccountAPIRegistry
+        - sseService: SSEService
+        - isInitialized: boolean
+        
+        + constructor(apiRegistry, sseService)
+        + setServices(apiRegistry, sseService): void
+        + initialize(): Promise<object>
+        + loadAllDevices(): Promise<object>
+        - _createDeviceFromData(deviceData): Device|Sensor
+        + getAllDevices(): array
+        + getDevice(did): Device|Sensor
+        + getDevicesByBrand(brand): array
+        + getSensorDevices(): array
+        + getControllableDevices(): array
+        + controlDevice(did, operation, value): Promise<object>
+        + handleDeviceUpdate(deviceData): boolean
+        + getDeviceControlOptions(did): object
+        + refreshDevices(): Promise<object>
+        + reset(): void
+        + getDeviceStats(): object
+    }
+    
+    class DataManager {
+        - historyData: Map
+        - apiRegistry: AccountAPIRegistry
+        - isInitialized: boolean
+        
+        + constructor(apiRegistry)
+        + setApiRegistry(apiRegistry): void
+        + initialize(sensorDevices): Promise<object>
+        + loadSensorHistory(deviceId, metricType): Promise<object>
+        + handleSensorUpdate(updateData): boolean
+        + getSensorHistory(deviceId, metricType): object
+        + getAllSensorHistory(): object
+        + refreshSensorHistory(deviceId, metricType): Promise<object>
+        + refreshAllSensorHistory(): Promise<object>
+        + analyzeEnvironmentData(deviceIds): object
+        - _calculateOverallTrend(devices): string
+        - _evaluateAirQuality(pm25): string
+        - _calculateComfort(temperature, humidity, pm25): object
+        + reset(): void
+        + getDataStats(): object
+    }
+    
+    class DeviceController {
+        - deviceManager: DeviceManager
+        - dataManager: DataManager
+        - sseService: SSEService
+        - apiRegistry: AccountAPIRegistry
+        - isInitialized: boolean
+        - currentUserId: string
+        
+        + constructor(apiRegistry)
+        + setApiRegistry(apiRegistry): void
+        + setCurrentUserId(userId): void
+        + initialize(userId): Promise<object>
+        + setupSSEHandlers(): void
+        + getAllDevices(): array
+        + getDevicesByBrand(brand): array
+        + getControllableDevices(): array
+        + getSensorDevices(): array
+        + getDeviceControlOptions(did): object
+        + controlDevice(did, operation, value): Promise<object>
+        + getSensorHistory(deviceId, metricType): object
+        + getAllSensorHistory(): object
+        + analyzeEnvironmentData(deviceIds): object
+        + refreshDevices(): Promise<object>
+        + refreshSensorHistory(): Promise<object>
+        + refreshAllData(): Promise<object>
+        + getSystemStatus(): object
+        + reconnectSSE(): Promise<object>
+        + logout(): Promise<object>
+        + reset(): void
+        + registerSSEHandler(type, handler): void
+        + unregisterSSEHandler(type, handler): void
+    }
+}
+
+package "Infrastructure Services" as services {
+    
+    class SSEService {
+        - eventSource: EventSource
+        - isConnected: boolean
+        - connectionUrl: string
+        - sseConnectionId: string
+        - messageHandlers: Map
+        - reconnectAttempts: number
+        - maxReconnectAttempts: number
+        - reconnectDelay: number
+        
+        + constructor()
+        + setSseConnectionId(userId): void
+        + connect(): Promise<object>
+        + disconnect(): void
+        + handleMessage(data): void
+        + registerHandler(type, handler): void
+        + unregisterHandler(type, handler): void
+        + notifyHandlers(type, data): void
+        + getConnectionStatus(): object
+        + notifyExit(apiRegistry): Promise<object>
+        + reset(): void
+        + setReconnectConfig(maxAttempts, delay): void
+        + reconnect(): Promise<object>
+    }
+    
+    class AccountAPIRegistry {
+        - apiConfig: object
+        - apiPaths: object
+        - storage: AccountStorage
+        - client: axios
+        
+        + constructor(storage)
+        + setStorage(storage): void
+        + callAPI(apiName, data): Promise<object>
+        + callAPIGet(apiName, params): Promise<object>
+        + refreshAccessToken(refreshToken): Promise<object>
+        + configureAPI(apiName, path): boolean
+        + setBaseURL(url): boolean
+    }
+    
+    class AccountStorage {
+        - storageDir: string
+        - storagePrefix: string
+        
+        + constructor()
+        + getStorageDirectory(): string
+        + ensureStorageDirectory(): boolean
+        + getFilePath(key): string
+        + setItem(key, value): boolean
+        + getItem(key): string
+        + removeItem(key): boolean
+        + saveUserAccount(userAccount): boolean
+        + getUserAccount(): object
+        + saveToken(token): boolean
+        + getToken(): string
+        + saveRefreshToken(refreshToken): boolean
+        + getRefreshToken(): string
+        + saveSseConnectionId(sseConnectionId): boolean
+        + getSseConnectionId(): string
+        + saveLoginCredentials(userId, rememberMe): boolean
+        + getLoginCredentials(): object
+        + clearLoginCredentials(): boolean
+        + saveSupportedBrands(brands): boolean
+        + getSupportedBrands(): object
+        + saveAppSettings(settings): boolean
+        + getAppSettings(): object
+        + clearUserData(): boolean
+        + hasValidSession(): boolean
+    }
+}
+
+' 关系定义
+Sensor --|> Device : 继承
+DeviceController *-- DeviceManager : 组合
+DeviceController *-- DataManager : 组合  
+DeviceController *-- SSEService : 组合
+DeviceController --> AccountAPIRegistry : 使用
+
+DeviceManager --> Device : 创建管理
+DeviceManager --> Sensor : 创建管理
+DeviceManager --> AccountAPIRegistry : 使用
+DeviceManager --> SSEService : 使用
+
+DataManager --> HistoryData : 创建管理
+DataManager --> AccountAPIRegistry : 使用
+
+SSEService --> AccountAPIRegistry : 使用
+
+AccountAPIRegistry --> AccountStorage : 使用
+
+' 样式定义
+skinparam class {
+    BackgroundColor PRIMARY_COLOR
+    BorderColor SECONDARY_COLOR
+    FontColor white
+    FontSize 12
+}
+
+skinparam package {
+    BackgroundColor ACCENT_COLOR
+    BorderColor SECONDARY_COLOR
+    FontColor white
+    FontSize 14
+    FontStyle bold
+}
+
+' 注释
+note top of DeviceController : 主控制器\n协调所有设备和数据管理
+note top of Device : 设备基础模型\n包含验证逻辑
+note top of Sensor : 传感器模型\n继承设备功能
+note top of HistoryData : 24小时历史数据\n支持统计分析
+
+@enduml 

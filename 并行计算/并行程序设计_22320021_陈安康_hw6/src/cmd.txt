@@ -1,0 +1,8 @@
+gcc -g -Wall -fopenmp -o mm mm.c
+./mm 1024 1024 1024 4 0
+
+
+gcc -fPIC -shared -o libparallel.so parallel_for.c
+gcc -o main main.c -L. -lparallel -lpthread -Wl,-rpath=.
+
+gcc -o main_serial main_serial.c

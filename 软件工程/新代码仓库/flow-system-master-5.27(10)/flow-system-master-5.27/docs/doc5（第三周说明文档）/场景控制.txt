@@ -1,0 +1,272 @@
+
+
+一：流程
+场景是针对分组的，每个分组下面可以设置场景
+建议初始化时，客户端先获取全部场景列表存在内存中
+在分组管理页，客户端从内存中刷选出该分组下的场景渲染简单信息
+点击场景时，先检查本地有没有该场景的详细信息，没有就从服务端获取，存在本地并且渲染场景详细信息弹窗
+	场景创建：
+ 
+	场景删除：
+ 
+	场景更新：为了简化，场景更新只允许增加动作和删除动作
+ 
+	场景列表获取
+ 
+	场景执行
+ 
+	场景具体信息获取
+ 
+二：场景元素设计
+Scene_id：场景id，服务端全局唯一
+Scene_name: 场景名字，同一个用户同一个分组内唯一
+actions: 场景动作集合
+	action_id: 动作id，服务端全局唯一
+	did: 设备id
+	operation: 设备属性
+	value: 操作值
+
+四: 服务端api设计
+1.	新增场景api
+请求头：access_token. JWT鉴权
+地址：POST /api/scenes
+请求参数：
+{
+  "scene_name": "回家模式",
+  “gid“：所属分组id
+  "actions": [
+    {
+      "did": "device123",
+      "operation": "power",
+      "value": true
+    },
+    {
+      "did": "device456",
+      "operation": "target_temp",
+      "value": 24
+    }
+  ]
+}
+
+响应：
+{
+  “code”: 错误码
+  "scene_id": "scene789",
+  "status": "success",
+  "message": "场景创建成功"
+}
+错误码：401鉴权失败
+        1001 设备不存在
+		1002 属性不存在
+		1003 属性值不支持
+		1005 同一个分组内不允许同一个场景名
+
+
+2.	删除分组
+请求头：access_token
+地址：DELETE /api/scenes/{scene_id}
+响应{
+  “code”: 200
+  "status": "success",
+  "message": "场景删除成功"
+}
+
+错误码：401鉴权失败
+		1006 场景不存在
+
+
+3.	获取场景列表
+只有全部场景简略信息
+请求头：access_token JWT鉴权
+地址：GET /api/scenes
+响应
+{
+  "code": 200,
+  "data": {
+    "total": 2,
+    "scenes": [
+      {
+        "scene_id": "scene123",
+        "scene_name": "回家模式",
+        "gid": "111",
+      },
+      {
+        "scene_id": "scene456",
+        "scene_name": "离家模式",
+        "gid": "222",
+      }
+    ]
+  }
+}错误码：401，鉴权失败
+
+
+4.	获取单个场景完整信息
+GET /api/scenes/{scene_id}  // 获取单个场景
+响应：
+{
+  "code": 200,
+  "data": {
+    "scene_id": "scene123",
+    "scene_name": "回家模式",
+    "gid": "111",
+    "actions": [
+      {
+        "action_id": "action456",
+        "did": "device123",
+        "operation": "power",
+        "value": true
+      }
+    ]
+  }
+}
+错误码：401鉴权失败，1006场景不存在
+
+
+5.	更新场景
+请求头：access_token JWT鉴权
+地址：PATCH /api/scenes/{scene_id}
+请求参数：
+{
+  "actions": {
+    "add": [  // 新增动作
+      {
+        "did": "device789",
+        "operation": "mode",
+        "value": "cool"
+      }
+    ],
+    "remove": ["act456"]  // 删除动作ID
+  }
+}
+响应
+{
+  “code”:200
+  "status": "success",
+  "message": "场景更新成功"
+}
+
+错误码：401鉴权失败
+        1001 设备不存在
+		1002 属性不存在
+		1003 属性值不支持
+1006 分组不存在
+
+
+6.	执行场景
+请求头：access_token JWT鉴权
+地址：POST /api/scenes/{scene_id}/execute
+响应：
+{
+  "code": 1008,
+  "summary": {
+    "total": 6, 总共执行的动作
+    "success": 3, 成功执行动作
+    "failed": 1, 失败动作
+    "skipped": 2 控制命令发往第三方，但是第三方反馈设备已经处于目标状态
+  },
+  "failed_actions": [
+    { //失败动作
+      "action_id": "act_004",
+      "error": "DEVICE_OFFLINE"
+    }
+  ]
+}错误码：401鉴权失败
+		1006场景不存在
+		1008 场景执行存在失败动作
+		1007 场景执行成功，就算包含skipped动作
+
+
+五：客户端
+客户端在用户新增和更新场景时，将新增和更新请求发往服务端前需要做智能电源补齐和动作冲突检测和动作属性值校验
+注意需要提供有获取分组设备的接口函数，当用户设置场景动作时，点击设备栏，可以展开分组内可选设备
+1.	智能电源补齐
+1.	当场景包含 mode/fan_speed/target_temp 等依赖开机的属性时 → 自动在动作列表开头插入 power: true
+2.	当场景包含 power: false 时 → 自动移除所有其他属性设置（避免无效操作）
+3.	参考实现如下，需要开机的属性列表保存在单独文件中
+ // 设备类型 -> 需要开机的属性列表
+const POWER_DEPENDENT_PROPS = {
+  mi_ac: ['mode', 'fan_speed', 'target_temp'],
+  mi_humidfstr: ['target_humidity'],
+  // ...其他设备类型
+};
+
+function autoFixSceneActions(actions) {
+  const newActions = [...actions];
+  const deviceTypes = new Set(actions.map(a => a.device_type));
+  
+  // 检查是否需要补开机指令
+  deviceTypes.forEach(type => {
+    const needsPower = newActions.some(a => 
+      a.device_type === type &&
+      POWER_DEPENDENT_PROPS[type]?.includes(a.property)
+    );
+    const hasPower = newActions.some(a => 
+      a.device_type === type && a.property === 'power'
+    );
+    
+    if (needsPower && !hasPower) {
+      newActions.unshift({  // 插入到动作列表开头
+        device_id: actions.find(a => a.device_type === type).device_id,
+        device_type: type,
+        property: 'power',
+        value: true
+      });
+    }
+  });
+  return newActions;
+}
+// 如果有关机指令，移除其他无效设置
+
+const hasPowerOff = newActions.some(a => a.property === 'power' && a.value === false);
+
+if (hasPowerOff) {
+
+return newActions.filter(a =>
+  a.property === 'power' ||
+  !POWER_DEPENDENT_PROPS[a.device_type]?.includes(a.property)
+);
+
+}
+
+return newActions;
+ 
+2.	动作属性值合理性校验
+像手动控制一样，属性和属性对应值是否是合理数据类型，精度正确，范围正确
+3.	动作冲突检测
+定义冲突规则表，独立文件实现，遍历场景中属性，查冲突表，看看场景中有没有冲突的动作
+参考实现如下：注意具体的冲突看手动控制文档设备属性确定的标黄部分(属性和属性本身冲突，也就是不能在一个场景内重复设置同一个设备的同一个属性)
+ 
+const CONFLICT_RULES = {
+
+// 格式：设备类型 -> { 冲突属性：[依赖属性的值] }
+
+mi_ac: {
+  'fan_speed': ['dry'],
+  // dry模式下不可调风速
+  'target_temp': ['fan'] // fan模式下不可调温度
+},
+mi_humidifier: {
+  'target_humidity': ['sleep'] // sleep模式下不可调湿度
+}
+
+};
+function checkConflict(deviceType, currentState, action) {
+  const rules = CONFLICT_RULES[deviceType] || {};
+  for (const [prop, forbiddenValues] of Object.entries(rules)) {
+    if (action.property === prop && 
+        forbiddenValues.includes(currentState.mode)) {
+      return `[错误] ${prop}在${currentState.mode}模式下不可设置`;
+    }
+  }
+  return true; // 无冲突
+}
+ 
+4.	其他
+客户端场景信息更新策略
+新建场景时，可以把新场景信息保存在内存，无需向服务端拉取新的场景列表和新场景详细信息
+删除场景时，也是在本地也要删除场景信息，无需向服务端拉取新的场景列表和新场景详细信息
+……
+什么操作前都同步本地操作，这样就可以保持和服务端一致性，不需要周期性从服务端拉取场景信息（当然最好可以实现周期性更新，简化实现可以不管）
+
+
+执行策略时：接受响应信息，最好可以反馈给用户场景执行状态

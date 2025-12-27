@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>桌面应用程序</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 登录视图 -->
+        <div id="loginView" class="container">
+            <h1>登录</h1>
+            <label for="loginUsername">账号:</label>
+            <input type="text" id="loginUsername" placeholder="请输入账号">
+            <label for="loginPassword">密码:</label>
+            <input type="password" id="loginPassword" placeholder="请输入密码">
+            <div class="checkbox-container">
+                <input type="checkbox" id="autoLogin" name="autoLogin">
+                <label for="autoLogin">自动登录</label>
+            </div>
+            <button id="loginButton">登录</button>
+            <p class="form-switch-link" id="showRegisterViewLink">还没有账号？去注册</p>
+        </div>
+
+        <!-- 注册视图 -->
+        <div id="registerView" class="container hidden">
+            <h1>注册</h1>
+            <label for="registerUsername">账号:</label>
+            <input type="text" id="registerUsername" placeholder="请输入账号">
+            <label for="registerPassword">密码:</label>
+            <input type="password" id="registerPassword" placeholder="请输入密码">
+            <label for="registerEmail">邮箱:</label>
+            <input type="email" id="registerEmail" placeholder="请输入邮箱（可选）">
+            <button id="registerButton">注册</button>
+            <p class="form-switch-link" id="showLoginViewLink">已有账号？去登录</p>
+        </div>
+
+        <!-- 主应用视图 -->
+        <div id="mainAppView" class="container hidden">
+            <h1>欢迎使用本应用</h1>
+            <p>您已成功登录！</p>
+            
+            <div class="third-party-buttons">
+                <h2>第三方账号绑定</h2>
+                <button id="bindXiaomiButton">绑定小米账号</button>
+                <button id="bindMideaButton">绑定美的账号</button>
+            </div>
+
+            <div class="third-party-buttons">
+                <h2>第三方账号解绑</h2>
+                <button id="unbindXiaomiButton">解绑小米账号</button>
+                <button id="unbindMideaButton">解绑美的账号</button>
+            </div>
+
+            <button id="logoutButton">退出登录</button>
+        </div>
+    </div>
+
+    <script src="dist/renderer.js"></script> <!-- 修改为编译后的路径 -->
+</body>
+</html>

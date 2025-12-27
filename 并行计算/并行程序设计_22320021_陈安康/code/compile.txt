@@ -1,0 +1,6 @@
+g++ -O3 -march=native -ffast-math matrix_cpp_compile.cpp -o matrix_cpp_compile
+
+valgrind --tool=cachegrind ./my_test
+g++ -O2 -funroll-loops matrix_cpp_loop.cpp -o matrix_cpp_loop
+
+g++ matrix_cpp_mkl.cpp -I/usr/include/mkl -L/usr/lib/x86-64-linux-gnu -lmkl_rt -o matrix_cpp_mkl

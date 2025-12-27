@@ -1,0 +1,5 @@
+ gcc -o diy diy.c -L. -lparallel -lpthread -Wl,-rpath=.
+gcc -fPIC -shared -o libparallel.so parallel_for.c
+
+
+gcc -fPIC -shared -o libparallel_v2.so parallel_for_optimized.c

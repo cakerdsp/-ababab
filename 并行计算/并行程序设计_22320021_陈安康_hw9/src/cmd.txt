@@ -1,0 +1,10 @@
+mpic++ -o djs_MPI djs_MPI.cpp
+mpirun -np 2 djs_MPI
+
+
+gcc -o djs_Pthread djs_Pthread.cpp -lpthread
+./djs_Pthread
+
+
+export OMP_NUM_THREADS=4
+g++ -fopenmp -o djs_Omp djs_Omp.cpp

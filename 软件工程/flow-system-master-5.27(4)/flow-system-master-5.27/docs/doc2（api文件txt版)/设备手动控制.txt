@@ -1,0 +1,175 @@
+零: 说明	1
+1 手动控制流程	1
+2 设备属性值范围限定	2
+一: 第三方模拟api设计	3
+1 美的	3
+2. 小米	4
+二：服务端设计	6
+1.	Api设计	6
+2.	命令检验内容	6
+三: 客户端	7
+
+零: 说明
+1 手动控制流程
+	客户端发送控制请求到服务端，客户端需要简单校验属性合法值，和提醒属性值设置范围
+	由于我们状态初始化是在服务端写死了，第三方api对控制命令其实是无条件执行。但是为了保证正确性，服务端在接收来自客户端请求后，需要简单校验命令合法性，如设备id是否存在服务端设备表中，属性是否存在，是否在设备状态为打开的时候去设置其他值，属性值范围是否合法。
+	服务端发送控制命令到第三方api
+	第三方api接收后返回操作是否成功，操作成功后变更设备状态
+	服务端接收到第三方返回操作结果
+服务端在设备变化api接收到设备状态变更（前面已经完成）
+	服务端返回操作结果到客户端，服务端推送设备状态变化到客户端（前面已经完成）
+ 
+2 设备属性值范围限定
+	小米温湿度计：
+Temperature(摄氏度): -10 ~60(float)
+Humidity(%): 0~100(int)
+Time：时间戳
+	空气质量检测仪：
+pm25(μg/m³): 0 ~ 500(int)
+Temperature和Humidity: 同上
+（可选：服务端有属性，但是目前客户端和前端没有实现, 暂时不要）
+(pm10(μg/m3): 0-999(int)
+co2(ppm): 400-5000(int))
+      time: 时间戳
+	空调类：
+online(bool):0/1
+target_temperature：16°C ~ 30°C(float) 调节精度0.1
+fan_speed：low, medium, high, auto (string)
+	mode(string): cool（制冷）、heat（制热）、dry（除湿）、fan（送风）
+power: “ON”/”OF” （String）
+	加湿器：
+online(bool):0/1
+power（bool）：0/1
+status（string）：running, paused,off
+mode (String): 'auto', 'sleep', 'strong'
+target_humidity(% int): 30-80 调节精度 1%
+	除湿器：
+  online(bool):  0/1
+power（bool）:0/1
+	  mode  (String): 'auto', 'sleep', 'dry'
+	  target_humidity(% int): 30-80 调节精度 1%
+	空气净化器:
+online(bool):0/1
+power(bool): 0/1
+mode(string): 'auto', 'silent', 'strong'
+fan_level(int): 1，2，3
+
+一: 第三方模拟api设计
+1 美的
+1.	参考：https://mis.midea.com/docs/control-midea-cloud-devices/cloud-2-cloud-v2-api.html#_5-5-5-%E6%8E%A7%E5%88%B6%E8%AE%BE%E5%A4%87
+ 
+2.	Api：
+请求头：Authorization（根据查询资料得这个令牌就是access token）,ClientId(应用id)
+请求地址：midea/device/control （类似即可，具体看前面实现的习惯）
+请求方式：POST
+请求参数：
+		请求Id：reqId
+		设备码：applianceId
+		Control：控制命令对象，包括操作属性operation和操作值value
+	{
+  "reqId": "c1pebi7h-zslx-zslx-iar8loygqjt7",
+  "applianceId": "189951183333",
+  "control": {
+    "operation": "power",
+    "value": "off"
+  }
+}
+
+返回结果：
+		请求id：reqid
+		操作后状态：status
+			操作后操作属性：operation
+			操作后操作值：value
+			操作结果result：0/1 （成功1，不成功0）
+{
+  “code”: 200
+  "reqId": "c1pebi7h-zslx-zslx-iar8loygqjt7",
+  "status": {
+    "operation": "power",
+    "status": "off",
+    "result": 0/1
+  }
+}	
+错误码：
+1300	设备不存在
+1006   用户验证失败（就是token不对）
+1002  参数非法
+3.	实现建议：
+返回值中的操作后状态直接照抄请求中的值，不做其他逻辑判断
+处理请求时，由于不做其他逻辑判断，直接假设该操作成功，则设备状态变化，记得向前面文档定义的设备状态变化api，推送该变化（只是将请求中的格式变化一下，发送出去）
+
+2. 小米
+1. 参考：https://iot.mi.com/new/doc/accesses/direct-access/other-platform-access/control-api，简化：由于我们无法查询到设备属性pid相关消息，这里选择和美的相似的请求方式
+返回结果则简化为是否成功0/1
+ 
+2. api设计
+请求头：access_token. App_id(应用id)
+请求地址：xiaomi/device/control （类似即可，具体看前面实现的习惯）
+请求方式：POST
+请求参数：
+		设备码：did
+		Control：控制命令对象，包括操作属性operation和操作值value
+{
+  "did": "189951183333",
+  "control": {
+    "operation": "power",
+    "value": "off"
+  }
+}
+
+返回结果：
+		Code
+		操作结果：status
+{
+	“code”:200
+	“Status”: 0/1
+}	
+错误码：001设备不存在，903授权过期，003属性不存在，043属性值错误
+
+3. 实现建议
+由于不做逻辑判断，一般可以直接返回status=1
+处理请求时，由于不做其他逻辑判断，直接假设该操作成功，则设备状态变化，记得向前面文档定义的设备状态变化api，推送该变化（只是将请求中的格式变化一下，发送出去）
+
+二：服务端设计
+1.	Api设计
+请求头：access_token. JWT鉴权
+请求地址：device/control （类似即可，具体看前面实现的习惯）
+请求方式：POST
+请求参数：
+		设备码：did
+		Control：控制命令对象，包括操作属性operation和操作值value
+{
+  "did": "189951183333",
+  "control": {
+    "operation": "power",
+    "value": "off"
+  }
+}
+
+返回结果：
+		Code
+		操作结果：status
+{
+	“ code” 200
+	“message”： string，（code=200则为success，否则为错误信息，主要为属性不正确或不可控制，设备不存在（不为账号所有），操作不支持）
+}	
+
+错误码：401鉴权失败
+        1001 设备不存在
+		1002 属性不存在
+		1003 属性值不支持
+		1004 操作不支持（关机/离线）
+2.	命令检验内容
+设备是否存在（且为账号所有）
+设备是否有可控制属性operation
+设备是否在线 online = true （离线不支持任何操作）
+设备是否打开 on/off（关闭了只支持打开操作）
+设备的value设置是否正确，在有效范围内，且是有效精度
+检验通过后，才会执行命令，调用第三方api
+
+三: 客户端
+客户端调用服务端时，也需要检验命令，检验内容为
+设备是否在线 online = true （离线不支持任何操作）
+设备是否打开 on/off（关闭了只支持打开操作）
+设备的value设置是否正确，在有效范围内，且是有效精度
+（因为前端一般会展示好要控制的设备和可以控制的设备属性，用户只需要选择或者输入数值，这个已经保证了设备在客户端内存中存在，且设备具有该属性）

@@ -1,0 +1,481 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import rospy
+from std_msgs.msg import Float32MultiArray
+import math
+import time
+from geometry_msgs.msg import Twist
+import numpy as np
+from nav_msgs.msg import Odometry
+import threading
+
+def calc_distance(p_1, p_2):
+    """
+    计算两点之间的欧几里得距离
+    参数:
+        p_1: 第一个点 (x, y)
+        p_2: 第二个点 (x, y)
+    返回:
+        float: 两点间距离
+    """
+    return math.sqrt((p_2[0]-p_1[0])**2 + (p_2[1]-p_1[1])**2)
+
+def calculate_angle(p_1, p_2, p_3):        
+    """
+    计算三点间的角度变化
+    参数:
+        p_1: 来自的点
+        p_2: 当前点
+        p_3: 目标点
+    返回:
+        float: 角度差（弧度）
+    """
+    # 防止除零错误
+    if p_2[0] == p_1[0]:
+        angle_1 = math.pi/2 if p_2[1] > p_1[1] else -math.pi/2
+    else:
+        angle_1 = math.atan((p_2[1]-p_1[1])/(p_2[0]-p_1[0]))
+    
+    if p_3[0] == p_2[0]:
+        angle_2 = math.pi/2 if p_3[1] > p_2[1] else -math.pi/2
+    else:
+        angle_2 = math.atan((p_3[1]-p_2[1])/(p_3[0]-p_2[0]))
+
+    return angle_2 - angle_1
+
+def quat_2_euler(ox, oy, oz, ow):
+    """
+    四元数转欧拉角（yaw）
+    参数:
+        ox, oy, oz, ow: 四元数分量
+    返回:
+        float: yaw角（弧度）
+    """
+    t3 = +2.0 * (ow * oz + ox * oy)
+    t4 = +1.0 - 2.0 * (oy * oy + oz * oz)
+    yaw_z = math.atan2(t3, t4)
+    return yaw_z
+
+def get_sign(current, goal, dir):
+    """
+    获取运动方向符号
+    参数:
+        current: 当前位置
+        goal: 目标位置
+        dir: 当前方向向量
+    返回:
+        int: 1或-1，表示前进或后退
+    """
+    vect1 = np.array([goal[0] - current[0], goal[1] - current[1]])
+    vect1_norm = np.linalg.norm(vect1)
+    if vect1_norm == 0:
+        return 1
+    vect1 = vect1 / vect1_norm
+    
+    vect2 = np.array(dir)
+    vect2_norm = np.linalg.norm(vect2)
+    if vect2_norm == 0:
+        return 1
+    vect2 = vect2 / vect2_norm
+
+    if round(np.dot(vect1, vect2), 2) < 0:
+        return -1
+    else:
+        return 1
+
+def normalize_angle(angle):
+    """
+    将角度标准化到[-pi, pi]范围内
+    参数:
+        angle: 输入角度（弧度）
+    返回:
+        float: 标准化后的角度
+    """
+    while angle > math.pi:
+        angle -= 2.0 * math.pi
+    while angle < -math.pi:
+        angle += 2.0 * math.pi
+    return angle
+
+class PIDController:
+    """
+    PID控制器类，用于线速度和角速度控制
+    """
+    def __init__(self, kp=0.0, ki=0.0, kd=0.0, integral_limit=1.0):
+        self.kp = kp                    # 比例增益
+        self.ki = ki                    # 积分增益
+        self.kd = kd                    # 微分增益
+        self.integral_limit = integral_limit  # 积分限幅
+        
+        self.error_last = 0.0           # 上一次误差
+        self.integral_error = 0.0       # 积分误差
+        self.last_time = time.time()    # 上一次时间
+        
+    def update(self, error, dt=None):
+        """
+        更新PID控制器
+        参数:
+            error: 当前误差
+            dt: 时间间隔
+        返回:
+            float: 控制输出
+        """
+        current_time = time.time()
+        if dt is None:
+            dt = current_time - self.last_time
+        
+        # 防止dt为0
+        if dt <= 0:
+            dt = 0.01
+            
+        # 比例项
+        proportional = self.kp * error
+        
+        # 积分项（带限幅）
+        self.integral_error += error * dt
+        self.integral_error = max(-self.integral_limit, 
+                                min(self.integral_limit, self.integral_error))
+        integral = self.ki * self.integral_error
+        
+        # 微分项
+        derivative = self.kd * (error - self.error_last) / dt
+        
+        # PID输出
+        output = proportional + integral + derivative
+        
+        # 更新历史值
+        self.error_last = error
+        self.last_time = current_time
+        
+        return output
+    
+    def reset(self):
+        """重置PID控制器"""
+        self.error_last = 0.0
+        self.integral_error = 0.0
+        self.last_time = time.time()
+
+class PathTrackingController:
+    """
+    机器人路径跟踪控制器
+    实现基于PID的路径跟踪控制，包括位置控制和姿态控制
+    """
+    def __init__(self):
+        # 机器人状态
+        self.current_pos = (0, 0)           # 当前位置
+        self.current_orient = 0             # 当前朝向（度）
+        self.prev_orient = 0                # 上一次朝向
+        
+        # 路径和控制状态
+        self.path = None                    # 当前路径
+        self.is_tracking = False            # 是否正在跟踪路径
+        self.control_thread = None          # 控制线程
+        self.stop_tracking = False          # 停止跟踪标志
+        
+        # 控制参数
+        self.max_linear_speed = 0.3         # 最大线速度（降低以提高稳定性）
+        self.max_angular_speed = 0.8        # 最大角速度（降低以提高稳定性）
+        self.position_tolerance = 0.25      # 位置容忍度
+        self.angle_tolerance = 0.15         # 角度容忍度
+        self.min_linear_speed = 0.05        # 最小线速度（避免停止）
+        
+        # PID控制器（调整参数提高稳定性）
+        self.linear_pid = PIDController(kp=0.8, ki=0.05, kd=0.1, integral_limit=0.5)
+        self.angular_pid = PIDController(kp=1.5, ki=0.2, kd=0.05, integral_limit=0.8)
+        
+        # 路径跟踪状态
+        self.current_target_idx = 0         # 当前目标点索引
+        
+        # ROS通信
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.odom_sub = rospy.Subscriber('/odom', Odometry, self.odom_callback)
+        self.path_sub = rospy.Subscriber('/path', Float32MultiArray, self.path_callback)
+        
+        # 速度平滑滤波器
+        self.linear_velocity_filter = []
+        self.angular_velocity_filter = []
+        self.filter_size = 5
+        
+        rospy.loginfo("路径跟踪控制器初始化完成，等待路径数据...")
+
+    def odom_callback(self, data):
+        """
+        里程计回调函数，更新机器人位置和朝向
+        参数:
+            data: Odometry消息
+        """
+        # 保存上一次位置用于检测变化
+        old_pos = self.current_pos
+        
+        # 更新位置
+        self.current_pos = (data.pose.pose.position.x, data.pose.pose.position.y)
+        
+        # 更新朝向
+        ox = data.pose.pose.orientation.x
+        oy = data.pose.pose.orientation.y
+        oz = data.pose.pose.orientation.z
+        ow = data.pose.pose.orientation.w
+        self.current_orient = quat_2_euler(ox, oy, oz, ow) * 180 / math.pi
+        
+        # 检测位置变化（用于调试odom问题）
+        if old_pos != (0, 0):  # 避免初始化时的打印
+            pos_change = calc_distance(old_pos, self.current_pos)
+            if pos_change > 0.01:  # 位置变化超过1cm时输出
+                rospy.logdebug("Odom更新: 位置从(%.3f, %.3f)变为(%.3f, %.3f), 变化: %.3f米" % 
+                             (old_pos[0], old_pos[1], self.current_pos[0], self.current_pos[1], pos_change))
+
+    def path_callback(self, data):
+        """
+        路径数据回调函数
+        参数:
+            data: Float32MultiArray消息，包含路径点数据
+        """
+        # 停止当前跟踪
+        self.stop_current_tracking()
+        
+        # 解析路径数据
+        path_nodes = []
+        published_data = data.data
+        
+        for i in range(0, len(published_data), 2):
+            if i + 1 < len(published_data):
+                x = round(published_data[i], 3)
+                y = round(published_data[i + 1], 3)
+                path_nodes.append((x, y))
+        
+        if len(path_nodes) < 2:
+            rospy.logwarn("路径点数量不足，无法开始跟踪")
+            return
+        
+        rospy.loginfo("接收到新路径数据，包含 %d 个点" % len(path_nodes))
+        rospy.loginfo("起点: (%.2f, %.2f), 终点: (%.2f, %.2f)" % 
+                     (path_nodes[0][0], path_nodes[0][1], 
+                      path_nodes[-1][0], path_nodes[-1][1]))
+        
+        # 设置新路径并开始跟踪
+        self.path = path_nodes
+        self.current_target_idx = 0
+        self.linear_pid.reset()
+        self.angular_pid.reset()
+        
+        # 启动新的跟踪线程
+        self.start_tracking()
+
+    def stop_current_tracking(self):
+        """
+        停止当前的路径跟踪
+        """
+        if self.is_tracking:
+            rospy.loginfo("停止当前路径跟踪")
+            self.stop_tracking = True
+            self.is_tracking = False
+            
+            if self.control_thread and self.control_thread.is_alive():
+                self.control_thread.join(timeout=1.0)
+            
+            # 停止机器人
+            move_cmd = Twist()
+            move_cmd.linear.x = 0.0
+            move_cmd.angular.z = 0.0
+            self.cmd_vel_pub.publish(move_cmd)
+
+    def start_tracking(self):
+        """
+        启动路径跟踪
+        """
+        if self.path is None or len(self.path) < 2:
+            rospy.logwarn("无效路径，无法开始跟踪")
+            return
+        
+        self.is_tracking = True
+        self.stop_tracking = False
+        
+        # 启动控制线程
+        self.control_thread = threading.Thread(target=self.control_loop)
+        self.control_thread.daemon = True
+        self.control_thread.start()
+        
+        rospy.loginfo("开始路径跟踪，路径包含 %d 个点" % len(self.path))
+
+    def get_target_point(self):
+        """
+        获取当前目标点，简化逻辑避免复杂的前瞻距离
+        返回:
+            tuple: 目标点坐标 (x, y)
+        """
+        if self.current_target_idx >= len(self.path):
+            return self.path[-1]  # 返回终点
+        
+        return self.path[self.current_target_idx]
+
+    def calculate_control_commands(self):
+        """
+        计算控制命令（线速度和角速度）
+        返回:
+            tuple: (线速度, 角速度)
+        """
+        if self.current_target_idx >= len(self.path):
+            return 0.0, 0.0  # 已到达终点
+        
+        # 获取目标点
+        target_point = self.get_target_point()
+        
+        # 计算位置误差
+        dx = target_point[0] - self.current_pos[0]
+        dy = target_point[1] - self.current_pos[1]
+        distance_error = math.sqrt(dx*dx + dy*dy)
+        
+        # 计算目标角度
+        target_angle = math.atan2(dy, dx) * 180 / math.pi
+        
+        # 计算角度误差
+        angle_error = normalize_angle((target_angle - self.current_orient) * math.pi / 180)
+        
+        # 根据角度误差大小决定控制策略
+        if abs(angle_error) > self.angle_tolerance:
+            # 需要大幅转向：减速前进
+            linear_velocity = self.min_linear_speed  # 保持最小前进速度
+            angular_velocity = self.angular_pid.update(angle_error)
+        else:
+            # 直线前进或小幅调整
+            linear_velocity = self.linear_pid.update(distance_error)
+            angular_velocity = self.angular_pid.update(angle_error * 0.3)  # 小幅角度修正
+        
+        # 速度限制
+        linear_velocity = max(self.min_linear_speed, 
+                            min(self.max_linear_speed, linear_velocity))
+        angular_velocity = max(-self.max_angular_speed, 
+                             min(self.max_angular_speed, angular_velocity))
+        
+        # 根据距离调整速度（近距离减速但不停止）
+        if distance_error < 0.8:
+            speed_ratio = max(0.3, distance_error / 0.8)  # 最低保持30%速度
+            linear_velocity = max(self.min_linear_speed, linear_velocity * speed_ratio)
+        
+        return linear_velocity, angular_velocity
+
+    def smooth_velocity(self, linear_vel, angular_vel):
+        """
+        速度平滑滤波，提高运动平稳性
+        参数:
+            linear_vel: 线速度
+            angular_vel: 角速度
+        返回:
+            tuple: 平滑后的速度 (线速度, 角速度)
+        """
+        # 添加到滤波器
+        self.linear_velocity_filter.append(linear_vel)
+        self.angular_velocity_filter.append(angular_vel)
+        
+        # 保持滤波器大小
+        if len(self.linear_velocity_filter) > self.filter_size:
+            self.linear_velocity_filter.pop(0)
+        if len(self.angular_velocity_filter) > self.filter_size:
+            self.angular_velocity_filter.pop(0)
+        
+        # 计算平均值
+        smooth_linear = sum(self.linear_velocity_filter) / len(self.linear_velocity_filter)
+        smooth_angular = sum(self.angular_velocity_filter) / len(self.angular_velocity_filter)
+        
+        return smooth_linear, smooth_angular
+
+    def update_target_point(self):
+        """
+        更新当前目标点索引
+        """
+        if self.current_target_idx < len(self.path):
+            current_target = self.path[self.current_target_idx]
+            distance = calc_distance(self.current_pos, current_target)
+            
+            # 如果到达当前目标点，切换到下一个
+            if distance < self.position_tolerance:
+                self.current_target_idx += 1
+                rospy.loginfo("到达路径点 %d/%d，切换到下一个目标" % (self.current_target_idx, len(self.path)))
+                
+                # 重置PID控制器以避免积分饱和
+                self.linear_pid.reset()
+                self.angular_pid.reset()
+                
+                # 清空速度滤波器
+                self.linear_velocity_filter = []
+                self.angular_velocity_filter = []
+
+    def control_loop(self):
+        """
+        主控制循环，控制机器人沿路径移动
+        """
+        rate = rospy.Rate(20)  # 20Hz控制频率
+        move_cmd = Twist()
+        loop_count = 0
+        
+        while not rospy.is_shutdown() and self.is_tracking and not self.stop_tracking:
+            if self.path is None:
+                break
+            
+            # 更新目标点
+            self.update_target_point()
+            
+            if self.current_target_idx >= len(self.path):
+                rospy.loginfo("路径跟踪完成！")
+                break
+            
+            # 计算控制命令
+            linear_vel, angular_vel = self.calculate_control_commands()
+            
+            # 速度平滑
+            linear_vel, angular_vel = self.smooth_velocity(linear_vel, angular_vel)
+            
+            # 发布控制命令
+            move_cmd.linear.x = linear_vel
+            move_cmd.angular.z = angular_vel
+            self.cmd_vel_pub.publish(move_cmd)
+            
+            # 调试信息（每秒输出一次，即每20次循环）
+            loop_count += 1
+            if loop_count % 20 == 0:
+                if self.current_target_idx < len(self.path):
+                    target = self.path[self.current_target_idx]
+                    distance = calc_distance(self.current_pos, target)
+                    rospy.loginfo("控制状态 - 位置: (%.2f, %.2f), 朝向: %.1f°, 目标[%d]: (%.2f, %.2f), 距离: %.3f, 速度: (%.3f, %.3f)" % 
+                                 (self.current_pos[0], self.current_pos[1], self.current_orient,
+                                  self.current_target_idx, target[0], target[1], distance, linear_vel, angular_vel))
+                    
+                    # 显示路径进度
+                    progress = (self.current_target_idx / len(self.path)) * 100
+                    rospy.loginfo("路径进度: %.1f%% (%d/%d)" % (progress, self.current_target_idx, len(self.path)))
+                    
+                    # 检查是否需要强制切换到下一个点
+                    if distance < 0.4 and loop_count > 100:  # 5秒后且距离较近
+                        rospy.logwarn("距离目标 %.3f 米，考虑调整参数或强制切换" % distance)
+            
+            rate.sleep()
+        
+        # 停止机器人
+        move_cmd.linear.x = 0.0
+        move_cmd.angular.z = 0.0
+        self.cmd_vel_pub.publish(move_cmd)
+        
+        self.is_tracking = False
+        rospy.loginfo("控制循环结束")
+
+def main():
+    """
+    主函数，初始化节点并启动控制器
+    """
+    rospy.init_node('path_tracking_controller', anonymous=True)
+    
+    rospy.loginfo("路径跟踪控制器已启动")
+    
+    # 创建控制器实例
+    controller = PathTrackingController()
+    
+    # 保持节点运行
+    try:
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        rospy.loginfo("正在关闭控制器...")
+        controller.stop_current_tracking()
+
+if __name__ == '__main__':
+    main()

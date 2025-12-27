@@ -1,0 +1,27 @@
+Core
+-domain: 领域层，存放数据模型
+--account: 账号管理相关模型
+---Useraccount
+---Supportedbrand
+--device: 设备管理相关模型
+---device模型：包含设备id，设备type，设备属性map<属性名，属性值>
+---sensor模型：包含设备id，设备type，设备属性map<属性名，属性值>
+---DeviceGroup模型：包含分组信息，和分组下设备id等信息
+--data: 传感器历史数据模型
+---historydata: 包含传感器历史数据
+--share: 共享的一些模型，如枚举或者其他
+-modules：业务模块
+--account：账号业务逻辑
+---accountmanager
+--device：设备业务逻辑
+---Devicemanager
+---Devicecontroller
+--data：历史数据管理
+---datamanager
+---data分析
+-services：基础设施服务
+--api
+---accountapi
+--storage：存储服务
+---Accountstorage
+--sse：sse服务

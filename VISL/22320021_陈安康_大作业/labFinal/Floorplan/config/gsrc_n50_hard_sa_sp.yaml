@@ -1,0 +1,62 @@
+# 两阶段布图配置 - SA + Sequence Pair
+data:
+  benchmark: "gsrc"                    # 数据集类型: gsrc | mcnc  
+  dataset: "n50"                       # 测试用例: n10, n30, n50, n100, n200, n300
+  module_type: "hard"                  # 模块类型: soft | hard
+
+# 宏模块布图阶段
+algorithm:
+  name: "simulated_annealing"          # 优化算法: genetic | simulated_annealing
+  representation: "sequence_pair"      # 表示方法: btree | sequence_pair
+  max_iterations: 500
+
+# 模拟退火参数
+simulated_annealing:
+  initial_temperature: 1000.0
+  cooling_rate: 0.95
+  min_temperature: 1.0
+  moves_per_temperature: 50
+
+# 引脚分配配置
+pin_assignment:
+  algorithm: "uniform_edge"            # 引脚分配算法: greedy | center_of_gravity | uniform_edge
+  expansion_ratio: 1.1                 # 芯片扩展比例
+  verbose: false                       # 详细输出
+
+# 评估系统
+evaluation:
+  chip_expansion_ratio: 1.2
+  weights:
+    hpwl: 1.0
+    area: 0.5
+    feedthrough: 0.3
+
+# 输出配置
+output:
+  verbose: true
+  save_results: true
+  visualization:
+    enabled: true
+    draw_frequency: 100                 
+    output_dir: "visualization"
+    image_format: "png"
+    dpi: 150
+    use_threading: false
+    
+    # 可视化配置
+    show_grid: true
+    show_border: true
+    show_modules: true
+    show_terminals: true
+    show_nets: false
+    
+    # 样式配置
+    figure_size: [12, 10]
+    background_color: "white"
+    
+    # 颜色配置
+    soft_module_color: "#ff9999"
+    hard_module_color: "#ffcc99"
+    terminal_color: "green"
+    grid_color: "#cccccc"
+    border_color: "black"

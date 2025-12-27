@@ -1,0 +1,104 @@
+@startuml 设备管理系统架构图
+
+!define PRIMARY_COLOR #2E86AB
+!define SECONDARY_COLOR #A23B72
+!define ACCENT_COLOR #F18F01
+!define SUCCESS_COLOR #C73E1D
+!define WARNING_COLOR #FFC914
+
+' 定义组件
+package "前端渲染进程" as frontend {
+    component [设备列表页面] as DeviceListPage
+    component [设备控制页面] as DeviceControlPage
+    component [传感器数据页面] as SensorDataPage
+    component [数据分析页面] as AnalysisPage
+}
+
+package "主进程 IPC 处理器" as mainprocess {
+    component [设备IPC处理器] as DeviceIPC
+    component [数据IPC处理器] as DataIPC
+    component [系统IPC处理器] as SystemIPC
+}
+
+package "设备管理系统" as devicesystem {
+    component [DeviceController] as DC <<主控制器>>
+    component [DeviceManager] as DM <<设备管理>>
+    component [DataManager] as DataMgr <<数据管理>>
+    component [SSEService] as SSE <<实时通信>>
+}
+
+package "领域模型" as models {
+    component [Device] as DeviceModel <<设备模型>>
+    component [Sensor] as SensorModel <<传感器模型>>
+    component [HistoryData] as HistoryModel <<历史数据模型>>
+}
+
+package "基础设施服务" as infrastructure {
+    component [AccountAPIRegistry] as API <<API服务>>
+    component [AccountStorage] as Storage <<存储服务>>
+}
+
+package "外部服务" as external {
+    database "服务端API" as ServerAPI {
+        component [设备状态API] as DeviceAPI
+        component [设备控制API] as ControlAPI
+        component [传感器历史API] as SensorAPI
+        component [SSE推送服务] as SSEServer
+    }
+}
+
+' 数据流定义
+frontend --> mainprocess : IPC调用
+mainprocess --> devicesystem : 业务处理
+
+DC --> DM : 设备管理
+DC --> DataMgr : 数据管理
+DC --> SSE : 实时通信
+
+DM --> DeviceModel : 创建/管理
+DM --> SensorModel : 创建/管理
+DataMgr --> HistoryModel : 创建/管理
+
+devicesystem --> infrastructure : 使用服务
+infrastructure --> external : HTTP/SSE连接
+
+SSE -.-> SSEServer : 实时连接
+API --> DeviceAPI : 设备状态查询
+API --> ControlAPI : 设备控制
+API --> SensorAPI : 历史数据查询
+
+' 具体的IPC调用关系
+DeviceListPage --> DeviceIPC : get-all-devices\nget-devices-by-brand
+DeviceControlPage --> DeviceIPC : control-device\nget-device-control-options
+SensorDataPage --> DataIPC : get-sensor-history\nget-all-sensor-history
+AnalysisPage --> DataIPC : analyze-environment-data
+
+' 数据流标注
+note on link between SSE and SSEServer : 实时设备状态推送\n传感器数据推送
+note on link between API and ControlAPI : 设备控制指令\n验证和执行
+note on link between DataMgr and HistoryModel : 24小时数据管理\n统计分析计算
+
+' 样式定义
+skinparam component {
+    BackgroundColor PRIMARY_COLOR
+    BorderColor SECONDARY_COLOR
+    FontColor white
+    FontSize 11
+}
+
+skinparam package {
+    BackgroundColor ACCENT_COLOR
+    BorderColor SECONDARY_COLOR
+    FontColor white
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam database {
+    BackgroundColor WARNING_COLOR
+    BorderColor SECONDARY_COLOR
+    FontColor black
+    FontSize 11
+}
+
+@enduml 

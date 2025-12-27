@@ -1,0 +1,60 @@
+[2025-06-11 00:31:42,562 INFO] confusion matrix:
+[[0.713 0.053 0.019 0.023 0.008 0.023 0.009 0.015 0.095 0.042]
+ [0.026 0.888 0.003 0.005 0.006 0.018 0.003 0.004 0.004 0.043]
+ [0.164 0.008 0.344 0.071 0.069 0.157 0.143 0.018 0.017 0.009]
+ [0.041 0.01  0.053 0.347 0.044 0.32  0.128 0.03  0.01  0.017]
+ [0.055 0.009 0.101 0.042 0.432 0.085 0.17  0.088 0.016 0.002]
+ [0.02  0.007 0.078 0.201 0.036 0.565 0.043 0.035 0.009 0.006]
+ [0.013 0.01  0.036 0.102 0.024 0.071 0.737 0.002 0.005 0.   ]
+ [0.023 0.007 0.032 0.041 0.079 0.137 0.017 0.641 0.004 0.019]
+ [0.168 0.075 0.01  0.01  0.005 0.02  0.011 0.003 0.668 0.03 ]
+ [0.028 0.133 0.006 0.01  0.007 0.007 0.005 0.005 0.019 0.78 ]]
+[2025-06-11 00:31:42,566 INFO] 5300 iteration, USE_EMA: True, {'train/sup_loss': tensor(1.0815, device='cuda:0'), 'train/unsup_loss': tensor(0.0093, device='cuda:0'), 'train/total_loss': tensor(1.7005, device='cuda:0'), 'lr': 0.028031232680929965, 'train/prefecth_time': 0.049469505310058594, 'train/run_time': 0.23248486328125, 'eval/loss': tensor(1.2454, device='cuda:0'), 'eval/top-1-acc': 0.6115, 'eval/top-5-acc': 0.942}, BEST_EVAL_ACC: 0.6115, at 5300 iters
+Traceback (most recent call last):
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\mixmatch.py", line 340, in <module>
+    main(args)
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\mixmatch.py", line 66, in main
+    main_worker(args.gpu, ngpus_per_node, args)
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\mixmatch.py", line 225, in main_worker
+    trainer(args, logger=logger)
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\models\mixmatch\mixmatch.py", line 209, in train
+    eval_dict = self.evaluate(args=args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\miniconda3\envs\torchssl\Lib\site-packages\torch\utils\_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\models\mixmatch\mixmatch.py", line 262, in evaluate
+    top5 = top_k_accuracy_score(y_true, y_logits, k=5)
+  File "D:\miniconda3\envs\torchssl\Lib\site-packages\torch\utils\_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\models\mixmatch\mixmatch.py", line 262, in evaluate
+    top5 = top_k_accuracy_score(y_true, y_logits, k=5)
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\models\mixmatch\mixmatch.py", line 262, in evaluate
+    top5 = top_k_accuracy_score(y_true, y_logits, k=5)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\models\mixmatch\mixmatch.py", line 262, in evaluate
+    top5 = top_k_accuracy_score(y_true, y_logits, k=5)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\Desktop\模式识别\TorchSSL-main\TorchSSL-main\models\mixmatch\mixmatch.py", line 262, in evaluate
+    top5 = top_k_accuracy_score(y_true, y_logits, k=5)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    top5 = top_k_accuracy_score(y_true, y_logits, k=5)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+  File "C:\Users\86135\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\AppData\Roaming\Python\Python312\site-packages\sklearn\metrics\_ranking.py", line 1979, in top_k_accuracy_score      
+    y_score = check_array(y_score, ensure_2d=False)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\86135\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py", line 1064, in check_array
+    _assert_all_finite(
+  File "C:\Users\86135\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py", line 123, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "C:\Users\86135\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py", line 172, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input contains NaN.

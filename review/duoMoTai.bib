@@ -1,0 +1,103 @@
+﻿
+@article{
+YuLiu-149,
+   Author = {Yu, Yang and Liu, Xiaolong and Ni, Rongrong and Yang, Siyuan and Zhao, Yao and Kot, Alex C.},
+   Title = {PVASS-MDD: Predictive Visual-Audio Alignment Self-Supervision for Multimodal Deepfake Detection},
+   Journal = {IEEE Transactions on Circuits and Systems for Video Technology},
+   Volume = {34},
+   Number = {8},
+   Pages = {6926-6936},
+   DOI = {10.1109/TCSVT.2023.3309899},
+   Note = {item\_number: 10233898},
+   Abstract = {Deepfake techniques can forge the visual or audio signals in the video, which leads to inconsistencies between visual and audio (VA) signals. Therefore, multimodal detection methods expose deepfake videos by extracting VA inconsistencies. Recently, deepfake technology has started VA collaborative forgery to obtain more realistic deepfake videos, which poses new challenges for extracting VA inconsistencies. Recent multimodal detection methods propose to first extract natural VA correspondences in real videos in a self-supervised manner, and then use the learned real correspondences as targets to guide the extraction of VA inconsistencies in the subsequent deepfake detection stage. However, the inherent VA relations are difficult to extract due to the modality gap, which leads to the limited auxiliary performance of the aforementioned self-supervised methods. In this paper, we propose Predictive Visual-audio Alignment Self-supervision for Multimodal Deepfake Detection (PVASS-MDD), which consists of PVASS auxiliary and MDD stages. In the PVASS auxiliary stage in real videos, we first devise a three-stream network to associate two augmented visual views with corresponding audio clues, leading to explore common VA correspondences based on cross-view learning. Secondly, we introduce a novel cross-modal predictive align module for eliminating VA gaps to provide inherent VA correspondences. In the MDD stage, we propose to the auxiliary loss to utilize the frozen PVASS network to align VA features of real videos, to better assist multimodal deepfake detector for capturing subtle VA inconsistencies. We conduct extensive experiments on existing widely used and latest multimodal deepfake datasets. Our method obtains a significant performance improvement compared to state-of-the-art methods.
+Deepfake techniques can forge the visual or audio signals in the video, which leads to inconsistencies between visual and audio (VA) signals. Therefore, multimodal detection methods expose deepfake videos by extracting VA inconsistencies. Recently, deepfake technology has started VA collaborative forgery to obtain more realistic deepfake videos, which poses new challenges for extracting VA inconsistencies. Recent multimodal detection methods propose to first extract natural VA correspondences in real videos in a self-supervised manner, and then use the learned real correspondences as targets to guide the extraction of VA inconsistencies in the subsequent deepfake detection stage. However, the inherent VA relations are difficult to extract due to the modality gap, which leads to the limited auxiliary performance of the aforementioned self-supervised methods. In this paper, we propose Predictive Visual-audio Alignment Self-supervision for Multimodal Deepfake Detection (PVASS-MDD), which consists of PVASS auxiliary and MDD stages. In the PVASS auxiliary stage in real videos, we first devise a three-stream network to associate two augmented visual views with corresponding audio clues, leading to explore common VA correspondences based on cross-view learning. Secondly, we introduce a novel cross-modal predictive align module for eliminating VA gaps to provide inherent VA correspondences. In the MDD stage, we propose to the auxiliary loss to utilize the frozen PVASS network to align VA features of real videos, to better assist multimodal deepfake detector for capturing subtle VA inconsistencies. We conduct extensive experiments on existing widely used and latest multimodal deepfake datasets. Our method obtains a significant performance improvement compared to state-of-the-art methods.},
+   Keywords = {Deepfakes; Visualization; Feature extraction; Forgery; Face recognition; Collaboration; Detection algorithms; Audio-visual systems; Self-supervised learning; Multimodal deepfake detection; visual-audio alignment; self-supervised auxiliary},
+   Year = {2024} }
+
+
+
+
+@article{
+LiuYu-76,
+   Author = {Liu, Xiaolong and Yu, Yang and Li, Xiaolong and Zhao, Yao},
+   Title = {MCL: Multimodal Contrastive Learning for Deepfake Detection},
+   Journal = {IEEE Transactions on Circuits and Systems for Video Technology},
+   Volume = {34},
+   Number = {4},
+   Pages = {2803-2813},
+   DOI = {10.1109/TCSVT.2023.3312738},
+   Note = {item\_number: 10243082},
+   Abstract = {Advancements in computer vision and deep learning have led to difficulty in distinguishing Deepfake and real videos. In particular, forgery audios are also generated to accompany fake videos and make them more realistic, which makes Deepfake detection more difficult. Existing Deepfake detection methods that use multimodal information ignore the representation gap between different modalities, resulting in limited performance. To address this problem, in this paper, a novel Deepfake detection method utilizing multimodal contrastive learning (MCL) is proposed to better explore intra-modal and cross-modal forgery clues. To reduce the cross-modal gap and explore multimodal forgery artifacts, a cross-modal contrastive learning strategy is designed to learn a compositional embedding from multimodal information, which facilitates pulling together representations across uni-modalities and multi-modalities. Moreover, to supplement the intra-frame forgery clues mining ability of the video network, the frame knowledge is distilled to the video network without adding additional computation. Specifically, to mine intra-modal clues, three modality features are first extracted from audio, frame and video, respectively. Secondly, the audio and frame features are separately composed with the video feature to derive two cross-modal representations. Subsequently, these cross-modal features are contrastive with the intra-modal features to reduce cross-modal gap. By jointly pulling together the unimodal and multimodal features through MCL, a more effective representation that contains intra-modal and cross-modal forgery artifacts can be learned. Finally, a noise-based feature augmentation (NFA) module is proposed to adaptively perturb the audio-visual feature and further improve generalization performance. Extensive experiments demonstrate that the proposed framework outperforms SOTA methods.
+Advancements in computer vision and deep learning have led to difficulty in distinguishing Deepfake and real videos. In particular, forgery audios are also generated to accompany fake videos and make them more realistic, which makes Deepfake detection more difficult. Existing Deepfake detection methods that use multimodal information ignore the representation gap between different modalities, resulting in limited performance. To address this problem, in this paper, a novel Deepfake detection method utilizing multimodal contrastive learning (MCL) is proposed to better explore intra-modal and cross-modal forgery clues. To reduce the cross-modal gap and explore multimodal forgery artifacts, a cross-modal contrastive learning strategy is designed to learn a compositional embedding from multimodal information, which facilitates pulling together representations across uni-modalities and multi-modalities. Moreover, to supplement the intra-frame forgery clues mining ability of the video network, the frame knowledge is distilled to the video network without adding additional computation. Specifically, to mine intra-modal clues, three modality features are first extracted from audio, frame and video, respectively. Secondly, the audio and frame features are separately composed with the video feature to derive two cross-modal representations. Subsequently, these cross-modal features are contrastive with the intra-modal features to reduce cross-modal gap. By jointly pulling together the unimodal and multimodal features through MCL, a more effective representation that contains intra-modal and cross-modal forgery artifacts can be learned. Finally, a noise-based feature augmentation (NFA) module is proposed to adaptively perturb the audio-visual feature and further improve generalization performance. Extensive experiments demonstrate that the proposed framework outperforms SOTA methods.},
+   Keywords = {Feature extraction; Deepfakes; Forgery; Data mining; Visualization; Training; Data augmentation; Deepfake detection; contrastive learning; knowledge distillation},
+   Year = {2024} }
+
+
+
+
+@inproceedings{
+PellcierLi-340,
+   Author = {Pellcier, Alvaro Lopez and Li, Yi and Angelov, Plamen},
+   Title = {PUDD: Towards Robust Multi-modal Prototype-based Deepfake Detection},
+   BookTitle = {2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+   Series= {2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+   Publisher = {IEEE},
+   Pages = {3809-3817},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {Deepfake techniques generate highly realistic data, making it challenging for humans to discern between actual and artificially generated images. Recent advancements in deep learning-based deepfake detection methods, particularly with diffusion models, have shown remarkable progress. However, there is a growing demand for real-world applications to detect unseen individuals, deepfake techniques, and scenarios. To address this limitation, we propose a Prototype-based Unified Framework for Deepfake Detection (PUDD). PUDD offers a detection system based on similarity, comparing input data against known prototypes for video classification and identifying potential deepfakes or previously unseen classes by analyzing drops in similarity. Our extensive experiments reveal three key findings: (1) PUDD achieves an accuracy of 95.1% on Celeb-DF, outperforming state-of-the-art deepfake detection methods; (2) PUDD leverages image classification as the upstream task during training, demonstrating promising performance in both image classification and deepfake detection tasks during inference; (3) PUDD requires only 2.7 seconds for retraining on new data and emits 10 5 times less carbon compared to the state-of-the-art model, making it significantly more environmentally friendly.},
+   Keywords = {Computational modeling; Computer vision; Conferences; Deepfakes; Diffusion models; Prototypes; Training},
+   Year = {2024} }
+
+
+
+
+@inproceedings{
+LewisToubal-339,
+   Author = {Lewis, John K. and Toubal, Imad Eddine and Chen, Helen and Sandesera, Vishal and Lomnitz, Michael and Hampel-Arias, Zigfried and Prasad, Calyam and Palaniappan, Kannappan},
+   Title = {Deepfake Video Detection Based on Spatial, Spectral, and Temporal Inconsistencies Using Multimodal Deep Learning},
+   BookTitle = {2020 IEEE Applied Imagery Pattern Recognition Workshop (AIPR)},
+   Series= {2020 IEEE Applied Imagery Pattern Recognition Workshop (AIPR)},
+   Publisher = {IEEE},
+   Pages = {1-9},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {Authentication of digital media has become an ever-pressing necessity for modern society. Since the introduction of Generative Adversarial Networks (GANs), synthetic media has become increasingly difficult to identify. Synthetic videos that contain altered faces and/or voices of a person are known as deepfakes and threaten trust and privacy in digital media. Deep-fakes can be weaponized for political advantage, slander, and to undermine the reputation of public figures. Despite imperfections of deepfakes, people struggle to distinguish between authentic and manipulated images and videos. Consequently, it is important to have automated systems that accurately and efficiently classify the validity of digital content. Many recent deepfake detection methods use single frames of video and focus on the spatial information in the image to infer the authenticity of the video. Some promising approaches exploit the temporal inconsistencies of manipulated videos; however, research primarily focuses on spatial features. We propose a hybrid deep learning approach that uses spatial, spectral, and temporal content that is coupled in a consistent way to differentiate real and fake videos. We show that the Discrete Cosine transform can improve deepfake detection by capturing spectral features of individual frames. In this work, we build a multimodal network that explores new features to detect deepfake videos, achieving 61.95% accuracy on the Facebook Deepfake Detection Challenge (DFDC) dataset.},
+   Keywords = {computer vision; deep learning; deepfake detection; Feature extraction; Media; Mouth; multi-modal; Nose; Pipelines; Predictive models; Visualization},
+   Year = {2020} }
+
+
+
+
+@inproceedings{
+TianLuo-346,
+   Author = {Tian, Cheng and Luo, Zhiming and Shi, Guimin and Li, Shaozi},
+   Title = {Frequency-Aware Attentional Feature Fusion for Deepfake Detection},
+   BookTitle = {ICASSP 2023 - 2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+   Series= {ICASSP 2023 - 2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+   Publisher = {IEEE},
+   Pages = {1-5},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {Various face manipulation techniques develop rapidly and can easily generate high-quality fake images or videos, posing significant ethical concerns when used for malicious purposes. Although recent works achieve significant performance in deepfake detection, they still suffer from overfitting issues. To deal with this problem, we propose a novel framework to aggregate diverse information for deepfake detection from both RGB and frequency. Specially, we first introduce a channel attention module to assemble local and global contexts to overcome the potential semantic inconsistency on local artifacts and global features. Then we design a spatial-frequency feature fusion module to fuse the RGB-frequency information comprehensively. Moreover, a variant attention module is further proposed to improve feature discrimination. Extensive experiments demonstrate that our method maintains comparable performance in intra-dataset and cross-dataset evaluation.},
+   Keywords = {Aggregates; DeepFake Detection; Deepfakes; Ethics; Feature extraction; Feature Fusion; Fuses; Semantics; Signal processing},
+   Year = {2023} }
+
+
+
+
+@inproceedings{
+WuWang-336,
+   Author = {Wu, Haotian and Wang, Xin and Wang, Ruobing and Xiang, Ji and Ren, Liyue},
+   Title = {Common Forgery Artifact Driven Deepfake Face Detection},
+   BookTitle = {2024 27th International Conference on Computer Supported Cooperative Work in Design (CSCWD)},
+   Series= {2024 27th International Conference on Computer Supported Cooperative Work in Design (CSCWD)},
+   Publisher = {IEEE},
+   Pages = {1585-1590},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {Given the substantial security risks associated with Deepfake technology, the identification of manipulated facial images has become a focal point of research. Regrettably, the majority of current Deepfake detection methods struggle to effectively discern forgery artifacts across various resolutions. Variations in image or video resolutions present substantial challenges to maintaining identity security in cooperative work environments. In this study, we introduce a Deepfake face detection model that relies on the identification of common forgery artifacts. Our model utilizes CFNet (Common Forgery Artifact Extraction Network) to automatically filter regions containing forged artifacts. These common forged artifacts are found in images of various resolutions, substantially enhancing the model's accuracy in low-resolution images. Furthermore, our custom-designed multi-modal features ensure the model excels in high-resolution scenarios. Comprehensive experiments validate the efficacy of our model, achieving accuracy rates of 90.464% for Deepfakes, 75.520% for Face2Face, and 83.536% for FaceSwap within the Low Quality (LQ) category of the FF+ dataset.},
+   Keywords = {Accuracy; Adversarial detection; Deepfake detection; Deepfakes; Feature extraction; Federated learning; Forgery; Image quality; Image resolution; Multi-modal},
+   Year = {2024} }
+
+

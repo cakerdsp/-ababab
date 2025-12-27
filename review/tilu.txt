@@ -1,0 +1,322 @@
+﻿
+@article{
+SongGuo-428,
+   Author = {Song, Xiufeng and Guo, Xiao and Zhang, Jiache and Li, Qirui and Bai, Lei and Liu, Xiaoming and Zhai, Guangtao and Liu, Xiaohong},
+   Title = {On Learning Multi-Modal Forgery Representation for Diffusion Generated Video Detection},
+   Year = {2024} }
+
+
+
+
+@article{
+M.Z.-432,
+   Author = {M., Moniruzzaman and Z., Yin},
+   Title = {Feature Weakening, Contextualization, and Discrimination for Weakly Supervised Temporal Action Localization},
+   Journal = {IEEE Transactions on Multimedia},
+   Volume = {26},
+   Pages = {270-283},
+   DOI = {10.1109/TMM.2023.3263965},
+   Note = {IEEE Transactions on Multimedia
+IEEE Transactions on Multimedia},
+   Abstract = {Weakly-supervised Temporal Action Localization (W-TAL) aims to train a model to localize all action instances potentially from different classes in an untrimmed video, using a training dataset that has video-level action class labels but has no detailed annotations on the start and end timestamps of action instances. We propose to solve the W-TAL problem from the feature learning aspect, with a new architecture, termed F3-Net, which includes (1) a Feature Weakening (FW) module that can identify and randomly weaken either the most discriminative action or the most discriminative background features over the training iterations to force the network to precisely localize the action instances in both discriminative and ambiguous action-related frames, without spreading to the background intervals; (2) a Feature Contextualization (FC) module that can infer the global contexts among video segments and attentionally fuse them with the local contexts from individual video segments to generate more representative features; and (3) a Feature Discrimination (FD) module that can highlight the most discriminative video segments/classes corresponding to each class/segment, respectively, for localizing multiple action instances from different classes within a video. Experimental results on THUMOS14 and ActivityNet1.3 demonstrate the state-of-the-art performance of our F3-Net, and the FW and FC are also effective plug-in modules to improve other methods. This project will be available at https://moniruzzamanmd.github.io/F3-Net/https://moniruzzamanmd.github.io/F3-Net/
+Weakly-supervised Temporal Action Localization (W-TAL) aims to train a model to localize all action instances potentially from different classes in an untrimmed video, using a training dataset that has video-level action class labels but has no detailed annotations on the start and end timestamps of action instances. We propose to solve the W-TAL problem from the feature learning aspect, with a new architecture, termed F3-Net, which includes (1) a Feature Weakening (FW) module that can identify and randomly weaken either the most discriminative action or the most discriminative background features over the training iterations to force the network to precisely localize the action instances in both discriminative and ambiguous action-related frames, without spreading to the background intervals; (2) a Feature Contextualization (FC) module that can infer the global contexts among video segments and attentionally fuse them with the local contexts from individual video segments to generate more representative features; and (3) a Feature Discrimination (FD) module that can highlight the most discriminative video segments/classes corresponding to each class/segment, respectively, for localizing multiple action instances from different classes within a video. Experimental results on THUMOS14 and ActivityNet1.3 demonstrate the state-of-the-art performance of our F3-Net, and the FW and FC are also effective plug-in modules to improve other methods. This project will be available at https://moniruzzamanmd.github.io/F3-Net/https://moniruzzamanmd.github.io/F3-Net/},
+   Keywords = {Location awareness; Training; Feature extraction; Task analysis; Representation learning; Fuses; Force; Temporal action localization; Feature weakening; Feature contextualization; Feature discrimination},
+   Year = {2024} }
+
+
+
+
+@inproceedings{
+A.D.-433,
+   Author = {A., Gupta and D., Pandey},
+   Title = {Deepfake Videos Generation and Detection: A Comprehensive Survey},
+   BookTitle = {2024 IEEE International Conference on Computing, Power and Communication Technologies (IC2PCT)},
+   Series= {2024 IEEE International Conference on Computing, Power and Communication Technologies (IC2PCT)},
+   Volume = {5},
+   Pages = {1939-1944},
+   Abstract = {The rapid evolution of deepfake technology in recent years brings forth both promising opportunities and formidable challenges. This research paper conducts a thorough exploration of cutting-edge techniques in deepfake generation and detection, shedding light on the dynamic landscape of this field. Our investigation into deepfake generation includes an in-depth examination of advanced approaches such as CramerGAN, StyleGAN, Progressive Growing GAN (PGGAN), IcGAN, SaGAN, and HifaFace, among others. Each method, from the precision in facial attribute control offered by StyleGAN to the exceptional image quality attained by PGGAN, presents unique capabilities. The paper systematically assesses the effectiveness of ProGAN, Convolutional long short-term memory (LSTM) based residual network (CLRNet), AutoGAN, Octave convolution operation (OctConv), and F3-Net in identifying deepfake content. Beyond these techniques, we also delve into various emerging generation and detection strategies, providing a comprehensive overview of the diverse approaches in the ever-evolving landscape of deepfake technology.
+The rapid evolution of deepfake technology in recent years brings forth both promising opportunities and formidable challenges. This research paper conducts a thorough exploration of cutting-edge techniques in deepfake generation and detection, shedding light on the dynamic landscape of this field. Our investigation into deepfake generation includes an in-depth examination of advanced approaches such as CramerGAN, StyleGAN, Progressive Growing GAN (PGGAN), IcGAN, SaGAN, and HifaFace, among others. Each method, from the precision in facial attribute control offered by StyleGAN to the exceptional image quality attained by PGGAN, presents unique capabilities. The paper systematically assesses the effectiveness of ProGAN, Convolutional long short-term memory (LSTM) based residual network (CLRNet), AutoGAN, Octave convolution operation (OctConv), and F3-Net in identifying deepfake content. Beyond these techniques, we also delve into various emerging generation and detection strategies, providing a comprehensive overview of the diverse approaches in the ever-evolving landscape of deepfake technology.},
+   Keywords = {Surveys; Image quality; Deepfakes; Image resolution; Taxonomy; Generative adversarial networks; Real-time systems; CNN; DeepFakes; GAN; expression swap; identity manipulation; attribute manipulation},
+   Year = {2024} }
+
+
+
+
+@inproceedings{
+ChenLiao-250,
+   Author = {Chen, Zongmei and Liao, Xin and Wu, Xiaoshuai and Chen, Yanxiang},
+   Title = {Compressed Deepfake Video Detection Based on 3D Spatiotemporal Trajectories},
+   BookTitle = {2024 Asia Pacific Signal and Information Processing Association Annual Summit and Conference (APSIPA ASC)},
+   Series= {2024 Asia Pacific Signal and Information Processing Association Annual Summit and Conference (APSIPA ASC)},
+   Publisher = {IEEE},
+   Pages = {1-8},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {The misuse of Deepfake technology by malicious actors poses a potential threat to nations, societies, and individuals. However, existing methods for detecting Deepfakes primarily focus on uncompressed videos, such as noise characteristics, local textures, or frequency statistics. When applied to compressed videos, these methods experience a decrease in detection performance and are less suitable for real-world scenarios. In this paper, we propose a Deepfake video detection method based on 3D spatiotemporal trajectories. Specifically, we utilize a robust 3D model to construct spatiotemporal motion features, integrating feature details from both 2D and 3D frames to mitigate the influence of large head rotation angles or insufficient lighting within frames. Furthermore, we separate facial expressions from head movements and design a sequential analysis method based on phase space motion trajectories to explore the feature differences between genuine and fake faces in Deepfake videos. We conduct extensive experiments to validate the performance of our proposed method on several compressed Deepfake benchmarks. The robustness of the well-designed features is verified by calculating the consistent distribution of facial landmarks before and after video compression. Our method yields satisfactory results and showcases its potential for practical applications.},
+   Keywords = {Deepfakes; Noise; Robustness; Sequential analysis; Solid modeling; Spatiotemporal phenomena; Three-dimensional displays; Tracking; Trajectory; Video compression},
+   Year = {2024} }
+
+
+
+
+@article{
+QiaoXie-152,
+   Author = {Qiao, Tong and Xie, Shichuang and Chen, Yanli and Retraint, Florent and Shi, Ran and Luo, Xiangyang},
+   Title = {Deepfake Detection Fighting Against Noisy Label Attack},
+   Journal = {IEEE Transactions on Multimedia},
+   Volume = {26},
+   Pages = {9047-9059},
+   DOI = {10.1109/TMM.2024.3385286},
+   Note = {item_number: 10491334},
+   Abstract = {The face manipulation technique such as Deepfake has been widely used to create realistic faces, which raises growing concerns in the community. Based on the correct labeled data, the current Deepfake detectors are mostly trained on the clean dataset, usually resulting in the reliable high detection accuracy. However, in the real-world scenario, labelers possibly mislabel the data or malicious attackers always intend to poison the training data with incorrect label, namely noisy label attack, leading to poor detection results. To overcome the tough issue, we propose a Deepfake detection framework fighting against noisy label attack. Specifically, a Negative Sample Generator (NSG) utilizes the possibly-poisoned samples to generate label-reliable negative samples through simulating blending artifacts caused by Deepfake. Next, a Noise-immune Contrastive Learner (NiCL) takes both positive and negative samples as training data, exploring blending artifacts and intrinsic forgery clues to filtrate the noisy samples out. Moreover, relying on label purification, the filtrated noisy samples are further purified, which then are fed back to the feature extractor for the following model training. Extensive experiments on the benchmark datasets demonstrate the superiority of our proposed Deepfake detector. In particular, when fighting against noisy label attack, the high performance of the proposed detector is remarkably better than its competitors.
+The face manipulation technique such as Deepfake has been widely used to create realistic faces, which raises growing concerns in the community. Based on the correct labeled data, the current Deepfake detectors are mostly trained on the clean dataset, usually resulting in the reliable high detection accuracy. However, in the real-world scenario, labelers possibly mislabel the data or malicious attackers always intend to poison the training data with incorrect label, namely noisy label attack, leading to poor detection results. To overcome the tough issue, we propose a Deepfake detection framework fighting against noisy label attack. Specifically, a Negative Sample Generator (NSG) utilizes the possibly-poisoned samples to generate label-reliable negative samples through simulating blending artifacts caused by Deepfake. Next, a Noise-immune Contrastive Learner (NiCL) takes both positive and negative samples as training data, exploring blending artifacts and intrinsic forgery clues to filtrate the noisy samples out. Moreover, relying on label purification, the filtrated noisy samples are further purified, which then are fed back to the feature extractor for the following model training. Extensive experiments on the benchmark datasets demonstrate the superiority of our proposed Deepfake detector. In particular, when fighting against noisy label attack, the high performance of the proposed detector is remarkably better than its competitors.},
+   Keywords = {Noise measurement; Deepfakes; Training; Faces; Data models; Training data; Forensics; Deepfake detection; noisy label attack; contrastive learning},
+   Year = {2024} }
+
+
+
+
+@inproceedings{
+CalvertNg-350,
+   Author = {Calvert, Sim Wei Xiang and Ng, Pai Chet},
+   Title = {Leveraging Transfer Learning for Region-Specific Deepfake Detection},
+   BookTitle = {TENCON 2024 - 2024 IEEE Region 10 Conference (TENCON)},
+   Series= {TENCON 2024 - 2024 IEEE Region 10 Conference (TENCON)},
+   Publisher = {IEEE},
+   Pages = {310-313},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {Deepfake technology, which utilizes advanced artificial intelligence to create or manipulate multimedia content, presents significant challenges by obscuring the distinctions between reality and fiction. This phenomenon can lead to severe consequences such as misinformation and deception, particularly in culturally diverse regions like Southeast Asia. In response, this paper aims to enhance deepfake detection capabilities specifically for the Southeast Asian context, with a focus on Singapore, utilizing the Trusted Media Challenge (TMC) dataset. We employ transfer learning to fine-tune existing models with region-specific data and explore various layer freezing strategies to optimize performance. Additionally, we assess the effectiveness of transfer learning against the complete retraining of models to identify the most resource-efficient practices for improving detection capabilities. Our findings reveal that targeted fine-tuning of specific layers can enhance model performance in identifying regional deepfake, providing a balance between computational efficiency and detection accuracy. This research contributes to the development of robust, region-specific deepfake detection methods, which are crucial for combating the evolving threats posed by deepfake technology. We have developed a web application using our trained model, the web application and the source code are available at https://github.com/ict-at-sit/deepfake-detection-app.},
+   Keywords = {Accuracy; Computational modeling; Deepfake detection; Deepfakes; Focusing; IEEE Regions; Mesons; Source coding; Training; Transfer learning; Tuning},
+   Year = {2024} }
+
+
+
+
+@article{
+KhormaliYuan-366,
+   Author = {Khormali, Aminollah and Yuan, Jiann-Shiun},
+   Title = {Self-Supervised Graph Transformer for Deepfake Detection},
+   Journal = {IEEE Access},
+   Volume = {12},
+   Pages = {58114-58127},
+   DOI = {10.1109/ACCESS.2024.3392512},
+   Note = {item_number: 10506700},
+   Abstract = {Deepfake detection methods have shown promising results in recognizing forgeries within a given dataset, where training and testing take place on the in-distribution dataset. However, their performance deteriorates significantly when presented with unseen samples. As a result, a reliable deepfake detection system must remain impartial to forgery types, appearance, and quality for guaranteed generalizable detection performance. Despite various attempts to enhance cross-dataset generalization, the problem remains challenging, particularly when testing against common post-processing perturbations, such as video compression or blur. Hence, this study introduces a deepfake detection framework, leveraging a self-supervised pre-training model that delivers exceptional generalization ability, withstanding common corruptions and enabling feature explainability. The framework comprises three key components: a feature extractor based on vision Transformer architecture that is pre-trained via self-supervised contrastive learning methodology, a graph convolution network coupled with a Transformer discriminator, and a graph Transformer relevancy map that provides a better understanding of manipulated regions and further explains the model’s decision. To assess the effectiveness of the proposed framework, several challenging experiments are conducted, including in-data distribution performance, cross-dataset & cross-manipulation generalization, and robustness against common post-production perturbations. The results achieved demonstrate the remarkable effectiveness of the proposed deepfake detection framework, surpassing the current state-of-the-art approaches.
+Deepfake detection methods have shown promising results in recognizing forgeries within a given dataset, where training and testing take place on the in-distribution dataset. However, their performance deteriorates significantly when presented with unseen samples. As a result, a reliable deepfake detection system must remain impartial to forgery types, appearance, and quality for guaranteed generalizable detection performance. Despite various attempts to enhance cross-dataset generalization, the problem remains challenging, particularly when testing against common post-processing perturbations, such as video compression or blur. Hence, this study introduces a deepfake detection framework, leveraging a self-supervised pre-training model that delivers exceptional generalization ability, withstanding common corruptions and enabling feature explainability. The framework comprises three key components: a feature extractor based on vision Transformer architecture that is pre-trained via self-supervised contrastive learning methodology, a graph convolution network coupled with a Transformer discriminator, and a graph Transformer relevancy map that provides a better understanding of manipulated regions and further explains the model’s decision. To assess the effectiveness of the proposed framework, several challenging experiments are conducted, including in-data distribution performance, cross-dataset & cross-manipulation generalization, and robustness against common post-production perturbations. The results achieved demonstrate the remarkable effectiveness of the proposed deepfake detection framework, surpassing the current state-of-the-art approaches.},
+   Keywords = {Deepfakes; Transformers; Feature extraction; Self-supervised learning; Visualization; Task analysis; Rendering (computer graphics); Detection algorithms; Convolutional neural networks; Deepfake detection; graph convolution networks; self-supervised contrastive learning; vision transformer},
+   Year = {2024} }
+
+
+
+
+@inproceedings{
+OorloffKoppisetti-290,
+   Author = {Oorloff, Trevine and Koppisetti, Surya and Bonettini, Nicolo and Solanki, Divyaraj and Colman, Ben and Yacoob, Yaser and Shahriyari, Ali and Bharaj, Gaurav},
+   Title = {AVFF: Audio-Visual Feature Fusion for Video Deepfake Detection},
+   BookTitle = {2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Series= {2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Publisher = {IEEE},
+   Pages = {27092-27102},
+   Note  = {Conference Proceedings
+ER  -},
+   Abstract = {With the rapid growth in deepfake video content, we re-quire improved and generalizable methods to detect them. Most existing detection methods either use uni-modal cues or rely on supervised training to capture the dissonance be-tween the audio and visual modalities. While the former disregards the audio-visual correspondences entirely, the lat-ter predominantly focuses on discerning audio-visual cues within the training corpus, thereby potentially overlooking correspondences that can help detect unseen deepfakes. We present Audio- Visual Feature Fusion (AVFF), a two-stage cross-modal learning method that explicitly captures the correspondence between the audio and visual modalities for improved deepfake detection. The first stage pursues representation learning via self-supervision on real videos to capture the intrinsic audio-visual correspondences. To extract rich cross-modal representations, we use contrastive learning and autoencoding objectives, and introduce a novel audio-visual complementary masking and feature fusion strategy. The learned representations are tuned in the second stage, where deepfake classification is pursued via super-vised learning on both real and fake videos. Extensive exper-iments and analysis suggest that our novel representation learning paradigm is highly discriminative in nature. We report 98.6% accuracy and 99.1% AUC on the FakeAVCeleb dataset, outperforming the current audio-visual state-of-the-art by 14.9% and 9.9%, respectively.},
+   Keywords = {Accuracy; audio visual; Computer vision; Deepfakes; Learning systems; multimodal; Representation learning; Training; video deepfake detection; Visualization},
+   Year = {2024} }
+
+
+
+
+@article{
+B.G.-430,
+   Author = {B., Sun and G., Liu and Y., Yuan},
+   Title = {F3-Net: Multiview Scene Matching for Drone-Based Geo-Localization},
+   Journal = {IEEE Transactions on Geoscience and Remote Sensing},
+   Volume = {61},
+   Pages = {1-11},
+   DOI = {10.1109/TGRS.2023.3278257},
+   Note = {IEEE Transactions on Geoscience and Remote Sensing
+IEEE Transactions on Geoscience and Remote Sensing},
+   Abstract = {Scene matching involves establishing a mapping relationship between heterogeneous images, which is crucial for drone visual geo-localization. However, it poses a significant challenge for multiview images such as those captured by drones and satellites. To address this issue, this article proposes an end-to-end geo-localization framework named F3-Net for calculating the similarity of multisource and multiview images. The key contributions of F3-Net are as follows: 1) the split and fusion (SF) module is designed to fully exploit the features through the global self-attention mechanism; 2) to improve the multiview semantic features, a target feature enhancement (TFE) module is introduced, based on the principle of invariance target semantic consistency; and 3) after multiview feature learning, a feature alignment and unity (FAU) module with Earthmover (EM) distance is used to calculate the similarity of nonaligned features. F3-Net fully exploits the multisource image feature correspondence and multiview image semantic consistency. Different from the traditional Siamese network, the features of multiview images are regarded as a probability distribution, so F3-Net can quantify and eliminate the feature differences of multiview images in the learning process. Experiments show that F3-Net can effectively overcome multiview changes and achieve high accuracy on the University-1652 dataset.
+Scene matching involves establishing a mapping relationship between heterogeneous images, which is crucial for drone visual geo-localization. However, it poses a significant challenge for multiview images such as those captured by drones and satellites. To address this issue, this article proposes an end-to-end geo-localization framework named F3-Net for calculating the similarity of multisource and multiview images. The key contributions of F3-Net are as follows: 1) the split and fusion (SF) module is designed to fully exploit the features through the global self-attention mechanism; 2) to improve the multiview semantic features, a target feature enhancement (TFE) module is introduced, based on the principle of invariance target semantic consistency; and 3) after multiview feature learning, a feature alignment and unity (FAU) module with Earthmover (EM) distance is used to calculate the similarity of nonaligned features. F3-Net fully exploits the multisource image feature correspondence and multiview image semantic consistency. Different from the traditional Siamese network, the features of multiview images are regarded as a probability distribution, so F3-Net can quantify and eliminate the feature differences of multiview images in the learning process. Experiments show that F3-Net can effectively overcome multiview changes and achieve high accuracy on the University-1652 dataset.},
+   Keywords = {Feature extraction; Measurement; Semantics; Visualization; Drones; Robustness; Satellites; Geo-localization; metric learning; multiview; scene matching},
+   Year = {2023} }
+
+
+
+
+@inproceedings{
+DagarVishwakarma-389,
+   Author = {Dagar, Deepak and Vishwakarma, Dinesh Kumar},
+   Title = {Div-Df: A Diverse Manipulation Deepfake Video Dataset},
+   BookTitle = {2023 Global Conference on Information Technologies and Communications (GCITC)},
+   Series= {2023 Global Conference on Information Technologies and Communications (GCITC)},
+   Publisher = {IEEE},
+   Pages = {1-6},
+   Note  = {Conference Proceedings
+ER  -
+http://www.syndetics.com/index.aspx?isbn=9798350308143/sc.gif&client=summontrial&freeimage=true;http://www.syndetics.com/index.aspx?isbn=9798350308143/mc.gif&client=summontrial&freeimage=true;http://www.syndetics.com/index.aspx?isbn=9798350308143/lc.gif&client=summontrial&freeimage=true;},
+   Abstract = {Recent advances in image and video manipulation have given rise to grave concerns. Deepfake technology employs deep learning techniques to produce astoundingly lifelike content. Deepfakes are risky since they have the ability to counterfeit someone's identity by replacing their face with that of another person or generating random noise in the mouth area. Additionally, with just a few seconds of audio, AI-based deep learning models can replicate any person's voice. Detecting such videos is the only promising defense against such fraudulent data. Several deepfake datasets have been made available to help in deepfake detector training and testing, including DF-TIMIT [1], FaceForensics++ [2], Celeb-DF [3], DFDC [4], Deeperforensics1.0 [5], etc. Even though this has significantly improved deepfake detection methods, they are still unable to capture real-world scenarios entirely, as most of the dataset is face-swap manipulation. To bridge this gap, we have proposed a Div-DF dataset containing various types of video manipulation like face swap, facial reenactment, and lip-sync. This dataset is composed of 150 real videos of different celebrities of different professions and 250 deepfake videos (100 face-swap videos, 100 facial reenactment videos, and 50 lip-sync videos). Deepfake videos are synthesized using state-of-the-art Face-Swap GAN(FSGAN) and the Wav2Lip method. The dataset contains high-quality samples of face-swapped and lip-sync videos, while the samples of face-re-enactment are of average quality. We have tested state-of-the-art detection and image classification models to standardize our dataset's baseline evaluation of various detection methods. We have done a comprehensive assessment along different metrics and found that our dataset is challenging and represents real-world samples.},
+   Keywords = {Deep learning; deepfake; deepfake dataset; Deepfakes; face-swap; Faces; facial reenactment; Image classification; lip-sync; Mouth; Training; Visualization},
+   Year = {2023} }
+
+
+
+
+@article{
+AlnaimAlmutairi-36,
+   Author = {Alnaim, Norah M. and Almutairi, Zaynab M. and Alsuwat, Manal S. and Alalawi, Hana H. and Alshobaili, Aljowhra and Alenezi, Fayadh S.},
+   Title = {DFFMD: A Deepfake Face Mask Dataset for Infectious Disease Era With Deepfake Detection Algorithms},
+   Journal = {IEEE Access},
+   Volume = {11},
+   Pages = {16711-16722},
+   DOI = {10.1109/ACCESS.2023.3246661},
+   Note = {item_number: 10049065},
+   Abstract = {Deepfake is a technology that creates fake images and videos with replaced or synthesized faces. Deepfakes are becoming a concerning social phenomenon, as they can be maliciously used to generate false political news, disseminate dangerous information, falsify electronic evidence, and commit digital harassment and fraud. The ease and accuracy of creating Deepfakes have been bolstered by the popularity of wearing face masks since the beginning of the infectious disease outbreak (2020). Because these masks obstruct defining facial features, fake videos are now even more challenging to identify, increasing the necessity for advanced Deepfake detection technology. The research also creates a real/fake video dataset with face masks because the field lacks the dataset required for detection-model training. The proposed research proposes a Deepfake Face Mask Dataset (DFFMD) based on a novel Inception-ResNet-v2 with preprocessing stages, feature-based, residual connection, and batch normalization. The combination of preprocessing stages, feature-based, residual connection, and batch normalization increases the detection accuracy of deepfake videos in the presence of facemasks, unlike the traditional methods. The study’s results compared with existing state-of-the-art methods detect face-mask-Deepfakes with 99.81% accuracy compared to the traditional InceptionResNetV2 and VGG19, whose accuracy is 77.48%, and 99.25%, respectively. Future work should evaluate the accuracy of developing a subsequent experimental work for increased detection of deepfake with facemasks.
+Deepfake is a technology that creates fake images and videos with replaced or synthesized faces. Deepfakes are becoming a concerning social phenomenon, as they can be maliciously used to generate false political news, disseminate dangerous information, falsify electronic evidence, and commit digital harassment and fraud. The ease and accuracy of creating Deepfakes have been bolstered by the popularity of wearing face masks since the beginning of the infectious disease outbreak (2020). Because these masks obstruct defining facial features, fake videos are now even more challenging to identify, increasing the necessity for advanced Deepfake detection technology. The research also creates a real/fake video dataset with face masks because the field lacks the dataset required for detection-model training. The proposed research proposes a Deepfake Face Mask Dataset (DFFMD) based on a novel Inception-ResNet-v2 with preprocessing stages, feature-based, residual connection, and batch normalization. The combination of preprocessing stages, feature-based, residual connection, and batch normalization increases the detection accuracy of deepfake videos in the presence of facemasks, unlike the traditional methods. The study’s results compared with existing state-of-the-art methods detect face-mask-Deepfakes with 99.81% accuracy compared to the traditional InceptionResNetV2 and VGG19, whose accuracy is 77.48%, and 99.25%, respectively. Future work should evaluate the accuracy of developing a subsequent experimental work for increased detection of deepfake with facemasks.},
+   Keywords = {Deepfakes; Face recognition; Convolutional neural networks; Animation; Transformers; Feature extraction; Deep learning; Deepfake; deep learning; CNN; generation; detection; fake videos; neural network; mask; face mask},
+   Year = {2023} }
+
+
+
+
+@inproceedings{
+S.A.-427,
+   Author = {S., A. Shahzad and A., Hashmi and S., Khan and Y., T. Peng and Y., Tsao and H., M. Wang},
+   Title = {Lip Sync Matters: A Novel Multimodal Forgery Detector},
+   BookTitle = {2022 Asia-Pacific Signal and Information Processing Association Annual Summit and Conference (APSIPA ASC)},
+   Series= {2022 Asia-Pacific Signal and Information Processing Association Annual Summit and Conference (APSIPA ASC)},
+   Pages = {1885-1892},
+   Abstract = {Deepfake technology has advanced a lot, but it is a double-sided sword for the community. One can use it for beneficial purposes, such as restoring vintage content in old movies, or for nefarious purposes, such as creating fake footage to manipulate the public and distribute non-consensual pornography. A lot of work has been done to combat its improper use by detecting fake footage with good performance thanks to the availability of numerous public datasets and unimodal deep learning-based models. However, these methods are insufficient to detect multimodal manipulations, such as both visual and acoustic. This work proposes a novel lip-reading-based multi-modal Deepfake detection method called “Lip Sync Matters.” It targets high-level semantic features to exploit the mismatch between the lip sequence extracted from the video and the synthetic lip sequence generated from the audio by the Wav2lip model to detect forged videos. Experimental results show that the proposed method outperforms several existing unimodal, ensemble, and multimodal methods on the publicly available multimodal FakeAVCeleb dataset.
+Deepfake technology has advanced a lot, but it is a double-sided sword for the community. One can use it for beneficial purposes, such as restoring vintage content in old movies, or for nefarious purposes, such as creating fake footage to manipulate the public and distribute non-consensual pornography. A lot of work has been done to combat its improper use by detecting fake footage with good performance thanks to the availability of numerous public datasets and unimodal deep learning-based models. However, these methods are insufficient to detect multimodal manipulations, such as both visual and acoustic. This work proposes a novel lip-reading-based multi-modal Deepfake detection method called “Lip Sync Matters.” It targets high-level semantic features to exploit the mismatch between the lip sequence extracted from the video and the synthetic lip sequence generated from the audio by the Wav2lip model to detect forged videos. Experimental results show that the proposed method outperforms several existing unimodal, ensemble, and multimodal methods on the publicly available multimodal FakeAVCeleb dataset.},
+   Keywords = {Deepfakes; Visualization; Lips; Semantics; Detectors; Feature extraction; Motion pictures},
+   Year = {2022} }
+
+
+
+
+@inproceedings{
+A.A.-429,
+   Author = {A., V. Nadimpalli and A., Rattani},
+   Title = {On Improving Cross-dataset Generalization of Deepfake Detectors},
+   BookTitle = {2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+   Series= {2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+   Pages = {91-99},
+   Abstract = {Facial manipulation by deep fake has caused major security risks and raised severe societal concerns. As a countermeasure, a number of deep fake detection methods have been proposed recently. Most of them model deep fake detection as a binary classification problem using a backbone convolutional neural network (CNN) architecture pretrained for the task. These CNN-based methods have demonstrated very high efficacy in deep fake detection with the Area under the Curve (AUC) as high as 0.99. However, the performance of these methods degrades significantly when evaluated across datasets. In this paper, we formulate deep fake detection as a hybrid combination of supervised and reinforcement learning (RL) to improve its cross-dataset generalization performance. The proposed method chooses the top-k augmentations for each test sample by an RL agent in an image-specific manner. The classification scores, obtained using CNN, of all the augmentations of each test image are averaged together for final real or fake classification. Through extensive experimental validation, we demonstrate the superiority of our method over existing published research in cross-dataset generalization of deep fake detectors, thus obtaining state-of-the-art performance.
+Facial manipulation by deep fake has caused major security risks and raised severe societal concerns. As a countermeasure, a number of deep fake detection methods have been proposed recently. Most of them model deep fake detection as a binary classification problem using a backbone convolutional neural network (CNN) architecture pretrained for the task. These CNN-based methods have demonstrated very high efficacy in deep fake detection with the Area under the Curve (AUC) as high as 0.99. However, the performance of these methods degrades significantly when evaluated across datasets. In this paper, we formulate deep fake detection as a hybrid combination of supervised and reinforcement learning (RL) to improve its cross-dataset generalization performance. The proposed method chooses the top-k augmentations for each test sample by an RL agent in an image-specific manner. The classification scores, obtained using CNN, of all the augmentations of each test image are averaged together for final real or fake classification. Through extensive experimental validation, we demonstrate the superiority of our method over existing published research in cross-dataset generalization of deep fake detectors, thus obtaining state-of-the-art performance.},
+   Keywords = {Deepfakes; Computer vision; Conferences; Detectors; Reinforcement learning; Computer architecture; Pattern recognition},
+   Year = {2022} }
+
+
+
+
+@inproceedings{
+J.X.-397,
+   Author = {J., Huang and X., Wang and B., Du and P., Du and C., Xu},
+   Title = {DeepFake MNIST+: A DeepFake Facial Animation Dataset},
+   BookTitle = {2021 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},
+   Series= {2021 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},
+   Pages = {1973-1982},
+   Abstract = {The DeepFakes, which are the facial manipulation techniques, is the emerging threat to digital society. Various DeepFake detection methods and datasets are proposed for detecting such data, especially for face-swapping. However, recent researches less consider facial animation, which is also important in the DeepFake attack side. It tries to animate a face image with actions provided by a driving video, which also leads to a concern about the security of recent payment systems that reply on liveness detection to authenticate real users via recognising a sequence of user facial actions. However, our experiments show that the existed datasets are not sufficient to develop reliable detection methods. While the current liveness detector cannot defend such videos as the attack. As a response, we propose a new human face animation dataset, called DeepFake MNIST+1, generated by a SOTA image animation generator. It includes 10,000 facial animation videos in ten different actions, which can spoof the recent liveness detectors. A baseline detection method and a comprehensive analysis of the method is also included in this paper. In addition, we analyze the proposed dataset’s properties and reveal the difficulty and importance of detecting animation datasets under different types of motion and compression quality.
+The DeepFakes, which are the facial manipulation techniques, is the emerging threat to digital society. Various DeepFake detection methods and datasets are proposed for detecting such data, especially for face-swapping. However, recent researches less consider facial animation, which is also important in the DeepFake attack side. It tries to animate a face image with actions provided by a driving video, which also leads to a concern about the security of recent payment systems that reply on liveness detection to authenticate real users via recognising a sequence of user facial actions. However, our experiments show that the existed datasets are not sufficient to develop reliable detection methods. While the current liveness detector cannot defend such videos as the attack. As a response, we propose a new human face animation dataset, called DeepFake MNIST+1, generated by a SOTA image animation generator. It includes 10,000 facial animation videos in ten different actions, which can spoof the recent liveness detectors. A baseline detection method and a comprehensive analysis of the method is also included in this paper. In addition, we analyze the proposed dataset’s properties and reveal the difficulty and importance of detecting animation datasets under different types of motion and compression quality.},
+   Keywords = {Image recognition; Face recognition; Conferences; Detectors; Generators; Facial animation; Security},
+   Year = {2021} }
+
+
+
+
+@article{
+QianYin-434,
+   Author = {Qian, Yuyang and Yin, Guojun and Sheng, Lu and Chen, Zixuan and Shao, Jing},
+   Title = {Thinking in Frequency: Face Forgery Detection by Mining Frequency-aware Clues},
+   Year = {2020} }
+
+
+
+
+@inproceedings{
+Y.M.-426,
+   Author = {Y., Li and M., C. Chang and S., Lyu},
+   Title = {In Ictu Oculi: Exposing AI Created Fake Videos by Detecting Eye Blinking},
+   BookTitle = {2018 IEEE International Workshop on Information Forensics and Security (WIFS)},
+   Series= {2018 IEEE International Workshop on Information Forensics and Security (WIFS)},
+   Pages = {1-7},
+   Abstract = {The new developments in deep generative networks have significantly improve the quality and efficiency in generating realistically-looking fake face videos. In this work, we describe a new method to expose fake face videos generated with deep neural network models. Our method is based on detection of eye blinking in the videos, which is a physiological signal that is not well presented in the synthesized fake videos. Our method is evaluated over benchmarks of eye-blinking detection datasets and shows promising performance on detecting videos generated with DNN based software DeepFake.
+The new developments in deep generative networks have significantly improve the quality and efficiency in generating realistically-looking fake face videos. In this work, we describe a new method to expose fake face videos generated with deep neural network models. Our method is based on detection of eye blinking in the videos, which is a physiological signal that is not well presented in the synthesized fake videos. Our method is evaluated over benchmarks of eye-blinking detection datasets and shows promising performance on detecting videos generated with DNN based software DeepFake.},
+   Keywords = {Face; Gallium nitride; Training; Generators; Biological neural networks},
+   Year = {2018} }
+
+
+
+
+@inproceedings{
+F.-421,
+   Author = {F., Chollet},
+   Title = {Xception: Deep Learning with Depthwise Separable Convolutions},
+   BookTitle = {2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Series= {2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Pages = {1800-1807},
+   Abstract = {We present an interpretation of Inception modules in convolutional neural networks as being an intermediate step in-between regular convolution and the depthwise separable convolution operation (a depthwise convolution followed by a pointwise convolution). In this light, a depthwise separable convolution can be understood as an Inception module with a maximally large number of towers. This observation leads us to propose a novel deep convolutional neural network architecture inspired by Inception, where Inception modules have been replaced with depthwise separable convolutions. We show that this architecture, dubbed Xception, slightly outperforms Inception V3 on the ImageNet dataset (which Inception V3 was designed for), and significantly outperforms Inception V3 on a larger image classification dataset comprising 350 million images and 17,000 classes. Since the Xception architecture has the same number of parameters as Inception V3, the performance gains are not due to increased capacity but rather to a more efficient use of model parameters.
+We present an interpretation of Inception modules in convolutional neural networks as being an intermediate step in-between regular convolution and the depthwise separable convolution operation (a depthwise convolution followed by a pointwise convolution). In this light, a depthwise separable convolution can be understood as an Inception module with a maximally large number of towers. This observation leads us to propose a novel deep convolutional neural network architecture inspired by Inception, where Inception modules have been replaced with depthwise separable convolutions. We show that this architecture, dubbed Xception, slightly outperforms Inception V3 on the ImageNet dataset (which Inception V3 was designed for), and significantly outperforms Inception V3 on a larger image classification dataset comprising 350 million images and 17,000 classes. Since the Xception architecture has the same number of parameters as Inception V3, the performance gains are not due to increased capacity but rather to a more efficient use of model parameters.},
+   Keywords = {Computer architecture; Correlation; Convolutional codes; Google; Biological neural networks},
+   Year = {2017} }
+
+
+
+
+@inproceedings{
+K.X.-422,
+   Author = {K., He and X., Zhang and S., Ren and J., Sun},
+   Title = {Deep Residual Learning for Image Recognition},
+   BookTitle = {2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Series= {2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Pages = {770-778},
+   Abstract = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8× deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC & COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8× deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC & COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
+   Keywords = {Training; Degradation; Complexity theory; Image recognition; Neural networks; Visualization; Image segmentation},
+   Year = {2016} }
+
+
+
+
+@inproceedings{
+C.Wei-423,
+   Author = {C., Szegedy and Wei, Liu and Yangqing, Jia and P., Sermanet and S., Reed and D., Anguelov and D., Erhan and V., Vanhoucke and A., Rabinovich},
+   Title = {Going deeper with convolutions},
+   BookTitle = {2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Series= {2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+   Pages = {1-9},
+   Abstract = {We propose a deep convolutional neural network architecture codenamed Inception that achieves the new state of the art for classification and detection in the ImageNet Large-Scale Visual Recognition Challenge 2014 (ILSVRC14). The main hallmark of this architecture is the improved utilization of the computing resources inside the network. By a carefully crafted design, we increased the depth and width of the network while keeping the computational budget constant. To optimize quality, the architectural decisions were based on the Hebbian principle and the intuition of multi-scale processing. One particular incarnation used in our submission for ILSVRC14 is called GoogLeNet, a 22 layers deep network, the quality of which is assessed in the context of classification and detection.
+We propose a deep convolutional neural network architecture codenamed Inception that achieves the new state of the art for classification and detection in the ImageNet Large-Scale Visual Recognition Challenge 2014 (ILSVRC14). The main hallmark of this architecture is the improved utilization of the computing resources inside the network. By a carefully crafted design, we increased the depth and width of the network while keeping the computational budget constant. To optimize quality, the architectural decisions were based on the Hebbian principle and the intuition of multi-scale processing. One particular incarnation used in our submission for ILSVRC14 is called GoogLeNet, a 22 layers deep network, the quality of which is assessed in the context of classification and detection.},
+   Keywords = {Computer architecture; Convolutional codes; Sparse matrices; Neural networks; Visualization; Object detection; Computer vision},
+   Year = {2015} }
+
+
+
+
+@article{
+Ming-ZherPoh-425,
+   Author = {Ming-Zher and Poh and Daniel, J. and McDuff and Rosalind, W. and Picard},
+   Title = {Non-contact, automated cardiac pulse measurements using video imaging and blind source separation.},
+   Journal = {Optics express},
+   Year = {2010} }
+
+
+
+
+@article{
+S.J.-424,
+   Author = {S., Hochreiter and J., Schmidhuber},
+   Title = {Long Short-Term Memory},
+   Journal = {Neural Computation},
+   Volume = {9},
+   Number = {8},
+   Pages = {1735-1780},
+   DOI = {10.1162/neco.1997.9.8.1735},
+   Note = {Neural Computation
+Neural Computation},
+   Abstract = {Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.
+Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.},
+   Year = {1997} }
+
+

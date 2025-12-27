@@ -1,0 +1,18 @@
+@startuml
+actor 用户
+
+rectangle "Dify平台" {
+  component "意图识别模块"
+  component "知识查询引擎"
+  component "模型响应生成器"
+}
+
+database "糖尿病知识库"
+cloud "大模型（如Qwen）"
+
+用户 --> "意图识别模块"
+"意图识别模块" --> "知识查询引擎"
+"知识查询引擎" --> "糖尿病知识库"
+"知识查询引擎" --> "模型响应生成器"
+"模型响应生成器" --> "大模型（如Qwen）"
+@enduml

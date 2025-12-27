@@ -1,0 +1,15 @@
+gcc -o yiyuanerci_serial yiyuanerci_serial.c -lpthread -lm
+./yiyuanerci_serial 
+gcc -o yiyuanerci yiyuanerci.c -lpthread -lm
+./yiyuanerci 
+
+1000003 −2000006 1000000
+
+
+gcc -o montecarlo_pi montecarlo_pi.c -lpthread -lm
+
+./montecarlo_pi 4 999999999
+
+gcc -o montecarlo_pi_s montecarlo_pi_s.c -lpthread -lm
+
+./montecarlo_pi_s 999999999

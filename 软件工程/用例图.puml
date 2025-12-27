@@ -1,0 +1,54 @@
+@startuml
+title 智慧医疗对话系统 ER 图
+
+entity User {
+  * id : UUID
+  * username : String
+  * password_hash : String
+  nickname : String
+  age : Integer
+  gender : String
+  created_at : Timestamp
+}
+
+entity ChatHistory {
+  * id : UUID
+  * user_id : UUID
+  session_id : String
+  question : Text
+  answer : Text
+  source_type : String
+  source_doc_id : UUID
+  timestamp : Timestamp
+}
+
+entity KnowledgeDoc {
+  * id : UUID
+  title : String
+  content : Text
+  tags : String[]
+  updated_at : Timestamp
+}
+
+entity HealthAdvice {
+  * id : UUID
+  * user_id : UUID
+  advice_type : String
+  content : Text
+  generated_at : Timestamp
+}
+
+entity Feedback {
+  * id : UUID
+  * user_id : UUID
+  feedback : Text
+  resolved : Boolean
+  submitted_at : Timestamp
+}
+
+User ||--o{ ChatHistory : "has"
+User ||--o{ HealthAdvice : "receives"
+User ||--o{ Feedback : "submits"
+ChatHistory }o--|| KnowledgeDoc : "refers to"
+
+@enduml

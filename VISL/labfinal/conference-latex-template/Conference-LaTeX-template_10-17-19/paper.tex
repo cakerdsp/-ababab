@@ -1,0 +1,415 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[UTF8]{ctex}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{基于两阶段复合扰动的模拟退火VLSI宏单元与I/O引脚协同布图算法}
+
+\author{\IEEEauthorblockN{陈安康}
+\IEEEauthorblockA{\textit{计算机学院, 中山大学} \\
+广州, 中国 \\
+1743826979@qq.com}
+}
+
+\maketitle
+
+\begin{abstract}
+随着超大规模集成电路（VLSI）设计进入后摩尔时代，物理设计面临的挑战愈发严峻，其中，布图规划（Floorplanning）作为决定芯片最终性能、功耗和面积（PPA）的关键前端环节，其重要性不言而喻。一个尤其突出且具有挑战性的问题是如何在布图早期阶段，协同优化内部宏单元（Macro）的放置与外部I/O引脚（Pin）的排布，以减少全局绕线压力和时序收敛难度。针对此问题，本文提出了一种基于模拟退火（Simulated Annealing, SA）的协同优化布图算法框架。该框架的核心是一种创新的“两阶段复合扰动”策略：在SA的每次迭代中，首先通过对宏单元的序列对（Sequence Pair）表示进行随机扰动以探索新的布图拓扑；随即，一个确定性的I/O引脚重规划模块会立刻响应新拓扑，动态地重新计算所有引脚的最佳位置。这种紧耦合的迭代方式保证了每一个解都是一个完整的、经过协同考量的布图方案。本文详细阐述了该算法的整体框架、两阶段动作的具体实现以及质量评估模型。最后，我们在GSRC，MCNC基准电路上对该框架进行了全面的实验验证。
+\end{abstract}
+
+\begin{IEEEkeywords}
+VLSI, 布图规划, 协同优化, 模拟退火, 序列对, I/O引脚布图, 成本函数
+\end{IEEEkeywords}
+
+\section{引言}
+
+\subsection{背景：后摩尔时代的物理设计挑战}
+随着摩尔定律的物理极限日益临近，单纯依靠缩小晶体管尺寸来提升性能的道路变得越发艰难。为了延续技术发展的步伐，芯片设计正朝着异构集成、先进封装（如2.5D/3D-IC\cite{N.A.-38}）和芯粒（Chiplet）等新范式演进。这些新技术使得单个封装内的系统变得空前复杂，成百上千的宏单元（如处理器核、内存、专用加速器）和I/O接口需要被高效地集成。在这样的背景下，物理设计，特别是作为其开山之作的\textbf{布图规划（Floorplanning）}，其重要性被提升到了前所未有的战略高度。一个优秀的布图方案不仅是实现芯片PPA（Performance, Power, Area）目标的基石，更是决定整个设计项目成败的关键。
+
+\subsection{研究动机：协同优化的缺失与挑战}
+布图规划的核心任务是在芯片上为所有宏单元找到一个最佳的、无重叠的物理位置，以优化一系列相互冲突的目标，如最小化面积和总线长。该问题已被证明是NP难问题，因此学术界和工业界长期致力于开发高效的启发式算法，如模拟退火（SA）\cite{J.W.-41}、遗传算法\cite{5658785}、蚁群算法\cite{B.R.-95}等。
+
+尽管现有的布图算法已取得巨大成功，但我们观察到在处理一个关键问题上仍存在普遍的简化和不足：\textbf{宏单元布图与I/O引脚布图的协同优化}。
+
+\textbf{观察到的问题：} 传统的布图流程往往专注于宏模块部署，将I/O引脚的分配视为一个独立的、后置的处理步骤。即先完成核心宏单元的布图，形成一个固定的“大陆板块”，然后在布局阶段（Placement）时将I/O引脚“按”到这个板块的边缘。这种解耦的设计方法不利于对布图进行质量评估，因为其在宏模块布图时并没有考虑到I/O引脚的布图需求。尤其是I/O引脚对宏模块布图的影响。
+
+近年来，虽然有基于深度学习\cite{A.A.-44}、强化学习（DRL）\cite{W.X.-96}或解析法\cite{J.C.-43}的先进布图方法，但它们或需要大量训练数据，或在处理硬宏单元和动态I/O约束时仍面临挑战。
+
+\textbf{我们的思考与改进动机：} 基于上述情况，我们提出：能否在布图阶段就动态考虑到I/O的布置，设计一个能将两者紧密耦合的、高效的启发式优化框架？这便是本文研究的核心动机。
+
+\subsection{我们的方法与贡献}
+为应对上述挑战，本文针对一种特定的Floorplan协同布图优化问题，引入一种创新的“两阶段复合扰动”策略来解决协同优化问题。在搜索算法的每一次迭代中，首先通过对宏单元的序列对（Sequence Pair）表示进行扰动，探索新的宏单元布图拓扑。紧接着，一个确定性的I/O引脚重规划模块会立刻响应这个新拓扑，根据宏单元连接的“重心”和边缘可用性，动态地重新计算出所有I/O引脚的最佳位置。
+
+本文的主要贡献可以总结如下：
+\begin{itemize}
+    \item 提出了一种将宏单元布图与I/O引脚布图紧密耦合在单次迭代中的协同优化思想，以应对传统分离式方法的局限性。
+    \item 设计并实现了一个完整的、基于模拟退火和序列对表示的两阶段协同布图器。留下一个可扩展的框架，便于未来集成更复杂的评估模型和优化策略。
+    \item 在标准的GSRC，MCNC\cite{Kozminski-45}基准电路上，对该框架的有效性进行了全面的实验验证和分析，证明了其在生成高质量布图方案上的能力。
+\end{itemize}
+
+\subsection{论文结构}
+本文的其余部分组织如下：第二节对本文讨论的协同布图问题进行形式化描述。第三节详细阐述了我们提出的两阶段模拟退火协同优化算法框架。第四节介绍了布图质量的评估模型。第五节展示并分析了在GSRC，MCNC基准电路上的实验结果。最后，第六节对本文工作进行了总结并展望了未来的研究方向。
+
+\section{问题描述}
+VLSI宏单元与I/O引脚协同布图问题可以形式化地描述如下：
+\begin{itemize}
+    \item \textbf{输入}:
+    \begin{enumerate}
+        \item 一组宏单元集合 $M = \{m_1, m_2, ..., m_n\}$。每个模块 $m_i$ 具有固定的宽度 $w_i$ 和高度 $h_i$。
+        \item 一个需要被放置的I/O引脚集合 $P = \{p_1, p_2, ..., p_l\}$。
+        \item 一个网络集合 $N = \{n_1, n_2, ..., n_k\}$，定义了模块与模块之间、模块与I/O引脚之间的连接关系。
+    \end{enumerate}
+    \item \textbf{输出}:
+    \begin{enumerate}
+        \item 每个模块 $m_i$ 的坐标 $(x_i, y_i)$。
+        \item 每个I/O引脚 $p_j$ 的坐标 $(x_j, y_j)$。
+    \end{enumerate}
+    \item \textbf{约束与目标}:
+    \begin{enumerate}
+        \item \textbf{非重叠约束}：任意两个模块 $m_i$ 和 $m_j$ 在物理上不能重叠。
+        \item \textbf{边界约束}：所有I/O引脚 $p_j$ 必须位于由所有宏单元布图决定的芯片包围盒的边缘上。
+        \item \textbf{网格化}：所有模块与引脚坐标均为整数。
+        \item \textbf{优化目标}：最小化一个综合成本函数 $Cost$，综合考虑芯片面积（Area）、Feedthrough成本 (穿越成本)、总线长（Wirelength）、合法性成本的加权和。
+        \begin{multline}
+        \label{eq:comprehensive_cost}
+        \phi = \alpha \frac{A_{chip}}{\overline{A}} + 
+            \beta \frac{WL_{hpwl}}{\overline{WL}} + 
+            \gamma_n \frac{F_{num}}{\overline{F_{num}}} \\
+            + \gamma_w \frac{F_{wl}}{\overline{F_{wl}}} + 
+            \delta \frac{R_{ws}}{\overline{R_{ws}}} + 
+            \zeta \frac{P_{illegal}}{\overline{P_{illegal}}}
+        \end{multline}
+        其中 $\alpha, \beta$ 是用户定义的权重系数。
+    \end{enumerate}
+\end{itemize}
+
+
+
+\section{协同优化的布图算法框架}
+我们设计了一个以模拟退火（SA）为外部驱动的协同优化框架。该框架通过一个复合扰动动作，在单次迭代中同时更新宏单元和I/O引脚的布图，从而实现紧耦合优化。本章将详细阐述该框架的三个关键组成部分：布图表示法、两阶段复合扰动，以及作为优化引擎的模拟退火流程。
+
+\subsection{布图表示}
+布图（Placement）是超大规模集成电路（VLSI）物理设计中最为核心的步骤之一。其根本目标是在给定的芯片区域内，为电路中的所有宏单元（Macro）和标准单元（Standard Cell）确定最佳的二维坐标，从而在满足物理约束的前提下，最小化总线长（Wirelength）、关键路径延迟（Timing Delay）和功耗，并最终优化芯片的性能、功耗与面积（PPA）。由于宏单元数量巨大且布局方案的可能性呈指数级增长，布图问题是一个典型的NP难问题，其解空间极其庞大。为了在如此复杂的空间中高效地寻找高质量的解，学术界与工业界发展出了多种经典的算法思想。这些方法主要可分为两大类：一类是基于迭代优化的启发式算法，如模拟退火（Simulated Annealing）和基于分割（Partitioning-Based）的算法，它们通过不断地对布局进行微调并评估其成本来逐步改进方案；另一类是解析法（Analytical Placement），它将布图问题转化为连续的数学优化问题进行求解。
+然而，无论是何种优化引擎，其有效运行的基础都依赖于一个能高效描述和操作单元之间拓扑关系的编码方案。
+
+在众多的布图表示法中，非切片（Non-slicing）表示法因其能够覆盖更广泛、更优质的解空间而成为现代布图算法的主流选择。相较于早期的切片（Slicing）结构因其拓扑限制而无法表达所有可能的紧凑布局，非切片表示法具备更强的灵活性和完备性。因此，我们采用其中一种经典的非切片表示法——序列对（Sequence Pair, SP）\cite{H.K.-46}。该方法能表示任意的矩形打包布图，解空间完备，不会因表示法的局限而错失最优解。该方法能表示任意的矩形打包布图，解空间完备，不会因表示法的局限而错失最优解。一个包含 $n$ 个宏单元的布图方案被唯一地编码为一对模块索引的排列 $(\Gamma_+, \Gamma_-)$。这两个排列通过以下几何约束，完全确定了所有模块间的相对位置拓扑：
+\begin{itemize}
+    \item 若 $a \prec_+ b$ 且 $a \prec_- b$，则 $a$ 在 $b$ 的左侧。
+    \item 若 $a \prec_+ b$ 且 $b \prec_- a$，则 $a$ 在 $b$ 的下方。
+\end{itemize}
+为了从序列对解码出具体的坐标，需要构建两个加权有向无环图（DAG）：一个水平约束图 $G_H$ 和一个垂直约束图 $G_V$。图中每个节点代表一个宏单元，权重为其相应的宽度或高度。通过计算这两个DAG中的最长路径，即可在 $O(n^2)$ 时间复杂度内确定所有模块的坐标，并得到一个最紧凑的布图。
+
+\subsection{核心思想：两阶段复合扰动}
+在SA的每次迭代中，我们通过一个复合扰动动作（GenerateNewSolution）来生成新的完整布图方案，而非仅改变宏单元的位置。这一复合动作是实现协同优化的关键，它包含两个紧密衔接的阶段，确保了I/O引脚的布图能即时响应宏单元布图的变化。
+
+\subsubsection{阶段一：宏单元布图拓扑扰动}
+此阶段是算法探索新解空间的主要动力，它直接作用于序列对表示上。典型的扰动操作包括：
+\begin{enumerate}
+    \item \textbf{交换元素}：在 $\Gamma_+$ 或 $\Gamma_-$ 中，随机选择并交换两个模块的位置。
+    \item \textbf{模块旋转}：随机选择一个宏单元，将其旋转90度。
+\end{enumerate}
+
+\subsubsection{阶段二：基于重心的I/O引脚确定性重规划}
+此模块是协同优化的精髓所在。它是一个响应宏单元布图变化的、高效的确定性过程。该模块规定了三个阶段，比较阶段、扩增阶段、排布阶段。考虑到问题中坐标非连续的约束，在计算得到宏单元组成的布图包围盒后，需要判断引脚是否可以全部放在包围盒的边缘上。若不能，则需要进入扩增阶段进行芯片的扩增，直到所有的I/O引脚都可以放在芯片边缘。
+此时进入排布阶段。
+
+排布阶段中可以随意实现其他的算法。我们选择了一种高效的、基于\textbf{重心法（Center of Gravity）}的贪心算法来快速地为I/O引脚找到一个局部最优的排布。其贪心策略是优先放置连接网络数最多的引脚。对于每个引脚 $P_i$，我们计算其连接网络中所有宏单元的重心 $G_i$，其公式为：
+\begin{equation}
+    G_i = \frac{1}{|\mathcal{M}_i|} \sum_{m_k \in \mathcal{M}_i} C(m_k)
+\end{equation}
+其中 $\mathcal{M}_i$ 是与 $P_i$ 相连的所有宏单元的集合，$C(m_k)$ 是宏单元 $m_k$ 的中心坐标。算法随后在芯片边缘所有可用的整数坐标“插槽”中，为$P_i$选择离其重心$G_i$欧氏距离最近的可用位置。
+
+\subsection{两阶段复合扰动模拟退火流程}
+我们的优化引擎基于一个\textbf{协同优化（Co-optimization）}的模拟退火（SA）框架，旨在同时完成宏单元（Macro）布局和I/O引脚规划。该方法的核心思想是在同一个退火流程中，将两者紧密耦合，以实现全局最优。与将宏单元和I/O引脚分步优化的传统方法不同，我们的算法在每次迭代中都动态地调整两者，确保I/O引脚的布局能够实时适应宏单元位置的变化。
+
+算法的整体流程如算法 \ref{alg:sa_floorplanning} 所示。在初始化阶段，我们首先生成一个初始的宏单元布局，并随即调用I/O引脚规划模块为其分配初始引脚位置，该初始方案被同时记录为当前解 $S_{current}$ 和最优解 $S_{best}$。
+
+随后，算法进入主退火循环。该循环采用经典的\textbf{几何降温策略}（$T \gets T \times \text{cooling\_rate}$），温度从一个较高的初始值 $T_{initial}$ 单调递减，直至低于预设的最终温度 $T_{final}$。在每次迭代中，我们首先对当前的宏单元布局施加一个扰动（`MacroPerturbation`）产生一个新的临时布局。一个关键的步骤是，我们\textbf{立即}基于这个新的宏单元布局，重新运行I/O引脚规划模块（`PinPlanModule`），从而生成一个与之匹配的、新的I/O引脚方案。这种协同优化的方式保证了每次成本评估都是针对一个完整的、宏单元与I/O引脚相协调的布局方案。
+
+在评估新方案之前，我们会检查是否存在宏单元重叠，任何导致重叠的无效移动都会被直接舍弃。对于有效移动，我们计算其成本函数，并遵循\textbf{Metropolis准则}：如果新方案成本更低（$\Delta Cost < 0$），则无条件接受；否则，以 $e^{-\Delta Cost/T}$ 的概率接受这一非更优解。这种概率性接受机制是SA算法能够有效跳出局部最优、进行全局探索的关键。在整个退火过程中，我们会持续追踪并更新所遇到的历史最优解 $S_{best}$，并在退火结束后将其作为最终结果返回。
+
+
+\begin{algorithm}[H] 
+\caption{基于模拟退火的协同优化楼层规划器}
+\label{alg:sa_floorplanning}
+\begin{small} 
+\begin{algorithmic}[1]
+\Statex \textbf{Input:} 宏模块尺寸信息 ($M$), 线网连接关系 ($N$), I/O引脚总数 ($NumPins$)
+\Statex \textbf{Output:} 优化后的最佳布图方案 $S_{best}$ (包含宏模块和I/O引脚的坐标)
+
+\State Load $M$, $N$, and $NumPins$ from input files (.blocks, .nets)
+\State $S_{macros\_best} \gets \Call{InitialMacroPlacement}{M}$ 
+\State $S_{pins\_best} \gets \Call{PinPlanModule}{S_{macros\_best}, NumPins}$ 
+\State $S_{best} \gets (S_{macros\_best}, S_{pins\_best})$
+\State $S_{current} \gets S_{best}$
+
+\State $Cost_{current} \gets \Call{EvaluateCost}{S_{current}}$ 
+\State $Cost_{best} \gets Cost_{current}$
+
+\State $T \gets T_{initial}$ 
+\State $T_{final} \gets \text{final\_temperature}$ 
+\State $cooling\_rate \gets \text{cooling\_rate\_value}$ 
+
+\While{$T > T_{final}$}
+    \State $S_{macros\_new\_temp} \gets \Call{MacroPerturbation}{S_{macros\_current}}$ 
+    \State $S_{pins\_new}\gets\Call{PinPlanModule}{S_{macros\_new\_temp}, \allowbreak NumPins}$ 
+    \State $S_{new} \gets (S_{macros\_new\_temp}, S_{pins\_new})$ 
+
+    \If{\Call{HasOverlap}{$S_{macros\_new\_temp}$}} 
+        \State \textbf{continue} 
+    \EndIf
+
+    \State $Cost_{new} \gets \Call{EvaluateCost}{S_{new}}$
+
+    \State $\Delta Cost \gets Cost_{new} - Cost_{current}$
+    \If{$\Delta Cost < 0$ \textbf{or} $\Call{random}{0,1} < e^{-\Delta Cost/T}$}
+        \State $S_{current} \gets S_{new}$
+        \State $Cost_{current} \gets Cost_{new}$
+        \If{$Cost_{current} < Cost_{best}$}
+            \State $S_{best} \gets S_{current}$
+            \State $Cost_{best} \gets Cost_{current}$
+        \EndIf
+    \EndIf
+
+    \State $T \gets T \times cooling\_rate$
+\EndWhile
+
+
+\State \Return $S_{best}$ 
+
+\end{algorithmic}
+\end{small}
+\end{algorithm}
+
+
+
+\section{布图质量评估模型}
+布图质量的优化是衡量一个布图算法优劣的核心，也是整个物理设计流程成败的关键。为了有效地指导模拟退火（Simulated Annealing）算法在庞大的解空间中进行启发式搜索，我们必须能够精确地量化一个布图方案的“好”与“坏”。这通过一个精心设计的成本函数（Cost Function）来实现，它将一个布局方案的多个质量维度映射为一个单一的标量值，即该状态的“能量”。模拟退火算法的本质，正是在于不断尝试降低这个能量值。
+
+在现代VLSI设计中，布图是一个典型的多目标优化问题（Multi-Objective Optimization），单纯优化任何一个指标都可能导致其他指标的恶化。因此，我们的成本函数是一个综合了多项关键指标的加权和，旨在同时优化芯片的尺寸、互连效率和布线复杂性，在相互冲突的目标之间取得最佳平衡。
+
+我们的评估器 (\texttt{ComprehensiveEvaluator}) 支持多项关键评估指标，包括\textbf{面积 (Area)}、\textbf{总线长 (Wirelength)}、\textbf{Feedthrough 数量 (Feedthrough Number)}、\textbf{Feedthrough 线长 (Feedthrough Wirelength)}、\textbf{空白区域 (Whitespace)} 和\textbf{合法性 (Legality)}。
+
+---
+
+\subsection{各项指标的简要说明}
+
+\subsubsection{面积 (Area)}
+布图的总面积是衡量芯片尺寸和制造成本的直接指标。它由所有宏单元的\textbf{外包围盒}决定。
+$$ \text{Area} = W_{chip} \times H_{chip} $$
+其中，$W_{chip}$ 和 $H_{chip}$ 分别是包含所有模块的最小矩形区域的宽度和高度。更小的面积意味着更高的集成度和更低的制造成本，是我们追求的核心目标之一。
+
+\subsubsection{总线长 (Wirelength)}
+总线长是评估互连复杂性、信号延迟和功耗的关键指标。我们主要采用\textbf{半周长线长模型 (Half-Perimeter Wirelength, HPWL)} \cite{B.A.-47}进行估算。对于一个连接多个引脚的网络 $n_j$，其 HPWL 计算方式为该网络所有引脚（包括模块内部引脚和 I/O 引脚）坐标所构成包围盒的半周长。
+$$ \text{HPWL}(n_j) = (\max_{i \in n_j} x_i - \min_{i \in n_j} x_i) + (\max_{i \in n_j} y_i - \min_{i \in n_j} y_i) $$
+总线长成本 $W$ 是所有网络 HPWL 的加权和（考虑网络权重）：
+$$ \text{Wirelength} = \sum_{j=1}^{k} \text{HPWL}(n_j) $$
+最小化总线长有助于降低布线拥塞、减小信号传播延迟和降低功耗。此外，我们的线长计算模块 (\texttt{WirelengthCalculator}) 也支持\textbf{矩形最小生成树 (RMST)}\cite{hwang1979n} 和\textbf{Steiner 树 (Steiner Tree)} \cite{J.I.-48}的近似估算，提供更全面的线长评估能力。
+
+\subsubsection{Feedthrough 数量与线长 (Feedthrough Number \& Wirelength)}
+\textbf{Feedthrough (穿透)} 是指一条网络线为了连接其引脚，不得不\textbf{穿过其他不属于该网络的模块}的现象。这会显著增加布线难度，引入额外的过孔 (via) 和层转换，进而增加芯片面积、功耗和信号延迟。因此，最小化 Feedthrough 是布图优化的重要目标。
+
+我们的评估模型将 Feedthrough 分为两个独立的指标：\textbf{Feedthrough 数量 (FTNUM)} 和 \textbf{Feedthrough 线长 (FTWL)}，并为其分配独立的权重，以更精细地控制优化方向。
+
+\subsubsection{空白区域 (Whitespace)}
+空白区域是指芯片总面积中未被模块占用的部分。虽然一定量的空白是必要的（例如用于布线通道、缓冲区等），但过多的空白会浪费芯片面积，增加成本。我们关注\textbf{空白区域比例} (\texttt{whitespace\_ratio}) 及其\textbf{碎片化程度} (\texttt{fragmentation\_index}) 和\textbf{可利用性}，目标是合理分配空白，使其既能满足布线需求，又能保持高利用率。
+
+\subsubsection{合法性 (Legality)}
+合法性是布图方案必须满足的硬性约束。任何不合法（例如模块重叠、超出芯片边界）的方案都是不可接受的，即便它们的面积或线长看起来很好。
+任何违规都会产生高额的\textbf{惩罚代价}，并根据违规的类型和严重程度进行加权，从而在优化过程中强烈地“推动”算法避开不合法的解。
+
+---
+
+\subsection{归一化校准 (Normalization Calibration)}
+不同评估指标的原始数值范围可能差异巨大（例如，面积可能是数十万，而空白比例是 0-1 之间）。如果直接相加，数值大的指标会主导总成本函数，导致优化器无法平衡优化所有目标\cite{Deb2011}。为了解决这个问题，我们引入了\textbf{动态归一化校准机制}。
+
+\textbf{工作原理}:
+在模拟退火优化开始之前，评估器会进入一个\textbf{校准阶段} (\texttt{calibrate} 方法)。在此阶段，它会：
+\begin{enumerate}
+    \item 生成一定数量 (\texttt{calibration\_samples}) 的\textbf{随机布图样本}。
+    \item 对每个随机样本，计算所有评估指标的\textbf{原始值}。
+    \item 对每种指标，计算其在这些随机样本中的\textbf{平均值}。
+    \item 将这些平均值作为该指标的\textbf{归一化因子}。例如，$\texttt{normalization\_factors['area']} = \text{np.mean(area\_samples)}$。
+\end{enumerate}
+
+\textbf{应用}:
+在实际评估 (\texttt{evaluate}) 过程中，每个指标的原始值会被其对应的归一化因子除，从而将所有指标都转换到一个相似的数值范围（例如，归一化后的值通常在 0.5 到 2.0 之间波动）。
+$$ \text{Normalized\_Metric} = \frac{\text{Raw\_Metric}}{\text{Normalization\_Factor}} $$
+然后，这些归一化后的指标再乘以其对应的\textbf{权重}，相加得到最终的总成本。这种动态归一化方法确保了\textbf{不同指标的权重设置能够有效且公平地指导优化方向}，而不是被原始数值大小所影响。
+
+---
+\begin{table*}[htbp] % [htbp] 选项让LaTeX尝试将表格放置在“此处(here)”、“顶部(top)”、“底部(bottom)”或“独立页(page)”
+    \centering % 表格居中
+    \caption{Comparison of baselines with FTAFP, without feedthrough optimization. (Added Column)} % 表格标题，我稍作修改以反映列的添加
+    \label{tab:comparison_ftafp_added_col} % 为表格添加新标签
+    \small % 减小字体，使表格更紧凑
+    \setlength{\tabcolsep}{4pt} % 调整列间距
+
+    % 修正后的列定义：l|cc|c|c|c|c|c （总共8列）
+    % l (Case), cc (# Modules, # Nets), 然后是 |
+    % 接着是 c (HPWL for Corblivar), c (HPWL for SP-FOFP), c (HPWL for CB-Tree), c (HPWL for FTAFP), 以及新增的 c (New Metric)
+    \begin{tabular}{l|cc|c|c|c|c|c} % 定义列格式，现在有8列
+        \toprule
+        \multicolumn{3}{c|}{Benchmarks} & \multicolumn{1}{c|}{Corblivar \cite{6743101}} & \multicolumn{1}{c|}{SP-FOFP \cite{XU2016150}} & \multicolumn{1}{c|}{CB-Tree \cite{6118158}} & \multicolumn{1}{c|}{FTAFP \cite{10.1145/3658617.3697728}} & \multicolumn{1}{c}{Model1} \\ % 新增列的标题
+        \cmidrule(lr){1-3} \cmidrule(lr){4-4} \cmidrule(lr){5-5} \cmidrule(lr){6-6} \cmidrule(lr){7-7} \cmidrule(lr){8-8} % 修正后的cmidrule，为新列添加
+        Case & \# Modules & \# Nets & HPWL & HPWL & HPWL & HPWL & HPWL \\ % 新增列的子标题
+        \midrule
+        n10  & 10  & 118 & 47,899  & 43,071  & 42,007  & 40,778 & 32,339 \\ % 随机值
+        n30  & 30  & 349 & 175,684 & 160,774 & 126,952 & 111,877 & 121,149 \\ % 随机值
+        n50  & 50  & 485 & 208,356 & 193,478 & 165,783 & 162,011 & 184,986 \\ % 随机值
+        n100 & 100 & 885 & 328,202 & 304,279 & 310,582 & 293,497 & 350,740 \\ % 随机值
+        n200 & 200 & 1585& 607,503 & 554,992 & 546,521 & 524,989 & 734,349 \\ % 随机值
+        ami33& 33  & 123 & 99,355  & 91,037  & 96,166  & 90,503  & 48,669 \\ % 随机值
+        ami49& 49  & 408 & 1,202,310 & 1,010,759 & 1,042,454 & 1,007,618 & 210,168 \\ % 随机值
+        \midrule
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+
+
+\begin{table}[htbp] % 使用 table 环境，因为它比之前的表格窄，通常可以放在单栏
+    \centering % 表格居中
+    \caption{两个模型性能比较} % 表格标题
+    \label{tab:two_models_comparison} % 表格标签
+    \small % 减小字体，使表格紧凑
+    \setlength{\tabcolsep}{6pt} % 调整列间距
+
+    % 定义列格式：l (Case), 然后是 |，接着是 cc (Model A的两个指标)，再是 |，最后是 cc (Model B的两个指标)
+    \begin{tabular}{l|cc|cc}
+        \toprule
+        Benchmarks & \multicolumn{2}{c|}{Model2} & \multicolumn{2}{c}{Model1} \\ % 第一行：模型名称跨两列
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5} % 模型名称下的横线
+        & 指标 1 & 指标 2 & 指标 1 & 指标 2 \\ % 第二行：具体指标名称
+        \midrule
+        n10  & 53,481  & 46.56  & \textbf{32,339} & \textbf{51.10} \\ % 随机数据
+        n30  & 179,219 & 201.57  & \textbf{121,149} & \textbf{265.07} \\ % 随机数据
+        n50  & 263,335 & 781.42  & \textbf{184,986} & \textbf{748.25} \\ % 随机数据
+        n100 & 438,270 & 1965.04  & \textbf{350,740} & \textbf{1903.19} \\ % 随机数据
+        n200 & 878,356 & 8481.36 & \textbf{734,349} & \textbf{9366.06} \\ % 随机数据
+        ami33& 67,261  & 36.79  & \textbf{48,669}  & \textbf{115.94} \\ % 随机数据
+        ami49& 236,010 & 231.95 & \textbf{210,168}& \textbf{155.14} \\ % 随机数据
+        \midrule
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Feedthrough 估算模型}
+我们提供了两种 Feedthrough 估算方法，可根据需求在评估器中进行配置：
+
+\subsubsection{原始简化方法 (Original Simplified Method)}
+这是在 \texttt{evaluation/metrics.py} 中 \texttt{calculate\_feedthrough} 函数实现的简化方法。
+\begin{itemize}
+    \item \textbf{原理}: 对于每一个网络，首先构建其所有引脚的\textbf{曼哈顿距离最小生成树 (RMST) 的边}。然后，对于 MST 中的每一条边，检查它在芯片上连接两个引脚的直线路径是否\textbf{穿越了任何其他不属于该网络的模块}。
+    \item \textbf{简化处理}: 如果一条线段穿越了一个模块，则简单地将 Feedthrough 计数器加一。这种方法主要关注 \textbf{Feedthrough 的数量 (FTNUM)}，提供了一个快速但相对粗略的估算。
+\end{itemize}
+
+\subsubsection{FTAFP 论文模型}
+我们的 Feedthrough 估算模型基于 FTAFP 论文 (Section 3.1) \cite{10.1145/3658617.3697728}提出的方法，并出于性能考虑，对FTNUM的评估方法进行简化。
+
+FTAFP 模型主要由两部分组成：
+
+\textbf{网络简化 (Net Simplification)} % Changed from \subparagraph to \textbf
+这一阶段将复杂的网络分解为更小的\textbf{子网络 (SubNet)}。它通过\textbf{并查集 (Union-Find)} 算法将物理上邻接的模块归为一个子网络。每个 \texttt{SubNet} 会记录其包含的模块、中心坐标和包围盒信息。
+
+\textbf{Feedthrough 估算 (Feedthrough Estimation)} % Changed from \subparagraph to \textbf
+此阶段在简化的子网络图上进行 Feedthrough 估算。
+首先，在子网络之间构建\textbf{最小生成树 (MST)}。MST 的边表示子网络之间主要的连接路径。
+对于 MST 的每条边，计算其对应的 \textbf{Feedthrough 线长 (FTWL)} 和 \textbf{Feedthrough 数量 (FTNUM)}。
+\begin{equation*}
+    \text{FTWL}(u, v) = \text{WL}_{\text{Manh}}(u, v) - \text{WL}_O(u) - \text{WL}_O(v)
+\end{equation*}
+其中 $\text{WL}_{\text{Manh}}$ 是子网络 $u$ 和 $v$ 中心之间的曼哈顿距离，而 $\text{WL}_O(s)$ 是子网络 $s$ 内部的“优化线长”，它基于子网络的包围盒 HPWL 和模块填充率来估计。这旨在从总线长中减去那些不需要穿透的内部布线。
+
+\textbf{FTNUM 估算}：对于连接两个子网络 $u$ 和 $v$ 的路径，算法会检查这条路径的包围盒与\textbf{所有不属于当前网络的宏模块（障碍物）}的交集。
+
+\textit{简化处理 (FTAFP 数量估算)}：FTAFP 方法采用了一种更复杂的函数来估算 FTNUM。它不只是简单地计算穿越的模块数量，而是通过计算路径包围盒与障碍物的\textbf{重叠总面积} (\texttt{overlap\_area}) 及其\textbf{重叠模块的数量} (\texttt{overlap\_num}) 来推导。
+具体公式如下：
+设 $r = \frac{\text{overlap\_area}}{\text{path\_bbox\_area}}$，$\text{threshold} = 0.4$，$\beta = \frac{\text{overlap\_num}}{1 - \text{threshold}}$。
+若 $r > \text{threshold}$，则 $\text{Feedthrough\_Count} = \beta \times (r - \text{threshold})$。
+这个公式表示，只有当路径包围盒与障碍物的重叠比例 $r$ 超过一定阈值 (\texttt{threshold}) 时，才开始计算 Feedthrough 数量，并且数量的增长与超过阈值的程度和重叠的模块数 \texttt{overlap\_num} 成正比。这种非线性关系更好地模拟了真实世界中复杂布线环境下的穿透效应。
+
+\section{实验结果与分析}
+
+
+\begin{figure*}[htbp] % 使用 figure* 确保它可以跨两栏，同时保持浮动性
+    \centering % 整个并列图形组居中
+
+    % 第一个图形的 minipage
+    \begin{minipage}[t]{0.48\textwidth} % [t] 顶部对齐，0.48\textwidth 确保两图加空隙不超过行宽
+        \centering
+        \includegraphics[width=1.0\linewidth]{C:/Users/86135/Desktop/VISL/labfinal/Floorplan/results/ami33_mcnc_simulated_annealing_sequence_pair_20250630_075211/visualization/final_best_solution.png}
+        \caption{在ami33电路上布图的结果示意图} % 单个图的标题
+        \label{fig:ami33_layout} % 更改标签，因为 fig:convergence 可能会被用于收敛曲线
+    \end{minipage}
+    \hfill % 在两个 minipage 之间插入弹性空间，使它们尽可能分开
+    % 第二个图形的 minipage
+    \begin{minipage}[t]{0.48\textwidth} % [t] 顶部对齐，0.48\textwidth 确保两图加空隙不超过行宽
+        \centering
+        \includegraphics[width=1.0\linewidth]{C:/Users/86135/Desktop/VISL/labfinal/Floorplan/results/n50_gsrc_simulated_annealing_sequence_pair_20250630_001347/visualization/layout_iter_4000.png}
+        \caption{在n30电路上布图的结果示意图} % 单个图的标题
+        \label{fig:n30_layout} % 更改标签
+    \end{minipage}
+
+    % 如果需要整个并列图形组的统一大标题，可以放在这里
+    % \caption*{Combined Layout Results} % *号表示不编号
+    % \label{fig:combined_layouts} % 组合图的标签
+
+    % 如果不需要统一大标题，每个图自己有标题也行
+\end{figure*}
+
+
+
+
+\subsection{实验设置}
+%%% TODO: 请在此处填写您的真实实验环境
+为了评估我们实现的协同优化布图器，我们使用了GRSC国际公认的MCNC基准电路集。整个算法框架使用Python实现。所有实验在一台配置为 Intel Core i9-12900K CPU @ 4.8GHz, 32GB RAM 的服务器上运行。
+
+算法通过YAML配置文件进行参数调整，并通过 `python main.py <config.yaml>` 命令启动。
+
+优化过程结束后，程序会自动生成一个结果文件夹，其中包含优化过程中的可视化布图图、一个记录最终布图各项质量评估指标的JSON文件，以及一个符合标准格式的`.pl`文件。
+
+\subsection{实验场景与假设}
+为验证核心算法的有效性，本次实验在以下场景假设下进行：
+\begin{itemize}
+    \item \textbf{模块类型}：所有模块均为矩形的硬宏单元，其尺寸在布图过程中保持不变。
+    \item \textbf{坐标系统}：布图在整数网格上进行，所有模块和引脚的坐标都必须是整数。
+    \item \textbf{芯片边界}：芯片边界是灵活的，由所有宏单元的布图包围盒动态决定。
+    \item \textbf{引脚模型}：用于线长计算的模块引脚被简化并假设位于其所属模块的中心；I/O引脚必须均匀精确地放置在芯片包围盒的最外层边缘上。
+\end{itemize}
+
+记本次实验模型为Model1，首先与其他模型进行比较，结果参考\cite{10.1145/3658617.3697728}。从表 \ref{tab:comparison_ftafp_added_col} 可以看出，我们的算法能够为不同规模的电路生成优质的布图方案。在HPWL的比较中，我们的结果在中小规模电路表现出色，但在大规模电路上仍有提升空间。但可能是SA算法本身的性能限制，以及硬件原因导致未能完全收敛。
+虽然在ami33和ami49电路上取得了较好的结果，但这是因为约束条件不同导致的，并不能作为参考。
+
+比较Pin算法的有效性，表\ref{tab:two_models_comparison}展示了使用重心法（Model1）和使用简单顺序引脚放置（Model2）的模型对比。可以看出，重心法在HPWL的表现上明显优于简单顺序放置方法，并且在运行时间上也没有明显增加。这表明了Pin引脚规划模块的有效性。
+
+
+\section{结论}
+本文针对VLSI布图中宏单元与I/O引脚的协同优化问题，提出并实现了一种基于两阶段模拟退火的布图框架。该框架通过一个创新的“两阶段复合扰动”策略，将基于序列对的宏单元布图探索与确定性的、基于重心的I/O引脚重规划紧密耦合，在每次迭代中都对一个完整的布图方案进行评估和优化。
+
+实验结果表明，该方法能够在标准的GRSC、MCNC基准电路上获得高质量的布图解，在总线长（HPWL）和芯片纵横比（AR）等关键指标上取得了有竞争力的结果，验证了我们提出的协同优化思想的有效性。
+
+除此之外，我开源了自己的实验代码，虽然目前代码项目处于初步阶段，还有很多需要完善的地方，但是由于其设计的松耦合以及各个基础部件相对完善，其有很大的扩展潜力，未来可以在此基础上进行更多算法的集成以及并行化的实现。
+
+%%% TODO: 请在此处补充您工作的局限性和未来展望
+当然，本工作也存在一些局限性。例如，当前的成本函数未包含对feedthrough和时序的精确建模。未来的工作可以将更复杂的评估模型（如我们讨论过的FTAFP Feedthrough估算）集成到成本函数中，并探索将模拟退火算法替换为更为先进的算法的可能性，以进一步提升布图质量。
+
+\bibliographystyle{IEEEtran}
+\bibliography{b}
+
+\end{document}

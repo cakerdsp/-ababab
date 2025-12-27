@@ -1,0 +1,20 @@
+{
+  "groups": [
+    {
+      "gid": "gid_default_group",
+      "gname": "Default Group",
+      "deviceCount": 1,
+      "deviceIds": [
+        "dev_123_offline"
+      ]
+    },
+    {
+      "gid": "gid_kitchen_devices",
+      "gname": "Kitchen",
+      "deviceCount": 1,
+      "deviceIds": [
+        "dev_789_offline"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+@startuml 用户界面交互流程
+
+actor 用户
+participant "前端界面" as UI
+participant "后端服务" as Backend
+participant "知识库引擎" as KB
+participant "大语言模型" as LLM
+
+用户 -> UI : 输入健康问题
+UI -> 用户 : 提示“可输入糖尿病相关问题…”
+
+用户 -> UI : 点击“发送”
+UI -> Backend : 提交问题请求（带上下文信息）
+
+alt 命中知识库
+    Backend -> KB : 查询知识库内容
+    KB --> Backend : 返回结构化答案与原文链接
+    Backend -> UI : 返回回答（来源：知识库）
+else 未命中知识库
+    Backend -> LLM : 调用大语言模型生成回答
+    LLM --> Backend : 返回生成内容
+    Backend -> UI : 返回回答（来源：模型生成）
+end
+
+UI -> 用户 : 展示回答内容（气泡式，支持高亮与出处）
+
+用户 -> UI : 可选操作（继续追问 / 点赞反馈 / 查看历史）
+
+@enduml

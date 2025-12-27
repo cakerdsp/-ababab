@@ -1,0 +1,468 @@
+#!/usr/bin/env python3
+import rospy
+import numpy as np
+import math
+import random
+from nav_msgs.msg import OccupancyGrid, Path, Odometry
+from geometry_msgs.msg import PoseStamped, Point
+from visualization_msgs.msg import Marker, MarkerArray
+from std_msgs.msg import Float32MultiArray
+from tf.transformations import euler_from_quaternion
+
+def calc_distance(p_1, p_2):
+    """
+    计算两点之间的欧几里得距离
+    参数:
+        p_1: 第一个点 (x, y)
+        p_2: 第二个点 (x, y)
+    返回:
+        float: 两点间距离
+    """
+    return math.sqrt((p_2[0]-p_1[0])**2 + (p_2[1]-p_1[1])**2)
+
+def point_to_line(p_1, p_2, p_3):
+    """
+    计算点到直线的距离和投影点
+    参数:
+        p_1, p_2: 构成直线的两个点
+        p_3: 待计算距离的点
+    返回:
+        r_u: 投影点在直线上的位置比例
+        tan_len: 点到直线的距离
+    """
+    dist = math.sqrt((p_2[0] - p_1[0])**2 + (p_2[1] - p_1[1])**2)
+
+    # 计算交点比例 u
+    # 对于三点A, B形成的线段和第三点C，通过C的切线与AB的交点
+    # 距离A点的长度等于u*|AB|
+    r_u = ((p_3[0] - p_1[0])*(p_2[0] - p_1[0]) + (p_3[1] - p_1[1])*(p_2[1] - p_1[1]))/(dist**2)
+
+    # 交点坐标
+    p_i = (p_1[0] + r_u*(p_2[0] - p_1[0]), p_1[1] + r_u*(p_2[1] - p_1[1]))
+
+    # P3到交点的距离
+    tan_len = calc_distance(p_i, p_3)
+
+    return r_u, tan_len
+
+class MapProcessor:
+    """
+    地图处理类，负责处理占据栅格地图和障碍物检测
+    """
+    def __init__(self):
+        self.map_data = None
+        self.map_info = None
+        self.obstacles = []
+        # 订阅地图话题
+        rospy.Subscriber('/map', OccupancyGrid, self.map_callback)
+
+    def map_callback(self, msg):
+        """
+        地图回调函数，处理接收到的地图数据
+        参数:
+            msg: OccupancyGrid消息
+        """
+        # 将一维数组重新整形为二维地图
+        self.map_data = np.array(msg.data).reshape((msg.info.height, msg.info.width))
+        self.map_info = msg.info
+        self.extract_obstacles()
+        rospy.loginfo("地图已加载，分辨率: %.3f，原点: (%.2f, %.2f)" % (
+            self.map_info.resolution, 
+            self.map_info.origin.position.x,
+            self.map_info.origin.position.y))
+
+    def extract_obstacles(self):
+        """
+        从占据栅格地图中提取障碍物坐标
+        """
+        self.obstacles = []
+        for y in range(self.map_info.height):
+            for x in range(self.map_info.width):
+                # 占据概率大于50%的认为是障碍物
+                if self.map_data[y][x] > 50:
+                    # 将栅格坐标转换为世界坐标
+                    world_x = x * self.map_info.resolution + self.map_info.origin.position.x
+                    world_y = y * self.map_info.resolution + self.map_info.origin.position.y
+                    self.obstacles.append((world_x, world_y))
+
+    def world_to_map(self, point):
+        """
+        将世界坐标转换为地图栅格坐标
+        参数:
+            point: 世界坐标点
+        返回:
+            tuple: 栅格坐标 (x, y)
+        """
+        x = int((point.x - self.map_info.origin.position.x) / self.map_info.resolution)
+        y = int((point.y - self.map_info.origin.position.y) / self.map_info.resolution)
+        return (x, y)
+
+    def is_collision(self, p1, p2):
+        """
+        检查两点之间的路径是否与障碍物碰撞
+        使用Bresenham直线算法进行路径离散化检测
+        参数:
+            p1, p2: 路径的起点和终点 (Point对象)
+        返回:
+            bool: True表示有碰撞，False表示无碰撞
+        """
+        if self.map_data is None:
+            return False
+        
+        # 转换为栅格坐标
+        x1, y1 = self.world_to_map(p1)
+        x2, y2 = self.world_to_map(p2)
+        
+        # 确保坐标在地图范围内
+        if (x1 < 0 or x1 >= self.map_info.width or y1 < 0 or y1 >= self.map_info.height or
+            x2 < 0 or x2 >= self.map_info.width or y2 < 0 or y2 >= self.map_info.height):
+            return True
+        
+        # Bresenham直线算法检测路径上的每个点
+        dx = abs(x2 - x1)
+        dy = abs(y2 - y1)
+        x, y = x1, y1
+        x_inc = 1 if x1 < x2 else -1
+        y_inc = 1 if y1 < y2 else -1
+        error = dx - dy
+        
+        for _ in range(dx + dy):
+            # 检查当前点是否为障碍物
+            if self.map_data[y][x] > 50:  # 占据阈值
+                return True
+            
+            if error > 0:
+                x += x_inc
+                error -= dy
+            else:
+                y += y_inc
+                error += dx
+        
+        return False
+
+class RRTStarPlanner:
+    """
+    RRT*路径规划器类
+    实现RRT*算法进行路径规划，包括树构建、重连接和路径优化
+    """
+    def __init__(self):
+        # 地图处理器
+        self.mp = MapProcessor()
+        self.start = None
+        self.goal = None
+        self.nodes = []
+        self.current_position = None  # 机器人当前位置
+        
+        # RRT*算法参数
+        self.max_iter = 2000        # 最大迭代次数
+        self.step_size = 0.5        # 步长
+        self.goal_threshold = 0.3   # 目标阈值
+        self.search_radius = 1.0    # 搜索半径
+        
+        # 双路径发布器
+        self.vis_path_pub = rospy.Publisher('/rrt_path', Path, queue_size=10)  # 可视化用
+        self.ctrl_path_pub = rospy.Publisher('/path', Float32MultiArray, queue_size=10)  # 控制用
+        self.tree_pub = rospy.Publisher('/rrt_tree', MarkerArray, queue_size=10)
+        
+        # 订阅目标点和机器人位置
+        rospy.Subscriber('/move_base_simple/goal', PoseStamped, self.goal_callback)
+        rospy.Subscriber('/odom', Odometry, self.odom_callback)
+        
+        # 等待地图加载
+        rospy.wait_for_message('/map', OccupancyGrid)
+        
+        # 等待机器人位置信息
+        rospy.wait_for_message('/odom', Odometry)
+        rospy.loginfo("规划器已初始化，等待目标点...")
+
+    class Node:
+        """
+        RRT树节点类
+        """
+        def __init__(self, point, parent=None):
+            self.point = point      # 节点位置
+            self.parent = parent    # 父节点
+            # 计算从根节点到当前节点的累积代价
+            self.cost = 0.0 if parent is None else parent.cost + math.hypot(
+                point.x - parent.point.x, point.y - parent.point.y)
+
+    def odom_callback(self, msg):
+        """
+        里程计回调函数，更新机器人当前位置
+        参数:
+            msg: Odometry消息，包含机器人位置和朝向
+        """
+        self.current_position = msg.pose.pose.position
+    
+    def goal_callback(self, msg):
+        """
+        目标点回调函数
+        参数:
+            msg: PoseStamped消息，包含目标位置
+        """
+        self.goal = msg.pose.position
+        if self.mp.map_info is not None and self.current_position is not None:
+            # 使用机器人当前位置作为起点
+            self.start = Point(self.current_position.x, self.current_position.y, 0)
+            rospy.loginfo("收到目标点: (%.2f, %.2f)，从当前位置 (%.2f, %.2f) 开始路径规划..." % 
+                         (self.goal.x, self.goal.y, self.start.x, self.start.y))
+            self.plan_path()
+        else:
+            rospy.logwarn("地图或机器人位置信息未准备好，等待...")
+
+    def plan_path(self):
+        """
+        RRT*路径规划主函数
+        """
+        start_time = rospy.Time.now()
+        
+        # 初始化RRT树
+        self.nodes = []
+        start_node = self.Node(self.start)
+        self.nodes.append(start_node)
+        
+        reached = False
+        goal_node = None
+        
+        rospy.loginfo("开始RRT*路径规划...")
+        
+        for iteration in range(self.max_iter):
+            # 1. 随机采样
+            if random.random() < 0.1:  # 10%概率直接采样目标点
+                rand_point = Point(self.goal.x, self.goal.y, 0)
+            else:
+                # 在地图范围内随机采样
+                rand_point = Point(
+                    random.uniform(self.mp.map_info.origin.position.x, 
+                                 self.mp.map_info.origin.position.x + self.mp.map_info.width * self.mp.map_info.resolution),
+                    random.uniform(self.mp.map_info.origin.position.y,
+                                 self.mp.map_info.origin.position.y + self.mp.map_info.height * self.mp.map_info.resolution),
+                    0
+                )
+            
+            # 2. 找到最近的节点
+            nearest_node = self.find_nearest_node(rand_point)
+            
+            # 3. 扩展节点
+            new_point = self.steer(nearest_node.point, rand_point)
+            
+            # 4. 碰撞检测
+            if self.mp.is_collision(nearest_node.point, new_point):
+                continue
+            
+            # 5. 在搜索半径内找到邻近节点
+            near_nodes = self.find_near_nodes(new_point)
+            
+            # 6. 选择最佳父节点
+            best_parent = self.choose_parent(near_nodes, new_point, nearest_node)
+            new_node = self.Node(new_point, best_parent)
+            self.nodes.append(new_node)
+            
+            # 7. 重连接优化
+            self.rewire(new_node, near_nodes)
+            
+            # 8. 检查是否到达目标
+            if calc_distance((new_point.x, new_point.y), (self.goal.x, self.goal.y)) < self.goal_threshold:
+                if not self.mp.is_collision(new_point, self.goal):
+                    goal_node = self.Node(self.goal, new_node)
+                    reached = True
+                    rospy.loginfo("找到路径！迭代次数: %d" % (iteration + 1))
+                    break
+        
+        # 计算规划时间
+        planning_time = (rospy.Time.now() - start_time).to_sec()
+        
+        if reached:
+            # 发布路径
+            self.publish_path(goal_node)
+            # 计算路径长度
+            path_length = goal_node.cost
+            rospy.loginfo("路径规划成功！")
+            rospy.loginfo("规划时间: %.3f 秒" % planning_time)
+            rospy.loginfo("路径长度: %.3f 米" % path_length)
+        else:
+            rospy.logwarn("在最大迭代次数内未找到路径")
+
+    def find_nearest_node(self, point):
+        """
+        找到距离给定点最近的树节点
+        参数:
+            point: 目标点
+        返回:
+            Node: 最近的节点
+        """
+        min_dist = float('inf')
+        nearest = None
+        for node in self.nodes:
+            dist = calc_distance((node.point.x, node.point.y), (point.x, point.y))
+            if dist < min_dist:
+                min_dist = dist
+                nearest = node
+        return nearest
+
+    def steer(self, from_point, to_point):
+        """
+        从起点向目标点扩展固定步长
+        参数:
+            from_point: 起点
+            to_point: 目标点
+        返回:
+            Point: 扩展后的新点
+        """
+        dist = calc_distance((from_point.x, from_point.y), (to_point.x, to_point.y))
+        if dist <= self.step_size:
+            return to_point
+        
+        # 计算单位方向向量
+        theta = math.atan2(to_point.y - from_point.y, to_point.x - from_point.x)
+        new_point = Point(
+            from_point.x + self.step_size * math.cos(theta),
+            from_point.y + self.step_size * math.sin(theta),
+            0
+        )
+        return new_point
+
+    def find_near_nodes(self, point):
+        """
+        在搜索半径内找到所有邻近节点
+        参数:
+            point: 中心点
+        返回:
+            list: 邻近节点列表
+        """
+        near_nodes = []
+        for node in self.nodes:
+            if calc_distance((node.point.x, node.point.y), (point.x, point.y)) <= self.search_radius:
+                near_nodes.append(node)
+        return near_nodes
+
+    def choose_parent(self, near_nodes, new_point, nearest_node):
+        """
+        为新节点选择最佳父节点（代价最小）
+        参数:
+            near_nodes: 邻近节点列表
+            new_point: 新节点位置
+            nearest_node: 最近节点
+        返回:
+            Node: 最佳父节点
+        """
+        best_parent = nearest_node
+        min_cost = nearest_node.cost + calc_distance(
+            (nearest_node.point.x, nearest_node.point.y),
+            (new_point.x, new_point.y)
+        )
+        
+        for node in near_nodes:
+            # 检查无碰撞连接
+            if not self.mp.is_collision(node.point, new_point):
+                cost = node.cost + calc_distance(
+                    (node.point.x, node.point.y),
+                    (new_point.x, new_point.y)
+                )
+                if cost < min_cost:
+                    min_cost = cost
+                    best_parent = node
+        
+        return best_parent
+
+    def rewire(self, new_node, near_nodes):
+        """
+        重连接优化：检查是否可以通过新节点减少邻近节点的代价
+        参数:
+            new_node: 新添加的节点
+            near_nodes: 邻近节点列表
+        """
+        for node in near_nodes:
+            if node == new_node.parent:
+                continue
+            
+            # 计算通过新节点的代价
+            new_cost = new_node.cost + calc_distance(
+                (new_node.point.x, new_node.point.y),
+                (node.point.x, node.point.y)
+            )
+            
+            # 如果代价更小且无碰撞，则重连接
+            if new_cost < node.cost and not self.mp.is_collision(new_node.point, node.point):
+                node.parent = new_node
+                node.cost = new_cost
+
+    def publish_path(self, goal_node):
+        """
+        发布规划得到的路径
+        参数:
+            goal_node: 目标节点
+        """
+        # 可视化Path构建
+        vis_path = Path()
+        vis_path.header.frame_id = "map"
+        vis_path.header.stamp = rospy.Time.now()
+        
+        # 控制用路径数据构建
+        ctrl_path = Float32MultiArray()
+        path_points = []
+        
+        # 收集路径点（从终点到起点）
+        current = goal_node
+        while current is not None:
+            # 可视化Path的点
+            pose = PoseStamped()
+            pose.header.frame_id = "map"
+            pose.pose.position = current.point
+            vis_path.poses.append(pose)
+            
+            # 控制用路径点
+            path_points.append((current.point.x, current.point.y))
+            current = current.parent
+        
+        # 反转路径顺序（起点到终点）
+        vis_path.poses.reverse()
+        path_points.reverse()
+        
+        # 填充控制路径数据
+        for point in path_points:
+            ctrl_path.data.extend([point[0], point[1]])
+        
+        # 同时发布两种格式
+        self.vis_path_pub.publish(vis_path)
+        self.ctrl_path_pub.publish(ctrl_path)
+        rospy.loginfo("已发布路径数据:")
+        rospy.loginfo("- 可视化路径: %d 个点" % len(vis_path.poses))
+        rospy.loginfo("- 控制路径: %d 个点" % len(path_points))
+        
+        self.publish_tree()
+
+    def publish_tree(self):
+        """
+        发布RRT树用于可视化
+        """
+        marker_array = MarkerArray()
+        marker = Marker()
+        marker.header.frame_id = "map"
+        marker.header.stamp = rospy.Time.now()
+        marker.ns = "rrt_tree"
+        marker.id = 0
+        marker.type = Marker.LINE_LIST
+        marker.action = Marker.ADD
+        marker.scale.x = 0.03
+        marker.color.r = 0.0
+        marker.color.g = 1.0
+        marker.color.b = 0.0
+        marker.color.a = 0.5
+        
+        # 添加树的所有边
+        for node in self.nodes:
+            if node.parent:
+                marker.points.append(node.parent.point)
+                marker.points.append(node.point)
+        
+        marker_array.markers.append(marker)
+        self.tree_pub.publish(marker_array)
+
+if __name__ == '__main__':
+    try:
+        rospy.init_node('rrt_star_planner')
+        planner = RRTStarPlanner()
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        pass

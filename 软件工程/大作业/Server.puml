@@ -1,0 +1,54 @@
+@startuml
+skinparam componentStyle uml2
+skinparam monochrome true
+skinparam nodesep 50
+skinparam ranksep 60
+
+left to right direction
+
+component "数据存储服务" as storage {
+    [REST API]
+    [数据校验]
+}
+
+database "PostgreSQL" as db {
+    [用户表]
+    [设备绑定表]
+    [历史数据]
+    [场景策略]
+}
+
+rectangle "Windows客户端" as client {
+    [业务逻辑]
+    [规则引擎]
+    [第三方API控制设备直连]
+}
+
+rectangle "智能设备" as device
+
+' 数据流箭头调整
+client -left-> storage : 1. 上传加密数据\n(POST /data)
+storage -left-> client : 2. 同步设备状态\n(GET /sync)
+
+client -down-> device : 3. 直接控制\n(本地API/MQTT)
+device -up-> client : 4. 状态推送
+
+storage --> db : 持久化数据
+db --> storage : 查询结果
+
+' 注释框位置优化
+note bottom of storage
+**服务端仅做**：
+1. 数据存储鉴权
+2. 冲突合并
+3. 基础校验
+end note
+
+note right of client
+**客户端全权处理**：
+1. 设备发现
+2. 协议转换
+3. 规则触发
+4. 实时控制
+end note
+@enduml

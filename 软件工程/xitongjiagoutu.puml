@@ -1,0 +1,32 @@
+@startuml DifyArchitecture
+title 智慧医疗对话系统软件体系结构
+
+' 定义包结构
+package "用户界面层 (UI Layer)" {
+  [UIClient]
+}
+
+package "业务逻辑层 (Business Logic Layer)" {
+  [PromptManager]
+  [LLMEngine]
+  [KnowledgeInjector]
+  [SessionManager]
+  [APIGateway]
+}
+
+package "基础服务层 (Infrastructure Layer)" {
+  [LLMBackend]
+  [VectorDB]
+  [MySQLDB]
+}
+
+' 依赖关系
+[UIClient] --> [APIGateway] : 请求/响应
+[APIGateway] --> [PromptManager] : 组装Prompt
+[PromptManager] --> [KnowledgeInjector] : 检索知识
+[PromptManager] --> [LLMEngine] : 调用模型
+[KnowledgeInjector] --> [VectorDB] : 查询向量
+[LLMEngine] --> [LLMBackend] : 模型推理
+[SessionManager] --> [MySQLDB] : 存储会话记录
+
+@enduml

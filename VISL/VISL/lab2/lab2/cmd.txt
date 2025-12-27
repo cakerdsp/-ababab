@@ -1,0 +1,1 @@
+./main ../lab2_generate_benchmark/small.txt ../output/small_placement.txt

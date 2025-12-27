@@ -1,0 +1,77 @@
+# MCNC基准测试配置 - SA + Sequence Pair + ami49软模块
+data:
+  benchmark: "mcnc"                    # 数据集类型: gsrc | mcnc  
+  dataset: "ami49"                     # 测试用例: ami33, ami49, apte, hp, xerox
+  module_type: "hard"                  # 模块类型: soft | hard
+
+# 宏模块布图阶段
+algorithm:
+  name: "simulated_annealing"          # 优化算法: genetic | simulated_annealing
+  representation: "sequence_pair"      # 表示方法: btree | sequence_pair
+  max_iterations: 4000                 # ami49规模更大，增加迭代次数
+
+# 模拟退火参数
+simulated_annealing:
+  initial_temperature: 1500.0         # ami49规模更大，使用更高初温
+  final_temperature: 1.0
+  cooling_rate: 0.95
+  moves_per_temperature: 50
+
+# 引脚分配配置
+pin_assignment:
+  algorithm: "uniform_edge"       # 推荐使用重心法
+  expansion_ratio: 1.2                 # 可能需要更大空间
+  verbose: false                       # 详细输出
+
+# 评估系统
+evaluation:
+  chip_expansion_ratio: 1.3            # 软模块通常需要更多空间
+  
+  # Feedthrough计算方法
+  feedthrough_method: "ftafp"          # Feedthrough方法: "original" | "ftafp"
+  
+  # 基准函数校准参数
+  calibration:
+    enabled: true                      # 启用基准函数校准
+    samples: 15                        # ami49更复杂，增加校准样本
+    verbose: true                      # 显示校准过程
+  
+  # 评估权重 - 软模块调整
+  weights:
+    hpwl: 1.0                         # 线长权重
+    area: 0.6                         # 软模块面积更重要
+    feedthrough_count: 0.3            # Feedthrough数量权重
+    feedthrough_wirelength: 0.3       # Feedthrough线长权重
+    whitespace: 0.2                   # 软模块空白更重要
+    legality: 0.1                     # 合法性权重
+
+# 输出配置
+output:
+  verbose: true
+  
+  # 可视化配置  
+  visualization:
+    enabled: true
+    draw_frequency: 800
+    output_dir: "visualization"
+    image_format: "png"
+    
+    # 布局图配置
+    layout:
+      show_module_labels: true
+      show_net_connections: true       # 软模块显示连接更有用
+      color_scheme: "soft_modules"     # 软模块专用配色
+      
+    # 输出格式
+    formats:
+      png: true
+      pdf: true                        # ami49保存PDF用于分析
+      
+    # 分辨率和尺寸
+    dpi: 300
+    figsize: [14, 12]                  # ami49更大，使用更大画布
+    
+  # 结果保存
+  save_results: true
+  save_intermediate: false
+  save_pl_file: true 

@@ -1,0 +1,11 @@
+mpicc -o matrix_multiply matrix_multiply.c
+mpiexec --oversubscribe -np 2 ./matrix_multiply 2 2 2
+
+mpicc -o block_multiply block_multiply.c -lm
+mpiexec -np 4 ./block_multiply 1024 1024 1024 2 2
+
+mpicc -o csr_csr csr_csr.c -lm
+mpiexec -np 4 ./csr_csr 4 4 4
+
+
+

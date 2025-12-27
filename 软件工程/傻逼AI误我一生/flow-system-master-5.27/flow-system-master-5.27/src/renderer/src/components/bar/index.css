@@ -1,0 +1,137 @@
+.title-bar {
+  position: relative;
+  /* 为定位子元素提供参照 */
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  -webkit-app-region: drag;
+  user-select: none;
+  overflow: hidden;
+  /* 防止内容溢出 */
+
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-top: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+}
+
+.title-bar-left,
+.title-bar-right {
+  width: 50%;
+  /* 控制顶部标题栏的比例 */
+  height: 45px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-bar-left img {
+  margin-left: 10px;
+}
+
+.title-bar-right {
+  width: 50%;
+  float: right;
+  display: flex;
+  justify-content: right;
+  background-color: white;
+}
+
+.title-bar .icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  /* 字体开始位置 */
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+.title-bar .title {
+  flex-grow: 1;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  /* 当文本溢出时，用省略号（...）表示被截断的内容 */
+  text-overflow: ellipsis;
+  -webkit-app-region: drag;
+  color: #151717;
+  font-size: 20px;
+  /* xxx集成控制系统字体大小 */
+  margin-top: -2px;
+}
+
+.title-bar .operating-button {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  border-radius: 50%;
+  background-color: var(--button-bg);
+  margin-right: 8px;
+}
+
+.title-bar .operating-button img {
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.title-bar .operating-button:hover img {
+  opacity: 1;
+}
+
+.title-bar .close-button {
+  --button-bg: #f56057;
+}
+
+.title-bar .minimum-button {
+  --button-bg: #fec428;
+}
+
+.title-bar .expand-button {
+  --button-bg: #1fd42a;
+}
+
+/* 页面缩放控制样式 */
+.scale-control {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  -webkit-app-region: no-drag;
+}
+
+.scale-label {
+  font-size: 12px;
+  color: #666;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.scale-select {
+  padding: 2px 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+  min-width: 60px;
+  transition: border-color 0.2s ease;
+}
+
+.scale-select:hover {
+  border-color: #999;
+}
+
+.scale-select:focus {
+  border-color: #409eff;
+  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+}
