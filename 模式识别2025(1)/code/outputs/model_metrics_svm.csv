@@ -1,0 +1,2 @@
+model_name,accuracy,precision,recall,f1_score,roc_auc,training_time_seconds,prediction_time_seconds,model_size_mb,best_parameters,optimization_trials
+SVMModeler,0.9225111187136503,0.924034582008586,0.9225111187136503,0.9222965876062353,0.9700576147568144,2777.2238574028015,4.81659722328186,0,"{'C': 3.4328094360645425, 'kernel': 'rbf', 'gamma': 'auto', 'probability': True, 'random_state': 42}",0

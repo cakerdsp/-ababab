@@ -1,0 +1,2 @@
+model_name,accuracy,precision,recall,f1_score,roc_auc,training_time_seconds,prediction_time_seconds,model_size_mb,best_parameters,optimization_trials
+DecisionTreeModeler,0.9211426616489907,0.9238027122659574,0.9211426616489907,0.920827219788271,0.96962394015267,23.674073934555054,0.0023767948150634766,0,"{'max_depth': 7, 'min_samples_split': 25, 'min_samples_leaf': 20, 'max_features': None, 'criterion': 'gini', 'random_state': 42}",0

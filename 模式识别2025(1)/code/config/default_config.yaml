@@ -1,0 +1,688 @@
+# OULAD数据分析详细配置文件
+# 包含所有可配置参数和选项说明
+
+# =============================================================================
+# 数据选择参数
+# =============================================================================
+data:
+  # 目标课程列表，如 ["AAA", "BBB"]，null表示使用所有课程
+  # 可选值: null, ["AAA"], ["BBB"], ["AAA", "BBB"] 等
+  target_courses: null
+  
+  # 目标变量列名，用于预测学业困难学生
+  # 可选值: "at_risk", "final_result", "withdrawn" 等
+  target_column: "at_risk"
+  
+  # 测试集比例，用于模型训练和评估
+  # 可选值: 0.1 到 0.5 之间的小数
+  test_size: 0.2
+  
+  # 验证集比例（如果使用交叉验证）
+  # 可选值: 0.1 到 0.3 之间的小数
+  validation_size: 0.2
+  
+  # 随机种子，确保结果可重现
+  # 可选值: 任意整数
+  random_state: 42
+  
+  # 数据目录路径
+  # 可选值: 相对路径或绝对路径
+  data_dir: "../anonymisedData/anonymisedData"
+  
+  # 输出目录路径
+  # 可选值: 相对路径或绝对路径
+  output_dir: "../outputs"
+
+# =============================================================================
+# 数据清洗参数
+# =============================================================================
+cleaning:
+  # 缺失值处理策略
+  # 可选值: 
+  #   - "auto": 自动选择最佳策略
+  #   - "drop": 删除包含缺失值的行
+  #   - "impute": 使用统计方法填充缺失值
+  missing_strategy: "auto"
+  
+  # 缺失值阈值，超过此比例的列将被删除
+  # 可选值: 0.0 到 1.0 之间的小数
+  missing_threshold: 0.5
+  
+  # 异常值检测方法
+  # 可选值:
+  #   - "iqr": 四分位距方法
+  #   - "percentile": 百分位数方法
+  #   - "zscore": Z分数方法
+  #   - "isolation": 隔离森林方法
+  outlier_method: "percentile"
+  
+  # 异常值处理阈值
+  # 可选值: 0.95 到 0.99 之间的小数（percentile方法）
+  #         1.5 到 3.0 之间的小数（iqr方法）
+  #         2.0 到 4.0 之间的小数（zscore方法）
+  outlier_threshold: 0.98
+  
+  # 高相关性特征删除阈值
+  # 可选值: 0.8 到 0.99 之间的小数
+  correlation_threshold: 0.95
+  
+  # 最小类别频次，低于此值的类别将被合并
+  # 可选值: 1 到 100 之间的整数
+  min_category_freq: 10
+  
+  # 启用特征工程
+  # 可选值: true, false
+  enable_feature_engineering: true
+  
+  # 启用分类变量编码
+  # 可选值: true, false
+  enable_encoding: true
+  
+  # 启用特征标准化
+  # 可选值: true, false
+  enable_normalization: true
+  
+  # 特征选择方法
+  # 可选值:
+  #   - "none": 不进行特征选择
+  #   - "variance": 方差阈值选择
+  #   - "correlation": 相关性选择
+  #   - "mutual_info": 互信息选择
+  #   - "chi2": 卡方检验选择
+  feature_selection_method: "chi2"
+  
+  # 特征选择参数
+  feature_selection_params:
+    # 方差阈值（variance方法）
+    variance_threshold: 0.01
+    # 选择特征数量（mutual_info, chi2方法）
+    k_features: 30
+    # 相关性阈值（correlation方法）
+    correlation_threshold: 0.95
+
+# =============================================================================
+# 探索性数据分析 (EDA) 配置
+# =============================================================================
+eda:
+  # 启用探索性数据分析
+  # 可选值: true, false
+  enable_eda: true
+  
+  # 图片分辨率
+  # 可选值: 72 到 600 之间的整数
+  plot_dpi: 300
+  
+  # 图片尺寸 [宽度, 高度]
+  # 可选值: [8, 6], [12, 8], [16, 10] 等
+  figure_size: [12, 8]
+  
+  # 最大显示类别数
+  # 可选值: 5 到 50 之间的整数
+  max_categories_display: 10
+  
+  # 相关性计算方法
+  # 可选值: "pearson", "spearman", "kendall"
+  correlation_method: "pearson"
+  
+  # 是否在热力图中显示数值
+  # 可选值: true, false
+  show_correlation_values: false
+  
+  # 是否生成交互式图表
+  # 可选值: true, false
+  interactive_plots: false
+  
+  # 是否保存所有EDA图表
+  # 可选值: true, false
+  save_all_plots: true
+  
+  # 图表格式
+  # 可选值: "png", "jpg", "svg", "pdf"
+  plot_format: "png"
+
+# =============================================================================
+# 分析模块开关
+# =============================================================================
+modules:
+  # 启用探索性数据分析
+  # 可选值: true, false
+  enable_eda: true
+  
+  # 启用机器学习建模
+  # 可选值: true, false
+  enable_modeling: true
+  
+  # 启用高级分析
+  # 可选值: true, false
+  enable_advanced_analysis: false
+  
+  # 启用插件系统
+  # 可选值: true, false
+  enable_plugins: false
+
+# =============================================================================
+# 机器学习建模配置
+# =============================================================================
+modeling:
+  # 选择要运行的模型，可以是一个或多个
+  # 可选值: 
+  #   - ["random_forest"]: 只运行随机森林
+  #   - ["logistic_regression"]: 只运行逻辑回归
+  #   - ["kmeans"]: 只运行K-Means聚类
+  #   - ["neural_network"]: 只运行神经网络
+  #   - ["svm"]: 只运行支持向量机
+  #   - ["em"]: 只运行EM（高斯混合）模型
+  #   - ["decision_tree"]: 只运行决策树
+  #   - ["random_forest", "logistic_regression"]: 运行多个模型
+  models_to_run:
+    - "logistic_regression"
+    - "random_forest"
+    - "em"
+    - "decision_tree"
+    - "kmeans"
+
+  
+  # 交叉验证折数
+  # 可选值: 3 到 10 之间的整数
+  cross_validation_folds: 5
+  
+  # 评分指标
+  # 可选值: "accuracy", "precision", "recall", "f1", "auc", "roc_auc"
+  scoring_metric: "f1"
+  
+  # 并行任务数，-1表示使用所有CPU核心
+  # 可选值: -1, 1, 2, 4, 8 等
+  n_jobs: -1
+  
+  # 是否显示详细输出
+  # 可选值: true, false
+  verbose: true
+  
+  # 是否保存训练好的模型
+  # 可选值: true, false
+  save_models: true
+  
+  # 模型保存目录
+  # 可选值: 相对路径或绝对路径
+  model_dir: "models"
+  
+  # =============================================================================
+  # 随机森林模型参数
+  # =============================================================================
+  random_forest:
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 100 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 树的数量
+      # 可选值: 50 到 1000 之间的整数
+      n_estimators: 100
+      
+      # 最大深度
+      # 可选值: 3 到 50 之间的整数，null表示无限制
+      max_depth: null
+      
+      # 最小分裂样本数
+      # 可选值: 2 到 20 之间的整数
+      min_samples_split: 2
+      
+      # 最小叶子节点样本数
+      # 可选值: 1 到 10 之间的整数
+      min_samples_leaf: 1
+      
+      # 最大特征数
+      # 可选值: "sqrt", "log2", null, 整数
+      max_features: "sqrt"
+      
+      # 是否使用bootstrap采样
+      # 可选值: true, false
+      bootstrap: true
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+  
+  # =============================================================================
+  # 逻辑回归模型参数
+  # =============================================================================
+  logistic_regression:
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 100 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 正则化强度
+      # 可选值: 0.001 到 1000 之间的浮点数
+      C: 1.0
+      
+      # 正则化类型
+      # 可选值: "l1", "l2", "elasticnet", "none"
+      penalty: "l2"
+      
+      # 求解器
+      # 可选值: "lbfgs", "liblinear", "newton-cg", "newton-cholesky", "sag", "saga"
+      solver: "lbfgs"
+      
+      # 最大迭代次数
+      # 可选值: 100 到 10000 之间的整数
+      max_iter: 1000
+      
+      # 收敛容差
+      # 可选值: 1e-5 到 1e-3 之间的浮点数
+      tol: 1e-4
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+  
+  # =============================================================================
+  # K-Means聚类模型参数
+  # =============================================================================
+  kmeans:
+    # 聚类数量
+    # 可选值: 2 到 20 之间的整数
+    n_clusters: 2
+    
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 100 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 初始化方法
+      # 可选值: "k-means++", "random"
+      init: "k-means++"
+      
+      # 最大迭代次数
+      # 可选值: 100 到 1000 之间的整数
+      max_iter: 300
+      
+      # 收敛容差
+      # 可选值: 1e-5 到 1e-3 之间的浮点数
+      tol: 1e-4
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+      
+      # 运行次数
+      # 可选值: 1 到 20 之间的整数
+      n_init: 10
+  
+  # =============================================================================
+  # 神经网络模型参数
+  # =============================================================================
+  neural_network:
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 100 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 隐藏层结构
+      # 可选值: [64], [128], [64, 32], [128, 64, 32] 等
+      hidden_layer_sizes: [64, 32]
+      
+      # 激活函数
+      # 可选值: "relu", "tanh", "logistic"
+      activation: "relu"
+      
+      # 求解器
+      # 可选值: "adam", "sgd", "lbfgs"
+      solver: "adam"
+      
+      # 学习率
+      # 可选值: 0.0001 到 0.1 之间的浮点数
+      learning_rate: 0.001
+      
+      # 最大迭代次数
+      # 可选值: 100 到 10000 之间的整数
+      max_iter: 1000
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+      
+      # 早停
+      # 可选值: true, false
+      early_stopping: true
+      
+      # 验证集比例
+      # 可选值: 0.1 到 0.3 之间的小数
+      validation_fraction: 0.1
+
+  # =============================================================================
+  # SVM支持向量机模型参数
+  # =============================================================================
+  svm:
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 50 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 正则化参数
+      # 可选值: 0.1 到 100 之间的浮点数
+      C: 1.0
+      
+      # 核函数类型
+      # 可选值: "linear", "poly", "rbf", "sigmoid"
+      kernel: "rbf"
+      
+      # 核函数系数
+      # 可选值: "scale", "auto", 或浮点数
+      gamma: "scale"
+      
+      # 多项式核的度数（仅当kernel='poly'时有效）
+      # 可选值: 2 到 5 之间的整数
+      degree: 3
+      
+      # 是否启用概率估计
+      # 可选值: true, false
+      probability: true
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+
+  # =============================================================================
+  # EM（期望最大化）高斯混合模型参数
+  # =============================================================================
+  em:
+    # 混合组件数量（对应聚类数）
+    # 可选值: 2 到 10 之间的整数
+    n_components: 2
+    
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 30 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 混合组件数量
+      # 可选值: 2 到 10 之间的整数
+      n_components: 2
+      
+      # 协方差类型
+      # 可选值: "full", "tied", "diag", "spherical"
+      covariance_type: "full"
+      
+      # 最大迭代次数
+      # 可选值: 50 到 200 之间的整数
+      max_iter: 100
+      
+      # 收敛容差
+      # 可选值: 1e-4 到 1e-2 之间的浮点数
+      tol: 1e-3
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+
+  # =============================================================================
+  # 决策树模型参数
+  # =============================================================================
+  decision_tree:
+    # 是否使用特征标准化（决策树通常不需要）
+    # 可选值: true, false
+    use_scaling: false
+    
+    # 是否自动优化超参数
+    # 可选值: true, false
+    auto_optimize: true
+    
+    # 优化试验次数
+    # 可选值: 10 到 50 之间的整数
+    n_trials: 20
+    
+    # 手动设置参数（当auto_optimize=false时使用）
+    manual_params:
+      # 树的最大深度
+      # 可选值: 3 到 20 之间的整数，null表示无限制
+      max_depth: 10
+      
+      # 分裂内部节点所需的最小样本数
+      # 可选值: 2 到 50 之间的整数
+      min_samples_split: 10
+      
+      # 叶节点所需的最小样本数
+      # 可选值: 1 到 20 之间的整数
+      min_samples_leaf: 5
+      
+      # 寻找最佳分割时考虑的特征数量
+      # 可选值: "sqrt", "log2", null, 整数
+      max_features: "sqrt"
+      
+      # 分割质量的衡量标准
+      # 可选值: "gini", "entropy"
+      criterion: "gini"
+      
+      # 随机种子
+      # 可选值: 任意整数
+      random_state: 42
+
+# =============================================================================
+# 输出配置
+# =============================================================================
+output:
+  # 图表输出目录
+  # 可选值: 相对路径或绝对路径
+  plot_dir: "outputs/plots/modeling"
+  
+  # EDA图表输出目录
+  # 可选值: 相对路径或绝对路径
+  eda_plot_dir: "outputs/plots/eda"
+  
+  # SHAP分析图表输出目录
+  # 可选值: 相对路径或绝对路径
+  shap_plot_dir: "outputs/plots/shap"
+  
+  # 清洗数据图表输出目录
+  # 可选值: 相对路径或绝对路径
+  cleaning_plot_dir: "outputs/plots/cleaning"
+  
+  # 报告输出目录
+  # 可选值: 相对路径或绝对路径
+  report_dir: "outputs"
+  
+  # 是否保存训练好的模型
+  # 可选值: true, false
+  save_models: true
+  
+  # 模型保存目录
+  # 可选值: 相对路径或绝对路径
+  model_dir: "models"
+  
+  # 是否保存中间结果
+  # 可选值: true, false
+  save_intermediate: true
+  
+  # 输出文件格式
+  # 可选值: "csv", "json", "pickle"
+  output_format: "csv"
+  
+  # 是否压缩输出文件
+  # 可选值: true, false
+  compress_output: false
+  
+  # 是否生成详细报告
+  # 可选值: true, false
+  generate_detailed_report: true
+  
+  # 是否生成可视化报告
+  # 可选值: true, false
+  generate_visual_report: true
+  
+  # 图片分辨率
+  # 可选值: 72 到 600 之间的整数
+  plot_dpi: 300
+  
+  # 图片格式
+  # 可选值: "png", "jpg", "svg", "pdf"
+  plot_format: "png"
+
+# =============================================================================
+# SHAP分析配置
+# =============================================================================
+shap:
+  # 是否启用SHAP分析
+  # 可选值: true, false
+  enable_shap: true
+  
+  # SHAP样本数量（用于计算SHAP值）
+  # 可选值: 100 到 1000 之间的整数
+  shap_sample_size: 100
+  
+  # 是否保存SHAP摘要图
+  # 可选值: true, false
+  save_summary_plot: true
+  
+  # 是否保存SHAP重要性图
+  # 可选值: true, false
+  save_importance_plot: true
+  
+  # 是否保存SHAP依赖图
+  # 可选值: true, false
+  save_dependence_plots: true
+  
+  # 依赖图最多显示特征数
+  # 可选值: 5 到 20 之间的整数
+  max_dependence_features: 10
+  
+  # 是否保存SHAP瀑布图
+  # 可选值: true, false
+  save_waterfall_plots: true
+  
+  # 瀑布图样本数量
+  # 可选值: 1 到 10 之间的整数
+  waterfall_samples: 3
+
+# =============================================================================
+# 日志配置
+# =============================================================================
+logging:
+  # 日志级别
+  # 可选值: "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+  level: "INFO"
+  
+  # 日志格式
+  # 可选值: 自定义格式字符串
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # 日志文件路径
+  # 可选值: 相对路径或绝对路径
+  file: "outputs/analysis.log"
+  
+  # 是否同时输出到控制台
+  # 可选值: true, false
+  console_output: true
+  
+  # 是否轮转日志文件
+  # 可选值: true, false
+  rotate_logs: true
+  
+  # 最大日志文件大小（MB）
+  # 可选值: 1 到 1000 之间的整数
+  max_log_size: 10
+  
+  # 保留的日志文件数量
+  # 可选值: 1 到 100 之间的整数
+  backup_count: 5
+
+# =============================================================================
+# 性能配置
+# =============================================================================
+performance:
+  # 是否启用多进程处理
+  # 可选值: true, false
+  enable_multiprocessing: true
+  
+  # 进程数量，-1表示使用所有CPU核心
+  # 可选值: -1, 1, 2, 4, 8 等
+  n_processes: -1
+  
+  # 内存使用限制（GB）
+  # 可选值: 1 到 32 之间的整数
+  memory_limit: 8
+  
+  # 是否启用缓存
+  # 可选值: true, false
+  enable_caching: true
+  
+  # 缓存目录
+  # 可选值: 相对路径或绝对路径
+  cache_dir: "cache"
+  
+  # 缓存过期时间（小时）
+  # 可选值: 1 到 168 之间的整数
+  cache_expiry: 24
+
+# =============================================================================
+# 调试配置
+# =============================================================================
+debug:
+  # 是否启用调试模式
+  # 可选值: true, false
+  enabled: false
+  
+  # 是否保存调试信息
+  # 可选值: true, false
+  save_debug_info: false
+  
+  # 调试信息输出目录
+  # 可选值: 相对路径或绝对路径
+  debug_dir: "debug"
+  
+  # 是否显示详细错误信息
+  # 可选值: true, false
+  verbose_errors: false
+  
+  # 是否启用性能分析
+  # 可选值: true, false
+  enable_profiling: false
+
+# =============================================================================
+# 插件配置
+# =============================================================================
+plugins:
+  # 是否启用插件系统
+  # 可选值: true, false
+  enabled: false
+  
+  # 插件目录
+  # 可选值: 相对路径或绝对路径
+  plugin_dir: "plugins"
+  
+  # 启用的插件列表
+  # 可选值: 插件名称列表
+  enabled_plugins: []
+  
+  # 插件配置
+  plugin_configs: {} 

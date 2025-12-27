@@ -1,0 +1,8 @@
+Table,Rows,Cols,Missing_Rows,Missing_Percentage,Memory_MB,Columns
+student_info,32593,12,1111,3.408707391157611,16.296157836914062,"['code_module', 'code_presentation', 'id_student', 'gender', 'region', 'highest_education', 'imd_band', 'age_band', 'num_of_prev_attempts', 'studied_credits', 'disability', 'final_result']"
+student_vle,10655280,6,0,0.0,1402.3101539611816,"['code_module', 'code_presentation', 'id_student', 'id_site', 'date', 'sum_click']"
+student_assessment,173912,5,173,0.09947559685358112,6.634342193603516,"['id_assessment', 'id_student', 'date_submitted', 'is_banked', 'score']"
+student_registration,32593,5,22560,69.09765900653515,4.040929794311523,"['code_module', 'code_presentation', 'id_student', 'date_registration', 'date_unregistration']"
+vle,6364,6,5243,82.3852922690132,1.1305456161499023,"['id_site', 'code_module', 'code_presentation', 'activity_type', 'week_from', 'week_to']"
+courses,22,3,0,0.0,0.0025177001953125,"['code_module', 'code_presentation', 'module_presentation_length']"
+assessments,206,6,11,5.339805825242718,0.0359039306640625,"['code_module', 'code_presentation', 'id_assessment', 'assessment_type', 'date', 'weight']"

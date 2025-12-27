@@ -1,0 +1,2 @@
+model_name,accuracy,precision,recall,f1_score,roc_auc,training_time_seconds,prediction_time_seconds,model_size_mb,best_parameters,optimization_trials
+LogisticRegressionModeler,0.9040369483407458,0.9044308430101187,0.9040369483407458,0.9039056799518335,0.9650371416770919,12.937838792800903,0,0,"{'penalty': 'l2', 'C': 0.1411508843787329, 'max_iter': 300, 'solver': 'lbfgs', 'random_state': 42}",0

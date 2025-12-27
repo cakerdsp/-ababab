@@ -1,0 +1,2 @@
+model_name,accuracy,precision,recall,f1_score,roc_auc,training_time_seconds,prediction_time_seconds,model_size_mb,best_parameters,optimization_trials
+NeuralNetworkModeler,0.9237085186452275,0.9248606080961356,0.9237085186452275,0.9235317075985285,0.9741913729152076,177.16097950935364,0,0,"{'activation': 'relu', 'solver': 'adam', 'learning_rate_init': 0.0013905720297918585, 'alpha': 0.0005237692161761608, 'hidden_layer_sizes': (112,), 'random_state': 42, 'max_iter': 1000, 'early_stopping': True, 'validation_fraction': 0.1}",0
