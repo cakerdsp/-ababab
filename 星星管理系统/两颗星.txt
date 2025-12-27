@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<graphics.h>
+#include<math.h>
+#define High 1000  // 游戏画面尺寸
+#define Width 1000
+#define G 1
+#define dt 0.001
+void state(double*x1,double*y1,double*x2,double*y2,double*vx,double*vy,double*f,double*m,double*M,double*r);
+void drawfunction(double*y,double*x);
+int main()
+{
+	double v1x=8,*pv1x=&v1x,v1y=0,*pv1y=&v1y,v2x=0,*pv2x=&v2x,v2y=0,*pv2y=&v2y;
+	double m=1,M=10000,*pm=&m,*pM=&M;
+	double r=100,*pr=&r;
+	double x1=Width/2,x2=Width/2,y1=High/2+r,y2=High/2,*px1=&x1,*px2=&x2,*py1=&y1,*py2=&y2;
+	double an1,*pan1=&an1,an2,*pan2=&an2,at1,*pat1=&at1,at2,*pat2=&at2;
+	double f=0,*pf=&f;
+	double t=0;
+	initgraph(Width,High,SHOWCONSOLE);	
+	//printf("请输入速度：");
+	//scanf("%lf",&v1);
+	//printf("请输入距离：");
+	//scanf("%lf",&r);
+	//printf("请输入质量m：");
+	//scanf("%lf",&m);
+	//printf("请输入质量M：");
+	//scanf("%lf",&M);
+	while(1)
+	{
+		BeginBatchDraw();
+		setfillcolor(GREEN);
+		fillcircle(x1,y1,10);
+		fillcircle(x2,y2,10);
+		state(px1,py1,px2,py2,pv1x,pv1y,pf,pm,pM,pr);
+		state(px2,py2,px1,py1,pv2x,pv2y,pf,pM,pm,pr);
+		t=t+dt;
+		FlushBatchDraw();
+		//Sleep(1);
+		//cleardevice();
+	}
+	return 0;
+}
+void state(double*x1,double*y1,double*x2,double*y2,double*vx,double*vy,double*f,double*m,double*M,double*r)
+{
+	
+	double theta,theta2,ax,ay;
+	*r=sqrt((*x1-*x2)*(*x1-*x2)+(*y1-*y2)*(*y1-*y2));
+	*f=G*(*m)*(*M)/((*r)*(*r));
+	theta=atan((*y1-*y2)/(*x1-*x2));
+	ax=fabs(cos(theta)*(*f)/(*m));//放在哪里
+	if((int)(*x1-*x2)>=0)
+	{*vx=*vx-ax*dt;}
+	else
+	{*vx=*vx+ax*dt;}
+	*x1=*x1+*vx*dt;
+	*y1=*y1+*vy*dt;
+	theta2=atan((*y1-*y2)/(*x1-*x2));
+	ay=fabs(sin(theta2)*(*f)/(*m));
+	if((int)(*y1-*y2)>=0)
+	*vy=*vy-ay*dt;
+	else
+     *vy=*vy+ay*dt;
+}

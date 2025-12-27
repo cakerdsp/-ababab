@@ -1,0 +1,221 @@
+#include <graphics.h>              // 引用图形库头文件
+#include <conio.h>
+#include <stdio.h>
+#include <math.h>
+
+#define G 5
+
+int an[2][4]={{180,120,280,160},{370,120,420,160}};//按钮框
+//判断按钮
+int button_judge(int x,int y)
+{
+	if(x>an[0][0] && x<an[0][2] && y>an[0][1] && y<an[0][3])return 1;
+	if(x>an[1][0] && x<an[1][2] && y>an[1][1] && y<an[1][3])return 2;
+	return 0;
+}
+
+int width = 1860,height= 840;//定义窗口的宽度和高度
+double r,*pr=&r;	
+double t=0.005,T=0;
+double F,*pF=&F;
+double M,m,*pm=&m,*pM=&M;
+
+int main()
+{
+	void draw(double *px,double *py);
+	void state(double*x1,double*y1,double*x2,double*y2,double*vx,double*vy,double*f,double*m,double*M,double*r);
+	void tu1();void xianF(double *f);
+	void tu2();void xianv(double *vx,double *vy);
+	void numF(double *f);
+	void numV(double*vx,double*vy);
+	double x1=500,x2,y1=550,y2=550,*px1=&x1,*px2=&x2,*py1=&y1,*py2=&y2;
+	double v1x=0,*pv1x=&v1x,v1y,*pv1y=&v1y,v2x=0,*pv2x=&v2x,v2y=0,*pv2y=&v2y;
+	int event=0,i;
+	char s[50];
+
+	initgraph(width,height);//初始化窗口（黑屏）
+	setbkcolor(RGB(255,255,255));//设置背景色，原来默认黑色
+	cleardevice();
+	tu1();
+	tu2();//生成曲线图坐标网格
+
+    //矩形指针
+	RECT R1={an[0][0],an[0][1],an[0][2],an[0][3]};
+	RECT R2={an[1][0],an[1][1],an[1][2],an[1][3]};
+
+	LOGFONT w;//字体样式指针
+	gettextstyle(&w);					//获取字体样式
+	_tcscpy(w.lfFaceName,_T("宋体"));	//设置字体为宋体
+	w.lfQuality = ANTIALIASED_QUALITY;    // 设置输出效果为抗锯齿  
+	settextstyle(&w);                     // 设置字体样式
+	settextcolor(BLACK);	
+    //输入文字
+	drawtext("输入参数",&R1,DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	drawtext("运行",&R2,DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	setlinecolor(BLACK);
+	rectangle(an[0][0],an[0][1],an[0][2],an[0][3]);
+	rectangle(an[1][0],an[1][1],an[1][2],an[1][3]);
+	
+
+	MOUSEMSG msg;
+
+	while(true)
+	{
+		msg = GetMouseMsg();//获取一条鼠标消息
+
+		switch(msg.uMsg)
+		{
+			case WM_MOUSEMOVE:
+				setrop2(R2_XORPEN);
+				setlinecolor(BLUE);//线条颜色为亮青色
+				setlinestyle(PS_SOLID, 3);//设置画线样式为实现，10磅
+				setfillcolor(WHITE);//填充颜色为白色
+				if(button_judge(msg.x,msg.y)!=0)
+				{
+					if(event != button_judge(msg.x,msg.y))
+					{
+						event = button_judge(msg.x,msg.y);//记录这一次触发的按钮
+						fillrectangle(an[event-1][0],an[event-1][1],an[event-1][2],an[event-1][3]);//有框填充矩形（X1,Y1,X2,Y2）
+					}
+				}
+				else
+				{
+					if(event!=0)//上次触发的按钮未被修正为原来的颜色
+					{
+						fillrectangle(an[event-1][0],an[event-1][1],an[event-1][2],an[event-1][3]);//两次同或为原来颜色
+						event = 0;
+					}
+				}
+				break;
+			case WM_LBUTTONDOWN:
+				for(i=0;i<=10;i++)
+				{
+					setrop2(R2_NOTXORPEN);//二元光栅——NOT(屏幕颜色 XOR 当前颜色)
+					setlinecolor(RGB(25*i,25*i,25*i));//设置圆颜色
+					circle(msg.x,msg.y,2*i);
+					Sleep(20);
+					circle(msg.x,msg.y,2*i);//抹去刚刚画的圆
+				}
+				//按照按钮判断左键单击后的操作
+				switch(button_judge(msg.x,msg.y))
+				{
+					//复原按钮原型
+					case 1:
+						InputBox(s,50,"请输入中心天体质量，环绕天体质量，初始速度，距离，用空格隔开");
+						sscanf(s,"%lf%lf%lf%lf",&M,&m,&v1y,&r);//将输入字符串依次扫描到全局变量里面
+						x2=x1+r;
+						FlushMouseMsgBuffer();//单击事件后清空鼠标消息
+						break;
+					case 2:
+						while(true)
+						{
+							setrop2(R2_COPYPEN);
+							 BeginBatchDraw();
+							 setfillcolor(WHITE);
+						     setcolor(WHITE);//删去即可得轨迹线
+		                     fillcircle(x1,y1,10);
+                             setfillcolor(GREEN);
+                             fillcircle(x2,y2,30);
+							 
+                             state(px1,py1,px2,py2,pv1x,pv1y,pF,pm,pM,pr);
+		                     fillcircle(x1,y1,10);
+                             xianF(pF);
+		                     numF(pF);
+		                     xianv(pv1x,pv2y);
+		                     numV(pv1x,pv2y);
+							 FlushBatchDraw();
+		                     T=T+t;
+						    
+						}
+						break;
+				}
+				break;
+		}
+	}
+}
+void tu1()
+{
+	int i;
+	setrop2(R2_COPYPEN);//当前颜色
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID);//实线
+	rectangle(1230,200,1620,430);//外框线
+	setlinestyle(PS_DOT);//点线
+	for(i=1230+39;i<1620;i+=39)
+	{
+		line(i,200,i,430);//竖直辅助线
+	}
+	for(i=200+23;i<430;i+=23)
+	{
+		line(1230,i,1620,i);//水平辅助线
+	}
+}
+void tu2()
+{
+	int i;
+	setrop2(R2_COPYPEN);//当前颜色
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID);//实线
+	rectangle(1230,500,1620,730);//外框线
+	setlinestyle(PS_DOT);//点线
+	for(i=1230+39;i<1620;i+=39)
+	{
+		line(i,500,i,730);//竖直辅助线
+	}
+	for(i=500+23;i<730;i+=23)
+	{
+		line(1230,i,1620,i);//水平辅助线
+	}
+}
+void numF(double *f)
+{
+	char num[20];
+	double n;
+	n=*f;
+	sprintf(num,"%lf",n);
+	setcolor(BLACK);
+	outtextxy(1110,(int)((-(*f*0.04)+315)),num);
+	
+}
+void numV(double*vx,double*vy)
+{
+	char num[20];
+	double n;
+	n=sqrt((*vx)*(*vx)+((*vy)*(*vy)));
+	sprintf(num,"%lf",n);
+	setcolor(BLACK);
+	outtextxy(1110,(int)(-sqrt((*vx)*(*vx)+((*vy)*(*vy)))+615),num);
+	
+}
+void xianF(double *f)
+{
+	//画线
+	putpixel((int)((T)*2+1230),(int)((-(*f*0.04)+315)),RED);
+}
+void xianv(double *vx,double *vy)
+{
+	putpixel((int)((T)*2+1230),(int)(-sqrt((*vx)*(*vx)+((*vy)*(*vy)))+615),RED);
+
+}
+void state(double*x1,double*y1,double*x2,double*y2,double*vx,double*vy,double*f,double*m,double*M,double*r)
+{
+ 
+ double theta,theta2,ax,ay;
+ *r=sqrt((*x1-*x2)*(*x1-*x2)+(*y1-*y2)*(*y1-*y2));
+ *f=G*(*m)*(*M)/((*r)*(*r));
+ theta=atan((*y1-*y2)/(*x1-*x2));
+ ax=fabs(cos(theta)*(*f)/(*m));//放在哪里
+ if((int)(*x1-*x2)>=0)
+ *vx=*vx-ax*t;
+ else
+ {*vx=*vx+ax*t;}
+ *x1=*x1+*vx*t;
+ *y1=*y1+*vy*t;
+ theta2=atan((*y1-*y2)/(*x1-*x2));
+ ay=fabs(sin(theta2)*(*f)/(*m));
+ if((int)(*y1-*y2)>=0)
+ *vy=*vy-ay*t;
+ else
+     *vy=*vy+ay*t;
+}
+

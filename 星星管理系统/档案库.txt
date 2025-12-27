@@ -1,0 +1,238 @@
+#include<stdio.h>
+#include<string.h>
+
+int num=5;//全局变量，用于存放学生人数，所有函数都能对它修改
+void PrintScreen();//用于输出主屏幕
+char GetChar();//用于输入一个字符（非空格、非回车、ASCII码大于零）
+void GetString(char s[20]);//用于输入一个非空字符串
+char Low2Up(char c);//将小写字母转化为大写字母
+
+int main()
+{
+void PrintAll(int id[50],char name[50][20],char tel[50][20],int score[50]);//输出所有学生数据
+void InputStudent(int id[50],char name[50][20],char tel[50][20],int score[50]);//新增学生数据
+void ReOrder(int id[50],char name[50][20],char tel[50][20],int score[50]);//重新排序
+void Search(int id[50],char name[50][20],char tel[50][20],int score[50]);//搜索学生数据
+void Statistics(int id[50],char name[50][20],char tel[50][20],int score[50]);//用于统计成绩相关的数据
+void DeleteStudent(int id[50],char name[50][20],char tel[50][20],int score[50]);//删除某个学生数据
+void Quit(int id[50],char name[50][20],char tel[50][20],int score[50]);//用于后期保存数据等
+int id[50]={2019100001,2019100002,2019100003,2019100004,2019100005};
+char name[50][20]={"刘备","张飞","关羽","曹操","孙权"};
+char tel[50][20]={"12345678911","12345678912","12345678913","12345678914","12345678915"};
+int score[50]={90,80,95,85,80};
+char input;
+while(1)
+{
+PrintScreen();//输出主屏幕
+input=GetChar();//输入一个字符（非空格、非回车、ASCII码大于零）
+input=Low2Up(input);//转化为大写字母
+if(input=='Z')
+break;
+switch(input)
+{
+case 'A':PrintAll(id,name,tel,score);break;
+case 'B':InputStudent(id,name,tel,score);break;
+case 'C':ReOrder(id,name,tel,score);break;
+case 'D':Search(id,name,tel,score);break;
+case 'E':Statistics(id,name,tel,score);break;
+case 'F':DeleteStudent(id,name,tel,score);break;
+default:printf("输入错误\n\n");//如果输入的是其它字符，则输入错误
+}
+}
+Quit(id,name,tel,score);
+return 0;
+}
+
+void PrintScreen()//输出主屏幕
+{
+printf("********************************\n");
+printf("* 欢迎使用学生成绩数据系统 *\n");
+printf("* 完成了功能 * *\n");
+printf("********************************\n");
+printf("A 显示所有 B 新增数据\n");
+printf("C 排序依据 D 搜索数据\n");
+printf("E 成绩统计 F 删除数据\n");
+printf("Z 退出\n");
+printf("请输入所需功能：");
+}
+
+char Low2Up(char c)//如果输入是小写字母，就转化为大写字母，否则不用管
+{
+if(c>='a'&&c<='z')
+c=c-32;
+return c;
+}
+
+char GetChar()//输入一个字符（非空格、非回车、ASCII码大于零）
+{
+char c;
+do
+{
+c=getchar();
+}
+while(c=='\n'||c==' '||c<0);
+return c;
+}
+
+void GetString(char s[20])//输入一个非空字符串，放在字符串s中
+{
+do
+{
+gets_s(s,20);
+}
+while(strcmp(s,"")==0);
+}
+
+void Quit(int id[50],char name[50][20],char tel[50][20],int score[50])//以后再开发，用于保存数据到文件
+{//这个函数不在作业范围内
+printf("\n");
+printf("********************************\n");
+printf("* 保存功能尚未开发 *\n");
+printf("* 无法保存修改的内容 *\n");
+printf("* 谢谢使用！ *\n");
+printf("********************************\n");
+printf("\n");
+}
+
+void PrintAll(int id[50],char name[50][20],char tel[50][20],int score[50])//输出所有数据
+{//要求输出所有学生数据，学生之间的数据隔一行，同一学生数据占4行
+int i;
+printf("******************************\n");
+printf("所有同学信息为：\n\n");
+for(i=0;i<num;i++)
+{
+printf("学号：%d\n",id[i]);
+printf("姓名：%s\n",name[i]);
+printf("电话：%s\n",tel[i]);
+printf("成绩：%d\n\n",score[i]);
+}
+}
+
+void InputStudent(int id[50],char name[50][20],char tel[50][20],int score[50])//增加一名学生的数据
+{//如果人数已达到50人，拒绝新增，否则允许新增。要求最后告诉用户是否新增成功
+if(num>=50)
+printf("人数已满50，新增失败！\n\n");
+else
+{
+printf("******************************\n");
+printf("请输入学号：");
+scanf("%d",&id[num]);
+printf("请输入姓名：");
+GetString(name[num]);
+printf("请输入电话：");
+GetString(tel[num]);
+printf("请输入成绩：");
+scanf("%d",&score[num]);
+num++;
+printf("新增成功！\n\n");
+}
+}
+
+void DeleteStudent(int id[50],char name[50][20],char tel[50][20],int score[50])//删除一名学生的数据，通过调用其他函数完成
+{
+void DeleteStudentID(int id[50],char name[50][20],char tel[50][20],int score[50]);//通过学号找到要删除的数据，并删除
+void DeleteStudentName(int id[50],char name[50][20],char tel[50][20],int score[50]);//通过姓名找到要删除的数据，并删除
+char input;
+//printf("******************************\n");
+//printf("请输入删除方式(A 通过学号 B 通过姓名)：");
+printf("该功能尚未完善！\n\n");
+}
+
+void DeleteStudentID(int id[50],char name[50][20],char tel[50][20],int score[50])//通过学号找到要删除的数据，并删除
+{//如果找到了该学生，则删除，否则告诉用户没有找到该学生信息
+//注意：如果找到的学生排在最后一位，怎么删除，否则又怎么删除
+}
+
+void DeleteStudentName(int id[50],char name[50][20],char tel[50][20],int score[50])//通过姓名找到要删除的数据，并删除
+{//如果找到了该学生，则删除，否则告诉用户没有找到该学生信息
+//注意：如果找到的学生排在最后一位，怎么删除，否则又怎么删除
+}
+
+void Search(int id[50],char name[50][20],char tel[50][20],int score[50])//搜索数据，并输出，通过调用其他函数来实现搜索
+{
+void SearchID(int id[50],char name[50][20],char tel[50][20],int score[50]);//通过学号搜索，并输出
+void SearchName(int id[50],char name[50][20],char tel[50][20],int score[50]);//通过姓名搜索，并输出
+void SearchTel(int id[50],char name[50][20],char tel[50][20],int score[50]);//通过电话搜索，并输出
+void SearchScore(int id[50],char name[50][20],char tel[50][20],int score[50]);//通过成绩搜索，并输出
+char input;
+//printf("******************************\n");
+//printf("请输入搜索类型(A 学号 B 姓名 C 电话 D 成绩)：");
+printf("该功能尚未完善！\n\n");
+}
+
+void SearchID(int id[50],char name[50][20],char tel[50][20],int score[50])//通过学号搜索，并输出
+{//如果没有搜到信息，要求告诉用户
+}
+
+void SearchName(int id[50],char name[50][20],char tel[50][20],int score[50])//通过姓名搜索，并输出
+{//如果没有搜到信息，要求告诉用户
+//要求考虑重名
+}
+
+void SearchTel(int id[50],char name[50][20],char tel[50][20],int score[50])//通过电话搜索，并输出
+{//如果没有搜到信息，要求告诉用户
+}
+
+void SearchScore(int id[50],char name[50][20],char tel[50][20],int score[50])//通过成绩搜索，并输出
+{//如果没有搜到信息，要求告诉用户
+//要求考虑分数相同情况
+}
+
+void Statistics(int id[50],char name[50][20],char tel[50][20],int score[50])//统计成绩，通过调用其他函数完成
+{
+void PrintMeanScore(int score[50]);//输出平均分
+void PrintMinScore(int id[50],char name[50][20],char tel[50][20],int score[50]);//输出最低分学生信息
+void PrintMaxScore(int id[50],char name[50][20],char tel[50][20],int score[50]);//输出最高分学生信息
+char input;
+//printf("******************************\n");
+//printf("请输入统计类型(A 平均分 B 最低分 C 最高分)：");
+printf("该功能尚未完善！\n\n");
+}
+
+void PrintMeanScore(int score[50])//输出平均分
+{//平均分保留6位小数
+}
+
+void PrintMinScore(int id[50],char name[50][20],char tel[50][20],int score[50])//输出最低分学生信息
+{
+//考虑多位同学的成绩为最低的情形
+//先通过循环记录下来最低分
+//然后通过循环找到所有最低分的同学并输出该同学所有信息
+}
+
+void PrintMaxScore(int id[50],char name[50][20],char tel[50][20],int score[50])//输出最高分学生信息
+{
+//考虑多位同学的成绩为最高的情形
+//先通过循环记录下来最高分
+//然后通过循环找到所有最高分的同学并输出该同学所有信息
+}
+
+void ReOrder(int id[50],char name[50][20],char tel[50][20],int score[50])//重新排序，通过调用其他函数来完成
+{
+void ReOrderString(char a[50][20],char b[50][20],int c[50],int d[50]);//排序依据是字符串
+void ReOrderInt(int c[50],int d[50],char a[50][20],char b[50][20]);//排序依据是整型
+char input;
+//printf("******************************\n");
+//printf("请输入排序类型(A 学号 B 姓名 C 电话 D 成绩)：");
+printf("该功能尚未完善！\n\n");
+}
+
+void ReOrderString(char a[50][20],char b[50][20],int c[50],int d[50])//排序依据是字符串
+{
+//采用冒泡法排序
+//函数目的：将第一个字符串从小到大排序，其他三个数组都跟着调整顺序
+//使用要求：第一个参数是排序的依据，第二个参数是字符串，第三个参数和第四个参数都是整型数组
+//通过字符串比较函数来判断是否需要交换变量，需要的话同时交换四个变量
+//排序完了之后要告诉用户排序完成或排序成功
+printf("该功能尚未完善！\n\n");
+}
+
+void ReOrderInt(int c[50],int d[50],char a[50][20],char b[50][20])//排序依据是整型
+{
+//采用冒泡法排序
+//函数目的：将第一个整型数组从小到大排序，其他三个数组都跟着调整顺序
+//使用要求：第一个参数是排序的依据，第二个参数是整型数组，第三个参数和第四个参数都是字符串
+//通过字符串比较函数来判断是否需要交换变量，需要的话同时交换四个变量
+//排序完了之后要告诉用户排序完成或排序成功
+printf("该功能尚未完善！\n\n");
+}

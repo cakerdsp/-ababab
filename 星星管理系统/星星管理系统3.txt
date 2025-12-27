@@ -1,0 +1,495 @@
+#define _CRT_SECURE_NO_WARNINGS 
+#include<stdio.h>
+#include<string.h>
+#include<graphics.h>
+#include<math.h>
+#include <ctime>
+
+#define G 6.67
+#define High 1080  // 行星运动系统画面尺寸
+#define Width 1860
+#define dt 0.005
+#define pi 3.1415926535897932384626433832795028841971693993751058209
+
+int num=5;//全局变量，用于存放星星人数，所有函数都能对它修改
+void PrintScreen();//用于输出主屏幕
+char GetChar();//用于输入一个字符（非空格、非回车、ASCII码大于零）
+void GetString(char s[20]);//用于输入一个非空字符串
+char Low2Up(char c);//将小写字母转化为大写字母
+double q1=5000,q2=10;//图像缩放系数，q1是力的，q2是速度的
+int se[50][3];
+int sign2=1;
+
+struct PLANET//结构体命名，存储星星数据
+{
+	char name[50];
+	double x;
+	double y;
+	double m;
+	double vx;
+	double vy;
+	double ax;
+	double ay;
+	double r;
+	int color[3];
+};
+
+
+int main()
+{
+	struct PLANET planet[50]={{"sun",500,500,19891,0.000001,0,0,0,20,{255,0,0}},
+	                          {"earth",348,500,0.0597,0,30,0,0,10,{0,255,0}},
+	                          {"mars",272.1,500,0.006,0,24,0,0,13,{255,255,0}},
+	                          //{"Jupiter",1278,500,18.9846,0,13.07,0,0,10,{165,42,42}},
+	                          {"Venus",608.942,500,0.04776,0,-34.901,0,0,8.8,{255,215,2}},
+	                          {"Mercury",546,500,0.002985,0,58.97,0,0,4,{0,0,255}}},
+	          *p=planet,
+			  planet2[50]={{"sun",500,500,19891,0.000001,0,0,0,20,{255,0,0}},
+	                          {"earth",348,500,0.0597,0,30,0,0,10,{0,255,0}},
+	                          {"mars",272.1,500,0.006,0,24,0,0,13,{255,255,0}},
+	                          //{"Jupiter",1278,500,18.9846,0,13.07,0,0,10,{165,42,42}},
+	                          {"Venus",608.942,500,0.04776,0,-34.901,0,0,8.8,{255,215,2}},
+	                          {"Mercury",546,500,0.002985,0,58.97,0,0,4,{0,0,255}}},//拟用来储存初始数据
+			  *p2=planet2
+			  ;
+	void PrintAll(struct PLANET*p);//输出所有星星数据
+	void InputPlanet(struct PLANET*p,struct PLANET*p2);//新增星星数据
+	void Revise(struct PLANET*p,struct PLANET*p2);//
+	void DeletePlanet(struct PLANET*p,struct PLANET*p2);//删除某个星星数据
+	void ShowWindows(struct PLANET*p);//关键函数，用于绘制界面并且演示
+	void Initialize(struct PLANET*p,struct PLANET*p2);
+	void Quit(int id[50],char name[50][20],char tel[50][20],int score[50]);//用于后期保存数据
+	void Select();
+	char input;
+	
+
+
+
+
+while (1)
+	{
+		PrintScreen();//输出主屏幕
+		input = GetChar();//输入一个字符（非空格、非回车、ASCII码大于零）
+		input = Low2Up(input);//转化为大写字母
+		if(input == 'Z')
+		{
+			break;
+		}
+		switch (input)
+		{
+		case 'A':PrintAll(p); break;
+		case 'B':InputPlanet(p, p2); break;
+		case 'C':DeletePlanet(p, p2); break;
+		case 'D':Revise(p,p2); break;
+		case 'E':Select();ShowWindows(p); break;
+		case 'F':Initialize(p, p2); break;
+		default:printf("输入错误\n\n");//如果输入的是其它字符，则输入错误
+		}
+	}
+	printf("********************************\n");
+	printf("* 谢谢使用！ *\n");
+	printf("********************************\n");	
+	return 0;
+}
+void PrintScreen()//输出主屏幕
+{
+printf("********************************\n");
+printf("* 欢迎使用星星数据管理系统 *\n");
+printf("********************************\n");
+printf("A 显示所有星星数据 B 新增星星\n");
+printf("C 删除星星         D 修改星星\n");
+printf("E 显示界面         F 初始化数据\n");
+printf("Z 退出程序\n");
+printf("请输入所需功能：");
+}
+
+char Low2Up(char c)//如果输入是小写字母，就转化为大写字母，否则不用管
+{
+if(c>='a'&&c<='z')
+c=c-32;
+return c;
+}
+
+char GetChar()//输入一个字符（非空格、非回车、ASCII码大于零）
+{
+char c;
+do
+{
+c=getchar();
+}
+while(c=='\n'||c==' '||c<0);
+return c;
+}
+
+void GetString(char s[20])//输入一个非空字符串，放在字符串s中
+{
+do
+{
+gets_s(s,20);
+}
+while(strcmp(s,"")==0);
+}
+
+void PrintAll(struct PLANET* p)//输出所有数据
+{//要求输出所有星星数据，星星之间的数据隔一行
+	int i, j;
+	printf("******************************\n");
+	printf("所有星星信息为：\n\n");
+	for (i = 0; i < num; i++)
+	{
+		double v = sqrt((p + i)->vx * (p + i)->vx + (p + i)->vy * (p + i)->vy);
+		double theta = atan((p + i)->vy / (p + i)->vx);
+		printf("名字：%s\n", (p + i)->name);
+		printf("质量：%.6lf×10^26kg\n", (p + i)->m);
+		printf("起始坐标：(%lf,%lf)\n", (p + i)->x, (p + i)->y);
+		printf("起始速度：%.6lf×10^3m/s\n", v);
+		printf("速度夹角：%.1lf\n", theta*180/pi);
+		printf("半径：%lf\n", (p + i)->r);
+		printf("RGB颜色：");
+		for (j = 0; j < 3; j++)
+		{
+			printf("%d ", (p + i)->color[j]);
+		}
+		printf("\n\n");
+	}
+}
+
+void InputPlanet(struct PLANET*p,struct PLANET*p2)//新增星星数据
+{//如果数量已达到50，拒绝新增，否则允许新增。要求最后告诉用户是否新增成功
+	double v;
+	double theta,theta2;
+	if(num>=50)
+	printf("星星已满50，新增失败！\n\n");
+	else
+	{
+		printf("******************************\n");
+		printf("请输入姓名：");
+		GetString((p+num)->name);
+		printf("请输入质量(×10^26kg)：");
+		scanf("%lf",&(p+num)->m);
+		printf("请输入坐标，用空格隔开(比例尺1：10^9m)：");
+		scanf("%lf %lf",&(p+num)->x,&(p+num)->y);
+		printf("请输入速度(10^3m/s)：");
+		scanf("%lf",&v);
+		printf("请输入与水平方向角度(顺时针旋转，角度制)：");
+		scanf("%lf",&theta);
+		theta2=theta*pi/180;//转成弧度制
+		(p+num)->vx=v*cos(theta2);
+		(p+num)->vy=v*sin(theta2);
+		printf("请输入半径：");
+		scanf("%lf",&(p+num)->r);
+		printf("请输入RGB颜色，中间用空格隔开：");
+		scanf("%d %d %d",&(p+num)->color[0],&(p+num)->color[1],&(p+num)->color[2]);
+		*(p2+num)=*(p+num);//备份初始数据
+		num++;
+		printf("新增成功！\n\n");
+	}
+}
+
+void DeletePlanet(struct PLANET*p,struct PLANET*p2)//删除数据函数
+{
+	void GetString(char s[20]);
+	char name[20];
+	int i,j;
+	printf("******************************\n");
+	printf("请输入删除的星星名称：");
+	GetString(name);
+	for(i=0;i<num;i++)
+	{
+		if(strcmp(name,(p+i)->name)==0 && i!=num-1)
+		{
+			for(j=i;j<num-1;j++)
+			{
+				*(p+j)=*(p+j+1);
+				*(p2+j)=*(p2+j+1);//备份数据删除
+			}
+			num=num-1;
+			printf("删除成功!\n");
+			break;
+		}
+		else if(strcmp(name,(p+i)->name)==0 && i==num-1)
+		{
+			num=num-1;
+			printf("删除成功!\n");
+			break;
+		}
+		else if(strcmp(name,(p+i)->name)!=0 && i==num-1)
+		{
+			printf("没有找到该星星的名字！删除失败！\n");
+			break;
+		}
+	}
+}
+
+
+void Revise(struct PLANET*p,struct PLANET*p2)//修改星星的速度大小，质量，速度方向，大小，名称，按名字找到星星然后进行修改
+{
+	char GetChar();//用于输入一个字符（非空格、非回车、ASCII码大于零）
+	void GetString(char s[20]);//用于输入一个非空字符串
+	char Low2Up(char c);//将小写字母转化为大写字母
+	void ReviseName(struct PLANET*p,struct PLANET*p2);//修改名字
+	void ReviseM(struct PLANET*p,struct PLANET*p2);//修改质量
+	void ReviseV(struct PLANET*p,struct PLANET*p2);//修改速度
+	void ReviseTheta(struct PLANET*p,struct PLANET*p2);//修改方向角
+	void ReviseR(struct PLANET*p,struct PLANET*p2);//修改半径
+	void ReviseColor(struct PLANET*p,struct PLANET*p2);//修改颜色
+	char input;
+	char name[20];
+	int i,sign=1;
+	printf("******************************\n");
+	printf("请输入修改星星的姓名：");
+	GetString(name);
+	for(i=0;i<num;i++)
+	{
+	if(strcmp(name,(p+i)->name)==0) break;
+	else if(strcmp(name,(p+i)->name)!=0 && i==num-1)
+	{ 
+		printf("输入名字不存在！修改失败！\n\n");sign=0;break;}
+	}
+	if(sign)
+	{
+	printf("请输入修改类型(A 名字 B 质量 C 速度大小 D 速度方向角 E 半径 F 颜色)：");
+	input=GetChar();//输入一个字符（非空格、非回车、ASCII码大于零）
+	input=Low2Up(input);//转化为大写字母
+	switch(input)
+	  {
+		case 'A':ReviseName(p+i,p2+i);printf("修改成功！\n");break;
+		case 'B':ReviseM(p+i,p2+i);printf("修改成功！\n");break;
+		case 'C':ReviseV(p+i,p2+i);printf("修改成功！\n");break;
+		case 'D':ReviseTheta(p+i,p2+i);printf("修改成功！\n");break;
+		case 'E':ReviseR(p+i,p2+i);printf("修改成功！\n");break;
+		case 'F':ReviseColor(p+i,p2+i);printf("修改成功！\n");break;
+		default:printf("输入错误\n\n");//如果输入的是其它字符，则输入错误
+	  }
+	}
+}
+
+void ReviseName(struct PLANET*p,struct PLANET*p2)//修改名字
+{   
+	void GetString(char s[20]);
+	char name[20];
+	printf("请输入新的名字：");
+	GetString(name);
+	strcpy(p->name,name);
+	strcpy(p2->name,name);
+}
+
+void ReviseM(struct PLANET*p,struct PLANET*p2)//修改质量
+{
+	double m;
+	printf("请输入新的质量(×10^26kg)：");
+	scanf("%lf",&m);
+	p->m=m;
+	p2->m=m;
+}
+
+void ReviseV(struct PLANET*p,struct PLANET*p2)//修改速度
+{
+	double v;
+	double theta=atan(p->vy/p->vx);
+	printf("请输入新的速度(10^3m/s)：");
+	scanf("%lf",&v);
+	p->vx=v*(cos(theta));
+	p2->vx=v*(cos(theta));
+	p->vy=v*(sin(theta));
+	p2->vy=v*(sin(theta));
+}
+
+void ReviseTheta(struct PLANET*p,struct PLANET*p2)//修改方向角
+{
+	double theta,theta2;
+	double v=sqrt(p->vx*p->vx+p->vy*p->vy);
+	printf("请输入新的方向角(顺时针旋转，角度制)：");
+	scanf("%lf",&theta);
+	theta2=(theta*pi)/180;
+	p->vx=v*(cos(theta2));
+	p2->vx=v*(cos(theta2));
+	p->vy=v*(sin(theta2));
+	p2->vy=v*(sin(theta2));
+}
+
+void ReviseR(struct PLANET*p,struct PLANET*p2)//修改半径
+{
+	double r;
+	printf("请输入新的半径：");
+	scanf("%lf",&r);
+	p->r=r;
+	p2->r=r;
+}
+
+void ReviseColor(struct PLANET*p,struct PLANET*p2)//修改颜色
+{
+	int i;
+	printf("请输入新的颜色的RGB：");
+	for(i=0;i<3;i++)
+	{
+		scanf("%d",&p->color[i]);
+		p2->color[i]=p->color[i];
+	}
+}
+
+
+void Initialize(struct PLANET*p,struct PLANET*p2)//把保存的初始化数据传给正在运行的数组
+{
+	int i;
+	for(i=0;i<num;i++)
+	{(*(p+i)=*(p2+i));}
+	printf("数据初始化成功！\n\n");
+}
+void ShowWindows(struct PLANET*p)//绘制演示界面并演示，拟通过鼠标点击关闭界面
+{
+	void tu();//画线图
+	void ClearWindows(double *t);//实现曲线动态变化
+	void xianF(struct PLANET*p,double t);//画图像
+	void xianv(struct PLANET*p,double t);
+	void multiply(struct PLANET*p);
+	double t=0,*pt=&t;//界面时间
+	int sign=0,i,j;
+	initgraph(Width,High,SHOWCONSOLE);//绘制演示界面
+	setbkcolor(RGB(255,255,255));//设置背景色，原来默认黑色
+	cleardevice();
+		tu();
+
+	for(i=0;i<num;i++)//生成轨迹颜色
+	{
+		for(j=0;j<3;j++)
+		{
+			se[i][j]=rand()%255;
+		}
+	}
+	while(1)
+	{
+		multiply(p);
+		if(sign2==0)
+		{xianF(p,t);}
+		if(sign2==1)
+		{xianv(p,t);}
+		ClearWindows(pt);
+		t=t+dt;
+		if(MouseHit())//用鼠标去关闭页面
+		{
+			MOUSEMSG msg=GetMouseMsg();
+			switch(msg.uMsg)
+			{
+			case WM_RBUTTONDOWN://如果右键按下关闭窗口
+				closegraph();sign=1;break;
+			}
+		}
+		if(sign==1) break;
+	}
+}
+void multiply(struct PLANET*p)
+{
+	void MOVE(struct PLANET*p1,struct PLANET*p2);//p1,p2两个行星进行分析，然后更新v与a数值；
+	void MOVE2(struct PLANET*p);
+	int i,j,k;
+	for(i=0;i<num;i++)
+	{
+		for(j=0;j<num;j++)
+		{
+			if(j==i)
+				continue;
+			else MOVE((p+i),(p+j));
+		}
+	}
+  for(k=0;k<num;k++)
+  {
+	 BeginBatchDraw();
+	 setcolor(WHITE);
+	 setfillcolor(WHITE);//修改覆盖圆颜色
+	 fillcircle((p+k)->x,(p+k)->y,(p+k)->r);
+	 setcolor(RGB(se[k][0],se[k][1],se[k][2]));
+	 setfillcolor(RGB(se[k][0],se[k][1],se[k][2]));//修改轨迹颜色
+	 fillcircle((p+k)->x,(p+k)->y,(p+k)->r);
+	 MOVE2(p+k);//把dv数据加到x与y坐标上
+	 setfillcolor(RGB((p+k)->color[0],(p+k)->color[1],(p+k)->color[2]));
+     fillcircle((p+k)->x,(p+k)->y,(p+k)->r);
+	 FlushBatchDraw();
+  }
+}
+void MOVE(struct PLANET*p1,struct PLANET*p2)//p1,p2两个行星进行分析，然后更新v与a
+{
+	double theta,r,f;
+	r=sqrt(((p1->x)-(p2->x))*((p1->x)-(p2->x))+((p1->y)-(p2->y))*((p1->y)-(p2->y)));
+	f=G*(p1->m)*(p2->m)/(r*r);
+	theta=atan(((p1->y)-(p2->y))/((p1->x)-(p2->x)));
+	p1->ax=fabs(cos(theta)*(f)/(p1->m));
+	p1->ay=fabs(sin(theta)*(f)/(p1->m));
+	if((int)((p1->x)-(p2->x))>=0)
+		p1->vx= p1->vx-(p1->ax)*dt;
+	else
+		p1->vx= p1->vx+(p1->ax)*dt;
+	
+	if((int)((p1->y)-(p2->y))>=0)
+		p1->vy=p1->vy-(p1->ay)*dt;
+	else
+		p1->vy=p1->vy+(p1->ay)*dt;
+}
+void MOVE2(struct PLANET*p)
+{
+	p->x=p->x+(p->vx)*dt;
+	p->y=p->y+(p->vy)*dt;
+}
+void tu()//画线图
+{
+	setrop2(R2_COPYPEN);//当前颜色
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID);//实线
+	line(1230,730,1650,730);
+	line(1230,100,1230,730);
+}
+void xianF(struct PLANET*p,double t)//画F函数线
+{
+	//画线
+	int i;
+	double a;
+	char shu[50];
+	double n;
+	for(i=0;i<num;i++)
+	{
+	a=sqrt(((p+i)->ax)*((p+i)->ax)+((p+i)->ay)*((p+i)->ay));
+	n=((p+i)->m)*a*10e4;
+	sprintf(shu,"%.4lf×10^19N",n);
+	setcolor(BLACK);
+	outtextxy(1050,(int)((-(((p+i)->m)*(a))*q1+730)),shu);
+	putpixel((int)((t)*2+1230),(int)((-(((p+i)->m)*(a))*q1+730)),RGB((p+i)->color[0],(p+i)->color[1],(p+i)->color[2]));
+	}
+}
+void xianv(struct PLANET*p,double t)//画v函数线
+{
+	int i;
+	double v;
+	char shu[50];
+	for(i=0;i<num;i++)
+	{
+	v=sqrt(((p+i)->vx)*((p+i)->vx)+((p+i)->vy)*((p+i)->vy));
+	sprintf(shu,"%.4lf×10^3m/s",v);
+	setcolor(BLACK);
+	outtextxy(1050,(int)((-v)*q2+730),shu);
+	putpixel((int)((t)*2+1230),(int)((-v)*q2+730),RGB((p+i)->color[0],(p+i)->color[1],(p+i)->color[2]));
+	}
+}
+void ClearWindows(double *t)//用于更新曲线图
+{
+ void tu();
+ if((int)((*t)*2+1230)==1650)//如果到达边界
+ {
+       *t=0;//重新计时
+    clearrectangle(1220,0,1860,840);
+    tu();
+ }
+}
+void Select()
+{
+	char input;
+	printf("请选择显示界面要显示的图像类型：A 合外力与时间图像 B 速度与时间图像\n");
+	input = GetChar();//输入一个字符（非空格、非回车、ASCII码大于零）
+		input = Low2Up(input);//转化为大写字母
+		switch (input)
+		{
+		case 'A':sign2=0; break;
+		case 'B':sign2=1; break;
+		default:printf("输入错误\n\n");//如果输入的是其它字符，则输入错误
+		}
+		printf("选择成功！");
+}

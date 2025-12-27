@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<graphics.h>
+#include<math.h>
+#define G 5
+#define dt 0.01
+#define High 1000  // 游戏画面尺寸
+#define Width 1000
+int NUM=2;
+struct PLANET
+{
+	double x;
+	double y;
+	double m;
+	double vx;
+	double vy;
+	double ax;
+	double ay;
+	double r;
+};
+void MOVE(struct PLANET*p1,struct PLANET*p2)//p1,p2两个行星进行分析，然后更新v与a
+{
+ 
+ double theta,r,f,theta2;
+ r=sqrt(((p1->x)-(p2->x))*((p1->x)-(p2->x))+((p1->y)-(p2->y))*((p1->y)-(p2->y)));
+ f=G*(p1->m)*(p2->m)/(r*r);
+ theta=atan(((p1->y)-(p2->y))/((p1->x)-(p2->x)));
+ p1->ax=fabs(cos(theta)*(f)/(p1->m));
+ //p2->ax=fabs(cos(theta)*(f)/(p2->m));
+ if((int)((p1->x)-(p2->x))>=0)
+ {
+ p1->vx= p1->vx-(p1->ax)*dt;
+ //p2->vx= p2->vx+(p2->ax)*dt;
+ }
+ else
+ {
+ p1->vx= p1->vx+(p1->ax)*dt;
+ //p2->vx= p2->vx-(p2->ax)*dt;
+ }
+ //p1->x=p1->x+(p1->vx)*dt;
+ //p2->x=p2->x+(p2->vx)*dt;
+ //p1->y=p1->y+(p1->vy)*dt;
+ //p2->y=p2->y+(p2->vy)*dt;
+ theta2=atan(((p1->y)-(p2->y))/((p1->x)-(p2->x)));
+ p1->ay=fabs(sin(theta2)*(f)/(p1->m));
+ //p2->ay=fabs(sin(theta2)*(f)/(p2->m));
+ if((int)((p1->y)-(p2->y))>=0)
+ {
+ p1->vy=p1->vy-(p1->ay)*dt;
+ //p2->vy=p2->vy+(p2->ay)*dt;
+ }
+ else
+ {
+ p1->vy=p1->vy+(p1->ay)*dt;
+// p2->vy=p2->vy-(p2->ay)*dt;
+ }
+}
+void MOVE2(struct PLANET*p)
+{
+ p->x=p->x+(p->vx)*dt;
+ p->y=p->y+(p->vy)*dt;
+}
+
+void PrintScreen()//输出主屏幕
+{
+printf("********************************\n");
+printf("* 欢迎使用星星管理系统！ *\n");
+printf("********************************\n");
+printf("A 显示所有 B 新增星星\n");
+printf("C 修改星星 D 删除星星\n");
+printf("E 启用展示界面 F 关闭展示界面\n");
+printf("Z 退出\n");
+printf("请输入所需功能：");
+}
+
+int main()
+{
+	int i;
+	double t=0;
+	struct PLANET planet[500],*p=planet;
+	printf("请依次输入");
+		scanf("%lf %lf %lf %lf %lf %lf %lf",&planet[0].x,&planet[0].y,&planet[0].m,&planet[0].vx,&planet[0].vy,&planet[0].ax,&planet[0].ay);
+		scanf("%lf %lf %lf %lf %lf %lf %lf",&planet[1].x,&planet[1].y,&planet[1].m,&planet[1].vx,&planet[1].vy,&planet[1].ax,&planet[1].ay);
+	initgraph(Width,High,SHOWCONSOLE);
+	while(1)
+	{
+		BeginBatchDraw();
+		setfillcolor(GREEN);
+		fillcircle(planet[0].x,planet[0].y,10);
+		fillcircle(planet[1].x,planet[1].y,10);
+		MOVE(p,p+1);
+		t=t+dt;
+		FlushBatchDraw();
+	}
+	return 0;
+}
+void multiply(struct PLANET*p)
+{
+	void MOVE(struct PLANET*p1,struct PLANET*p2);//p1,p2两个行星进行分析，然后更新v与a数值；
+	void MOVE2(struct PLANET*p);
+	int i,j,k;
+	for(i=0;i<NUM;i++)
+	{
+		for(j=0;j<NUM;j++)
+		{
+			if(j=i)
+				continue;
+			else MOVE((p+i),(p+j));
+		}
+	}
+  for(k=0;k<NUM;k++)
+  {
+	 MOVE2(p+k);//把dv数据加到x与y坐标上
+	 setfillcolor(GREEN);
+	 fillcircle((p+k)->x,(p+k)->y,(p+k)->r);
+  }
+}
